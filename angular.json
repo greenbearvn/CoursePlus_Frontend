@@ -27,7 +27,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/jquery-3.6.0.min.js",
+              "src/assets/js/uikit.js",
+              "src/assets/js/custom.js",
+              "src/assets/js/bootstrap-select.min.js",
+              "src/assets/js/simplebar.js",
+              "src/assets/js/tippy.all.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -60,10 +67,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "client:build:production"
+              "browserTarget": "client:build:production",
+              "proxyConfig": "proxy.conf.json"
             },
             "development": {
-              "browserTarget": "client:build:development"
+              "browserTarget": "client:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

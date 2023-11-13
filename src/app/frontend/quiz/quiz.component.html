@@ -1,0 +1,70 @@
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+/>
+<div class="container">
+  <div class="question-card mt-4">
+    <div class="card">
+      <div class="card-header">
+        {{ currentQuestion + 1 }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ questions[currentQuestion].MoTaCauHoi }}</h5>
+
+        <div
+          class="form-check"
+          *ngFor="let choice of questions[currentQuestion].choices"
+        >
+          <button
+            type="button"
+            (click)="
+              checkAnswer(choice.MaCauHoi, choice.SoTTChon, choice.MaLuaChon)
+            "
+            class="btn btn-outline-success"
+            
+          >
+            {{ choice.NoiDung }}
+          </button>
+        </div>
+      </div>
+
+      <button
+        *ngIf="currentQuestion + 1 < questions.length"
+        (click)="next()"
+        class="btn btn-primary"
+      >
+        Next
+      </button>
+      <button
+        *ngIf="currentQuestion + 1 == questions.length"
+        (click)="submit()"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <label class="form-check-label">
+            <input
+              type="radio"
+              (click)="
+                checkAnswer(
+                  question.MaCauHoi,
+                  choice.SoTTChon,
+                  choice.MaLuaChon
+                )
+              "
+              class="form-check-input"
+              name="radio"
+             
+            />{{ choice.NoiDung }}
+          </label> -->
+
+          <!-- [classname]="{
+            'btn-success':
+              isCorrected &&
+              choice.MaCauHoi == mach &&
+              choice.MaLuaChon == mlc
+          }" -->
