@@ -7,6 +7,8 @@ import { CartComponent } from './frontend/cart/cart.component';
 import { PaymentComponent } from './frontend/payment/payment.component';
 import { SuccessComponent } from './frontend/success/success.component';
 import { WatchingComponent } from './frontend/watching/watching.component';
+import { RegisterComponent } from './frontend/register/register.component';
+import { LoginComponent } from './frontend/login/login.component';
 
 const routes: Routes = [
   {
@@ -21,7 +23,7 @@ const routes: Routes = [
     path: 'detail/:id',
     component: DetailComponent,
   },
-  {
+  { 
     path: 'course/watching/detail/:id/:mavideo',
     component: WatchingComponent,
   },
@@ -36,6 +38,14 @@ const routes: Routes = [
   {
     path: 'payment/success',
     component: SuccessComponent,
+  },
+  {
+    path: 'account/register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'account/login',
+    component: LoginComponent,
   },
 ];
 

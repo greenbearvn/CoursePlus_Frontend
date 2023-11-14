@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { SuccessComponent } from './frontend/success/success.component';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
 
 import { WatchingComponent } from './frontend/watching/watching.component';
+import { RegisterComponent } from './frontend/register/register.component';
+import { LoginComponent } from './frontend/login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,16 @@ import { WatchingComponent } from './frontend/watching/watching.component';
     SuccessComponent,
 
     WatchingComponent,
+     RegisterComponent,
+     LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AngularToastifyModule,
+    FormsModule,
+    AngularToastifyModule
+    
   ],
   providers: [ToastService],
   bootstrap: [AppComponent],
