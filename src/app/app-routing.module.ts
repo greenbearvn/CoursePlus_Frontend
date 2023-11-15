@@ -11,42 +11,6 @@ import { RegisterComponent } from './frontend/register/register.component';
 import { LoginComponent } from './frontend/login/login.component';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'quiz',
-    component: QuizComponent,
-  },
-  {
-    path: 'detail/:id',
-    component: DetailComponent,
-  },
-  { 
-    path: 'course/watching/detail/:id/:mavideo',
-    component: WatchingComponent,
-  },
-  {
-    path: 'cart',
-    component: CartComponent,
-  },
-  {
-    path: 'payment',
-    component: PaymentComponent,
-  },
-  {
-    path: 'payment/success',
-    component: SuccessComponent,
-  },
-  {
-    path: 'account/register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'account/login',
-    component: LoginComponent,
-  },
 ];
 
 @NgModule({

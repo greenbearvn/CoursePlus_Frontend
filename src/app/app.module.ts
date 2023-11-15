@@ -19,6 +19,12 @@ import { ToastService, AngularToastifyModule } from 'angular-toastify';
 import { WatchingComponent } from './frontend/watching/watching.component';
 import { RegisterComponent } from './frontend/register/register.component';
 import { LoginComponent } from './frontend/login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { KhoahocComponent } from './admin/components/khoahoc/khoahoc.component';
+
+import { FrontendRoutingModule } from './frontend/frontend-routing.module';
+import { AdminRoutingModule } from './admin/admin-routing.module';
+import { FrontendComponent } from './frontend/frontend.component';
 
 @NgModule({
   declarations: [
@@ -32,18 +38,21 @@ import { LoginComponent } from './frontend/login/login.component';
     CartComponent,
     PaymentComponent,
     SuccessComponent,
-
     WatchingComponent,
-     RegisterComponent,
-     LoginComponent,
+    RegisterComponent,
+    LoginComponent,
+    AdminComponent,
+    FrontendComponent,
+    KhoahocComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AngularToastifyModule
-    
+    AngularToastifyModule,
+    FrontendRoutingModule,
+    AdminRoutingModule,
   ],
   providers: [ToastService],
   bootstrap: [AppComponent],

@@ -4,10 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: [
-    './app.component.css',
-    './css/icon.css',
-    './css/uikit.css',
-    './css/tailwin.css',
+    './app.component.css'
   ],
 })
 export class AppComponent {
