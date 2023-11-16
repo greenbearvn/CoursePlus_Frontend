@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { KhoahocComponent } from './components/khoahoc/khoahoc.component';
+import { IndexCourseComponent } from './components/khoahoc/index/index.component';
+import { TableCourseComponent } from './components/khoahoc/table/table.component';
 
 const routes: Routes = [
   {
@@ -10,7 +12,17 @@ const routes: Routes = [
     children:[
       {
         path:'khoahoc',
-        component:KhoahocComponent
+        component:KhoahocComponent,
+        children:[
+          {
+            path:'index',
+            component:IndexCourseComponent
+          },
+          {
+            path:'list',
+            component:TableCourseComponent
+          }
+        ]
       }
     ]
   }

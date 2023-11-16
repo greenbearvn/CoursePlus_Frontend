@@ -18,4 +18,8 @@ export class PaymentService {
   returndata(): Observable<any> {
     return this.http.get('/api/payment/returndata');
   }
+
+  addCollection(): Observable<any> {
+    return this.http.get('/api/payment/addcollections');
+  }
 }

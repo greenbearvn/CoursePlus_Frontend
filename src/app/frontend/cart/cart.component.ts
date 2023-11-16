@@ -6,9 +6,9 @@ import { CartService } from 'src/app/services/frontend/cart/cart.service';
   templateUrl: './cart.component.html',
   styleUrls: [
     './cart.component.css',
-    '../../css/icon.css',
-    '../../css/uikit.css',
-    '../../css/tailwin.css',
+    '../css/icon.css',
+    '../css/uikit.css',
+    '../css/tailwin.css',
   ],
 })
 export class CartComponent {

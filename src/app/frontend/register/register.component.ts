@@ -7,9 +7,9 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   templateUrl: './register.component.html',
   styleUrls: [
     './register.component.css',
-    '../../css/icon.css',
-    '../../css/uikit.css',
-    '../../css/tailwin.css',
+    '../css/icon.css',
+    '../css/uikit.css',
+    '../css/tailwin.css',
   ],
 })
 export class RegisterComponent {

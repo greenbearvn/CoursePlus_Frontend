@@ -26,6 +26,12 @@ import { FrontendRoutingModule } from './frontend/frontend-routing.module';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { FrontendComponent } from './frontend/frontend.component';
 
+import { HeaderAdminComponent } from './admin/components/layout/header/header.component';
+import { SidebarAdminComponent } from './admin/components/layout/sidebar/sidebar.component';
+import { IndexCourseComponent } from './admin/components/khoahoc/index/index.component';
+import { TableCourseComponent } from './admin/components/khoahoc/table/table.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,9 +47,17 @@ import { FrontendComponent } from './frontend/frontend.component';
     WatchingComponent,
     RegisterComponent,
     LoginComponent,
-    AdminComponent,
     FrontendComponent,
+    
+
+    AdminComponent,
+    HeaderAdminComponent,
+    SidebarAdminComponent,
+
+    ///khoahoc
     KhoahocComponent,
+    IndexCourseComponent,
+    TableCourseComponent
   ],
   imports: [
     BrowserModule,

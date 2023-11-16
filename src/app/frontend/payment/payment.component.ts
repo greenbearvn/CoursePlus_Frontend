@@ -6,9 +6,9 @@ import { PaymentService } from 'src/app/services/frontend/payment/payment.servic
   templateUrl: './payment.component.html',
   styleUrls: [
     './payment.component.css',
-    '../../css/icon.css',
-    '../../css/uikit.css',
-    '../../css/tailwin.css',
+    '../css/icon.css',
+    '../css/uikit.css',
+    '../css/tailwin.css',
   ],
 })
 export class PaymentComponent {
@@ -29,6 +29,13 @@ export class PaymentComponent {
       this.vnpayUrl = data.data;
       console.log(this.vnpayUrl)
       window.location.href = this.vnpayUrl;
+    });
+  }
+
+  AddCollection(){
+    this.paymentService.addCollection().subscribe((data) => {
+      this.data = data.data;
+      console.log(this.data);
     });
   }
 }

@@ -7,9 +7,9 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   templateUrl: './login.component.html',
   styleUrls: [
     './login.component.css',
-    '../../css/icon.css',
-    '../../css/uikit.css',
-    '../../css/tailwin.css',
+    '../css/icon.css',
+    '../css/uikit.css',
+    '../css/tailwin.css',
   ],
 })
 export class LoginComponent {

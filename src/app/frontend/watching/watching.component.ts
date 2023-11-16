@@ -9,9 +9,9 @@ import { WatchingService } from 'src/app/services/frontend/watching/watching.ser
   templateUrl: './watching.component.html',
   styleUrls: [
     './watching.component.css',
-    '../../css/icon.css',
-    '../../css/uikit.css',
-    '../../css/tailwin.css',
+    '../css/icon.css',
+    '../css/uikit.css',
+    '../css/tailwin.css',
   ],
 })
 export class WatchingComponent {
