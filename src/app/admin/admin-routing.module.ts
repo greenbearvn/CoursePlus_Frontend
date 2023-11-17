@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { KhoahocComponent } from './components/khoahoc/khoahoc.component';
 import { IndexCourseComponent } from './components/khoahoc/index/index.component';
 import { TableCourseComponent } from './components/khoahoc/table/table.component';
+import { CreateCourseComponent } from './components/khoahoc/create/create.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
           {
             path:'list',
             component:TableCourseComponent
-          }
+          },
+          // {
+          //   path:'create',
+          //   component:CreateCourseComponent
+          // }
         ]
       }
     ]

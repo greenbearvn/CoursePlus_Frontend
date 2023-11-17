@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +17,7 @@ import { CartComponent } from './frontend/cart/cart.component';
 import { PaymentComponent } from './frontend/payment/payment.component';
 import { SuccessComponent } from './frontend/success/success.component';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { WatchingComponent } from './frontend/watching/watching.component';
 import { RegisterComponent } from './frontend/register/register.component';
@@ -30,6 +33,9 @@ import { HeaderAdminComponent } from './admin/components/layout/header/header.co
 import { SidebarAdminComponent } from './admin/components/layout/sidebar/sidebar.component';
 import { IndexCourseComponent } from './admin/components/khoahoc/index/index.component';
 import { TableCourseComponent } from './admin/components/khoahoc/table/table.component';
+import { CreateCourseComponent } from './admin/components/khoahoc/create/create.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -57,7 +63,8 @@ import { TableCourseComponent } from './admin/components/khoahoc/table/table.com
     ///khoahoc
     KhoahocComponent,
     IndexCourseComponent,
-    TableCourseComponent
+    TableCourseComponent,
+    CreateCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +74,12 @@ import { TableCourseComponent } from './admin/components/khoahoc/table/table.com
     AngularToastifyModule,
     FrontendRoutingModule,
     AdminRoutingModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    MatDialogModule,
+    NgxPaginationModule
   ],
-  providers: [ToastService],
+  providers: [ToastService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
