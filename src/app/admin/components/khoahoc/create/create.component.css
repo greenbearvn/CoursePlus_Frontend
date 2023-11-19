@@ -3445,7 +3445,7 @@ btn-link
   z-index: 2;
 }
 
-.figure-tools {
+/* .figure-tools {
   position: absolute;
   top: 0;
   right: 0;
@@ -3461,7 +3461,7 @@ btn-link
   z-index: 2;
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
-}
+} */
 
 .card-figure:hover .figure-tools {
   opacity: 1;
@@ -5609,7 +5609,7 @@ Vertical Timeline - by CodyHouse.co
 * Nestable Draggable Handles
 */
 
-.dd3-content {
+/* .dd3-content {
   display: block;
   height: 30px;
   margin: 5px 0;
@@ -5626,7 +5626,7 @@ Vertical Timeline - by CodyHouse.co
   border-radius: 3px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-}
+} */
 
 .dd3-content:hover {
   color: #2ea8e5;
@@ -5641,7 +5641,7 @@ Vertical Timeline - by CodyHouse.co
   margin-left: 30px;
 }
 
-.dd3-handle {
+/* .dd3-handle {
   position: absolute;
   margin: 0;
   left: 0;
@@ -5658,7 +5658,7 @@ Vertical Timeline - by CodyHouse.co
   background: linear-gradient(top, #ddd 0%, #bbb 100%);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-}
+} */
 
 .dd3-handle:before {
   content: "≡";
@@ -7070,4 +7070,8 @@ Media Query
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px) {
+}
+
+.warning-dialog {
+  z-index: 10 !important;
 }

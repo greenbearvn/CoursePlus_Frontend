@@ -1,4 +1,6 @@
 <div class="dashboard-wrapper">
+  <lib-toastify-toast-container></lib-toastify-toast-container>
+  
   <div class="container-fluid dashboard-content">
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -35,7 +37,7 @@
             <button
               class="btn btn-primary"
               mat-raised-button
-              (click)="openDialog('create')"
+              (click)="openDialog('create',0)"
             >
               Tạo
             </button>
@@ -78,11 +80,11 @@
                       <button
                         class="btn btn-primary m-1"
                         mat-raised-button
-                        (click)="openDialog('edit')"
+                        (click)="openDialog('edit',item.id)"
                       >
                         Edit
                       </button>
-                      <button class="btn btn-secondary m-1">Del</button>
+                      <button class="btn btn-secondary m-1" (click)="deleteItem(item.id)">Del</button>
                       <button class="btn btn-success m-1">View</button>
                     </td>
                   </tr>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -77,7 +78,8 @@ import { MatDialogModule} from '@angular/material/dialog';
     BrowserAnimationsModule,
     CommonModule,
     MatDialogModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CKEditorModule
   ],
   providers: [ToastService,DatePipe],
   bootstrap: [AppComponent],

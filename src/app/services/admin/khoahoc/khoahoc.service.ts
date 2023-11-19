@@ -26,6 +26,25 @@ export class KhoahocService {
   }
 
   create(khoahoc:KhoaHoc): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/create',{khoahoc});
+    return this.http.post('/api/admin/khoahoc/create',khoahoc);
+  }
+
+  upload(formData:FormData): Observable<any> {
+    return this.http.post('/api/admin/khoahoc/upload',formData);
+  }
+
+  detail(id:any): Observable<any> {
+    return this.http.get('/api/admin/khoahoc/detail/' + id);
+  }
+
+  delete(khoahoc:KhoaHoc): Observable<any> {
+    
+    return this.http.post('/api/admin/khoahoc/delete' , khoahoc);
+  }
+
+
+  update(khoahoc:KhoaHoc): Observable<any> {
+    
+    return this.http.post('/api/admin/khoahoc/update' , khoahoc);
   }
 }

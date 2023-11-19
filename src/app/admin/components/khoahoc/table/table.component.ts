@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
-} from '@angular/material/dialog';
+import { ToastService } from 'angular-toastify';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateCourseComponent } from '../create/create.component';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
+import { KhoaHoc } from 'src/app/Models/khoahoc';
 
 @Component({
   selector: 'app-course-table',
@@ -30,19 +23,39 @@ import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 export class TableCourseComponent {
   constructor(
     public dialog: MatDialog,
-    private datePipe: DatePipe,
+    private _toastService: ToastService,
     private khoahocService: KhoahocService
   ) {}
 
   lists: any;
   p: number = 1;
   date: any;
+  deleteStatus: any;
 
-  openDialog(type: string): void {
+  khoahoc: KhoaHoc = {
+    id: 0,
+    TenKhoaHoc: '',
+    AnhKhoaHoc: '',
+    MoTaNgan: '',
+    MoTaDayDu: '',
+    ThoiGian: '',
+    ThoiLuongKhoaHoc: '',
+    GiaCu: 0,
+    GiamGia: 0,
+    TrangThai: false,
+    MaCapDo: 0,
+    MaGiangVien: 0,
+    MaDanhMuc: 0,
+  };
+
+  openDialog(type: string,id:number): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
+        id:id
       },
+      maxHeight: '90vh',
+      panelClass: 'warning-dialog',
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
@@ -52,19 +65,25 @@ export class TableCourseComponent {
   getLists() {
     this.khoahocService.lists().subscribe((data) => {
       this.lists = data.data;
-      if (this.lists && this.lists.ThoiGian) {
-        // Assuming ThoiGian is a single date, if it's an array, adjust accordingly
-        this.lists.ThoiGian = this.datePipe.transform(
-          this.lists.ThoiGian,
-          'dd/MM/yyyy'
-        );
-        
+
+      console.log(this.lists);
+    });
+  }
+
+  deleteItem(id:number) {
+    this.khoahoc.id = id;
+    this.khoahocService.delete(this.khoahoc).subscribe((data) => {
+      this.lists = data.data;
+      this.deleteStatus = data.status;
+      if(this.deleteStatus){
+        this._toastService.info('Da Xoa Thanh Cong');
       }
-      console.log(this.lists)
     });
   }
 
   ngOnInit() {
     this.getLists();
   }
+
+ 
 }

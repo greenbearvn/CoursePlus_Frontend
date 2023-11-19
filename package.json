@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@ckeditor/ckeditor5-angular": "^7.0.1",
+    "@ckeditor/ckeditor5-build-classic": "^40.1.0",
     "angular-toastify": "^1.0.6",
     "cors": "^2.8.5",
     "ngx-pagination": "^6.0.3",
