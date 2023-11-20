@@ -10,6 +10,7 @@ import { SuccessComponent } from './success/success.component';
 import { WatchingComponent } from './watching/watching.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'account/login',
         component: LoginComponent,
+      },
+      {
+        path: 'chat',
+        component: ChatComponent,
       },
     ],
   },

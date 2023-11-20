@@ -1,0 +1,10 @@
+<div class="main_content mt-5">
+  <div *ngIf="roomJoined">
+    <input [(ngModel)]="messageText" placeholder="Enter message" />
+    <button (click)="sendMessage()">Send Message</button>
+
+    <ul *ngFor="let item of messageArray">
+      <li>{{ item.message }}</li>
+    </ul>
+  </div>
+</div>
