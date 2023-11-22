@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { nguoidung } from 'src/app/Models/nguoidung';
+import { ToastService } from 'angular-toastify';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 
 @Component({
@@ -13,9 +14,13 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   ],
 })
 export class LoginComponent {
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private _toastService: ToastService
+  ) {}
 
-  userLoginData:any;
+  userLoginData: any;
+  statusLogin: any;
 
   user: nguoidung = {
     MaNguoiDung: 0,
@@ -29,11 +34,17 @@ export class LoginComponent {
     if (this.user.Email !== '' && this.user.MatKhau !== '') {
       this.accountService.login(this.user).subscribe((data) => {
         this.userLoginData = data.data;
-        console.log(this.userLoginData);
+        console.log(this.userLoginData)
+        this.statusLogin = data.status;
+        console.log(this.statusLogin)
+        if (this.statusLogin) {
+          this._toastService.info('Da Dang Nhap Thanh Cong');
+        } else {
+          this._toastService.info('Da Dang Nhap Khong Thanh Cong');
+        }
       });
     } else {
       console.log('Nhap du thong tin');
     }
-    
   }
 }

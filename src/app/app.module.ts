@@ -38,6 +38,7 @@ import { CreateCourseComponent } from './admin/components/khoahoc/create/create.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule} from '@angular/material/dialog';
 import { ChatComponent } from './frontend/chat/chat.component';
+import { ProfileComponent } from './frontend/profile/profile.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { ChatComponent } from './frontend/chat/chat.component';
     IndexCourseComponent,
     TableCourseComponent,
     CreateCourseComponent,
-    ChatComponent
+    ChatComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
