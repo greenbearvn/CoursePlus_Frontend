@@ -1,17 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ChatService } from 'src/app/services/frontend/chat/chat.service';
 import { nguoidung } from 'src/app/Models/nguoidung';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css'],
+  styleUrls: [
+    './chat.component.css',
+    './assets/css/style.css',
+    './assets/css/tailwind.css',
+  ],
 })
 export class ChatComponent implements OnInit {
   roomId: any;
   messageArray: any[] = []; // Initialize messageArray as an empty array
   phone: any;
   roomJoined: any;
+  conventions: any;
+  status: any;
+
+  room: any;
+
   user: nguoidung = {
     MaNguoiDung: 0,
     TenNguoiDung: '',
@@ -26,23 +37,26 @@ export class ChatComponent implements OnInit {
     message: '',
   };
 
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   getUser() {
     this.chatService.getUser().subscribe((data: any) => {
       this.user = data.user;
       this.sendData.user = this.user.TenNguoiDung;
+      console.log(this.user)
     });
   }
 
   ngOnInit() {
+    
+
     this.getUser();
-    this.roomId = prompt('Nhap phong');
-    if (this.roomId) {
-      this.join(this.roomId);
-      this.roomJoined = true;
-      this.getMessages();
-    }
+
+    this.getConvention();
   }
 
   getMessages() {
@@ -59,6 +73,26 @@ export class ChatComponent implements OnInit {
   sendMessage(): void {
     this.sendData.room = this.roomId;
     this.chatService.sendMessage(this.sendData);
-    this.sendData.message = ''
+    this.sendData.message = '';
+    console.log(this.messageArray)
+    
+  }
+
+  getConvention() {
+    this.chatService.getListConvenOfUser().subscribe((data: any) => {
+      this.conventions = data.data;
+      console.log(this.conventions);
+    });
+  }
+
+  showConvention(room: number) {
+    // this.room = room;
+
+    this.roomId = room;
+    if (this.roomId) {
+      this.join(this.roomId);
+      this.roomJoined = true;
+      this.getMessages();
+    }
   }
 }

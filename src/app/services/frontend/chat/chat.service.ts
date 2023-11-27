@@ -34,4 +34,8 @@ export class ChatService {
   getUser(): Observable<any> {
     return this.http.get('/api/chat/session/user');
   }
+
+  getListConvenOfUser(): Observable<any> {
+    return this.http.get('/api/chat/chatapp/list/conventions');
+  }
 }
