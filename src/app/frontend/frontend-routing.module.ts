@@ -59,6 +59,10 @@ const routes: Routes = [
         component: ChatComponent,
       },
       {
+        path: 'chat/:id',
+        component: ChatComponent,
+      },
+      {
         path: 'profile/:id',
         component: ProfileComponent,
       },

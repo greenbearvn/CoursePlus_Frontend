@@ -38,4 +38,21 @@ export class ChatService {
   getListConvenOfUser(): Observable<any> {
     return this.http.get('/api/chat/chatapp/list/conventions');
   }
+
+
+  getMessagesInConv(id:any): Observable<any> {
+    return this.http.get('/api/chat/chatapp/messages/convention/' + id);
+  }
+
+  createMessage(message:any): Observable<any> {
+    return this.http.post('/api/chat/chatapp/message/create',message);
+  }
+
+  delMessage(id:any): Observable<any> {
+    return this.http.get('/api/chat/chatapp/message/delete/' + id);
+  }
+
+  delConv(id:any): Observable<any> {
+    return this.http.get('/api/chat/chatapp/convention/delete/' + id);
+  }
 }

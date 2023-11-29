@@ -49,10 +49,15 @@ export class ProfileComponent {
       console.log(this.room);
       if (this.room > 0) {
         this.navigateToRoom(this.room);
+        // this.navigateToRoom();
       }
     });
   }
   
+  // navigateToRoom() {
+  //   this.router.navigateByUrl('/chat' );
+  // }
+
   navigateToRoom(id: any) {
     this.router.navigateByUrl('/chat/'+id );
   }

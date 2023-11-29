@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ChatService } from 'src/app/services/frontend/chat/chat.service';
 import { nguoidung } from 'src/app/Models/nguoidung';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -32,10 +33,14 @@ export class ChatComponent implements OnInit {
   };
 
   sendData: any = {
-    room: 0,
-    user: this.user.TenNguoiDung,
-    message: '',
+    MaHoiThoai: 0,
+    MaNguoiDung: this.user.MaNguoiDung,
+    TenNguoiDung: this.user.TenNguoiDung,
+    NoiDung: '',
+    ThoiGian: new Date(),
   };
+
+  messageSubscription: Subscription = new Subscription();
 
   constructor(
     private chatService: ChatService,
@@ -46,13 +51,18 @@ export class ChatComponent implements OnInit {
   getUser() {
     this.chatService.getUser().subscribe((data: any) => {
       this.user = data.user;
-      this.sendData.user = this.user.TenNguoiDung;
-      console.log(this.user)
+      this.sendData.MaNguoiDung = this.user.MaNguoiDung;
+      this.sendData.TenNguoiDung = this.user.TenNguoiDung;
     });
   }
 
   ngOnInit() {
-    
+    const routeParams = this.route.snapshot.paramMap;
+    const id = Number(routeParams.get('id'));
+
+    if (id) {
+      this.showConvention(id);
+    }
 
     this.getUser();
 
@@ -60,22 +70,30 @@ export class ChatComponent implements OnInit {
   }
 
   getMessages() {
-    this.chatService.receiveMessage().subscribe((data: any) => {
-      this.messageArray.push(data);
-      console.log(this.messageArray);
-    });
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+
+    this.messageSubscription = this.chatService
+      .receiveMessage()
+      .subscribe((data: any) => {
+        if (data.MaHoiThoai === this.roomId) {
+          this.messageArray.push(data);
+        }
+      });
   }
 
   join(roomId: any): void {
-    this.chatService.joinRoom({ room: roomId });
+    this.chatService.joinRoom({ MaHoiThoai: roomId });
   }
 
   sendMessage(): void {
-    this.sendData.room = this.roomId;
+    this.sendData.MaHoiThoai = this.roomId;
     this.chatService.sendMessage(this.sendData);
-    this.sendData.message = '';
-    console.log(this.messageArray)
-    
+    this.saveDataMessage();
+
+    this.sendData.NoiDung = '';
+    console.log(this.messageArray);
   }
 
   getConvention() {
@@ -86,13 +104,33 @@ export class ChatComponent implements OnInit {
   }
 
   showConvention(room: number) {
-    // this.room = room;
-
-    this.roomId = room;
-    if (this.roomId) {
+    if (this.roomId !== room) {
+      this.messageArray = [];
+      this.roomId = room;
       this.join(this.roomId);
       this.roomJoined = true;
       this.getMessages();
+      this.getMessagesInConv();
     }
   }
+
+  getMessagesInConv() {
+    if (this.roomId !== 0) {
+      this.chatService.getMessagesInConv(this.roomId).subscribe((data: any) => {
+        this.messageArray = data.data;
+        console.log(data.data);
+      });
+    }
+  }
+
+  saveDataMessage() {
+    if (this.roomId !== 0) {
+      this.chatService.createMessage(this.sendData).subscribe((data: any) => {
+        this.status = data.status;
+        console.log(this.status);
+      });
+    }
+  }
+
+  
 }
