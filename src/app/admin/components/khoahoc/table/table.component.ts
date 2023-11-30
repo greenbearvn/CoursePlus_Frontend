@@ -31,6 +31,7 @@ export class TableCourseComponent {
   p: number = 1;
   date: any;
   deleteStatus: any;
+  token:any;
 
   khoahoc: KhoaHoc = {
     id: 0,
@@ -48,11 +49,29 @@ export class TableCourseComponent {
     MaDanhMuc: 0,
   };
 
-  openDialog(type: string,id:number): void {
+
+  ngOnInit() {
+    this.getUserInSession();
+  }
+  getUserInSession() {
+    this.khoahocService.getUser().subscribe((data) => {
+      this.token = data.data.Token;
+      this.getLists();
+    });
+  }
+
+  getLists() {
+    this.khoahocService.lists(this.token).subscribe((data) => {
+      this.lists = data.data;
+      console.log(this.lists);
+    });
+  }
+
+  openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
-        id:id
+        id: id,
       },
       maxHeight: '90vh',
       panelClass: 'warning-dialog',
@@ -62,28 +81,14 @@ export class TableCourseComponent {
     });
   }
 
-  getLists() {
-    this.khoahocService.lists().subscribe((data) => {
-      this.lists = data.data;
-
-      console.log(this.lists);
-    });
-  }
-
-  deleteItem(id:number) {
+  deleteItem(id: number) {
     this.khoahoc.id = id;
-    this.khoahocService.delete(this.khoahoc).subscribe((data) => {
+    this.khoahocService.delete(this.khoahoc,this.token).subscribe((data) => {
       this.lists = data.data;
       this.deleteStatus = data.status;
-      if(this.deleteStatus){
+      if (this.deleteStatus) {
         this._toastService.info('Da Xoa Thanh Cong');
       }
     });
   }
-
-  ngOnInit() {
-    this.getLists();
-  }
-
- 
 }

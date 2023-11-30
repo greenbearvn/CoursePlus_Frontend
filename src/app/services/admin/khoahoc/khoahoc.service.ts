@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { KhoaHoc } from 'src/app/Models/khoahoc';
 
@@ -9,8 +9,14 @@ import { KhoaHoc } from 'src/app/Models/khoahoc';
 export class KhoahocService {
   constructor(private http: HttpClient) {}
 
-  lists(): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/lists');
+  getUser(): Observable<any> {
+    return this.http.get('/api/account/getUser');
+  }
+  lists(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<any[]>('/api/admin/khoahoc/lists', { headers });
   }
 
   listLevels(): Observable<any> {
@@ -25,26 +31,26 @@ export class KhoahocService {
     return this.http.get('/api/admin/khoahoc/lists/ctdanhmuc');
   }
 
-  create(khoahoc:KhoaHoc): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/create',khoahoc);
+  create(khoahoc: KhoaHoc): Observable<any> {
+    return this.http.post('/api/admin/khoahoc/create', khoahoc);
   }
 
-  upload(formData:FormData): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/upload',formData);
+  upload(formData: FormData): Observable<any> {
+    return this.http.post('/api/admin/khoahoc/upload', formData);
   }
 
-  detail(id:any): Observable<any> {
+  detail(id: any): Observable<any> {
     return this.http.get('/api/admin/khoahoc/detail/' + id);
   }
 
-  delete(khoahoc:KhoaHoc): Observable<any> {
-    
-    return this.http.post('/api/admin/khoahoc/delete' , khoahoc);
+  delete(khoahoc: KhoaHoc, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post('/api/admin/khoahoc/delete', khoahoc, { headers });
   }
 
-
-  update(khoahoc:KhoaHoc): Observable<any> {
-    
-    return this.http.post('/api/admin/khoahoc/update' , khoahoc);
+  update(khoahoc: KhoaHoc): Observable<any> {
+    return this.http.post('/api/admin/khoahoc/update', khoahoc);
   }
 }
