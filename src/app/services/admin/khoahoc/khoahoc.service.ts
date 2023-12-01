@@ -19,28 +19,46 @@ export class KhoahocService {
     return this.http.get<any[]>('/api/admin/khoahoc/lists', { headers });
   }
 
-  listLevels(): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/lists/capdo');
+  listLevels(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get('/api/admin/khoahoc/lists/capdo', { headers });
   }
 
-  listTeachers(): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/lists/giangvien');
+  listTeachers(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get('/api/admin/khoahoc/lists/giangvien', { headers });
   }
 
-  listDetailCate(): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/lists/ctdanhmuc');
+  listDetailCate(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get('/api/admin/khoahoc/lists/ctdanhmuc', { headers });
   }
 
-  create(khoahoc: KhoaHoc): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/create', khoahoc);
+  create(khoahoc: KhoaHoc, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post('/api/admin/khoahoc/create', khoahoc, { headers });
   }
 
-  upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/upload', formData);
+  upload(formData: FormData, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post('/api/admin/khoahoc/upload', formData, { headers });
   }
 
-  detail(id: any): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/detail/' + id);
+  detail(id: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get('/api/admin/khoahoc/detail/' + id, { headers });
   }
 
   delete(khoahoc: KhoaHoc, token: string): Observable<any> {
@@ -50,7 +68,10 @@ export class KhoahocService {
     return this.http.post('/api/admin/khoahoc/delete', khoahoc, { headers });
   }
 
-  update(khoahoc: KhoaHoc): Observable<any> {
-    return this.http.post('/api/admin/khoahoc/update', khoahoc);
+  update(khoahoc: KhoaHoc, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post('/api/admin/khoahoc/update', khoahoc, { headers });
   }
 }

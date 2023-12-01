@@ -3445,7 +3445,6 @@ btn-link
   z-index: 2;
 }
 
-
 .card-figure:hover .figure-tools {
   opacity: 1;
 }
@@ -5592,8 +5591,6 @@ Vertical Timeline - by CodyHouse.co
 * Nestable Draggable Handles
 */
 
-
-
 .dd3-content:hover {
   color: #2ea8e5;
   background: #fff;
@@ -5606,8 +5603,6 @@ Vertical Timeline - by CodyHouse.co
 .dd3-item > button {
   margin-left: 30px;
 }
-
-
 
 .dd3-handle:before {
   content: "≡";
@@ -7021,6 +7016,9 @@ Media Query
 @media only screen and (max-width: 320px) {
 }
 
-.warning-dialog {
-  z-index: 10 !important;
+
+
+
+.my-outlined-dialog {
+  border: 10px solid purple;
 }

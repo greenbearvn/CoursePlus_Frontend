@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { ToastService } from 'angular-toastify';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCourseComponent } from '../create/create.component';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 import { KhoaHoc } from 'src/app/Models/khoahoc';
+
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {faEye} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-course-table',
@@ -24,7 +29,9 @@ export class TableCourseComponent {
   constructor(
     public dialog: MatDialog,
     private _toastService: ToastService,
-    private khoahocService: KhoahocService
+    private khoahocService: KhoahocService,
+    private currencyPipe: CurrencyPipe,
+    
   ) {}
 
   lists: any;
@@ -32,6 +39,9 @@ export class TableCourseComponent {
   date: any;
   deleteStatus: any;
   token:any;
+
+  searchData:any = ''
+  
 
   khoahoc: KhoaHoc = {
     id: 0,
@@ -50,6 +60,13 @@ export class TableCourseComponent {
   };
 
 
+
+  //font awesome
+
+  faPenToSquare:any =  faPenToSquare;
+  faTrash:any = faTrash;
+  faEye:any = faEye;
+
   ngOnInit() {
     this.getUserInSession();
   }
@@ -67,17 +84,19 @@ export class TableCourseComponent {
     });
   }
 
-  openDialog(type: string, id: number): void {
+  openDialog(type: string, id: number,token:string): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
         id: id,
+        token:token
       },
       maxHeight: '90vh',
-      panelClass: 'warning-dialog',
+      panelClass: 'my-outlined-dialog'
+     
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      this.getLists();
     });
   }
 
@@ -91,4 +110,9 @@ export class TableCourseComponent {
       }
     });
   }
+
+  
+
+ 
+
 }

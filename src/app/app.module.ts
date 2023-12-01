@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe,CurrencyPipe } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,8 +24,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { WatchingComponent } from './frontend/watching/watching.component';
 import { RegisterComponent } from './frontend/register/register.component';
 import { LoginComponent } from './frontend/login/login.component';
+import { ChatComponent } from './frontend/chat/chat.component';
+import { ProfileComponent } from './frontend/profile/profile.component';
+
+
 import { AdminComponent } from './admin/admin.component';
 import { KhoahocComponent } from './admin/components/khoahoc/khoahoc.component';
+import { HoadonComponent } from './admin/components/hoadon/hoadon.component';
 
 import { FrontendRoutingModule } from './frontend/frontend-routing.module';
 import { AdminRoutingModule } from './admin/admin-routing.module';
@@ -32,13 +38,17 @@ import { FrontendComponent } from './frontend/frontend.component';
 
 import { HeaderAdminComponent } from './admin/components/layout/header/header.component';
 import { SidebarAdminComponent } from './admin/components/layout/sidebar/sidebar.component';
+import { FooterAdminComponent } from './admin/components/layout/footer/footer.component';
 import { IndexCourseComponent } from './admin/components/khoahoc/index/index.component';
 import { TableCourseComponent } from './admin/components/khoahoc/table/table.component';
 import { CreateCourseComponent } from './admin/components/khoahoc/create/create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule} from '@angular/material/dialog';
-import { ChatComponent } from './frontend/chat/chat.component';
-import { ProfileComponent } from './frontend/profile/profile.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BilltableComponent } from './admin/components/hoadon/billtable/billtable.component';
+import { FormbillComponent } from './admin/components/hoadon/formbill/formbill.component';
+import { SearchPipe } from './admin/components/pipe/search.pipe';
+
 
 
 @NgModule({
@@ -57,19 +67,28 @@ import { ProfileComponent } from './frontend/profile/profile.component';
     RegisterComponent,
     LoginComponent,
     FrontendComponent,
+    ChatComponent,
+    ProfileComponent,
     
 
     AdminComponent,
     HeaderAdminComponent,
     SidebarAdminComponent,
+    FooterAdminComponent,
 
     ///khoahoc
     KhoahocComponent,
     IndexCourseComponent,
     TableCourseComponent,
     CreateCourseComponent,
-    ChatComponent,
-    ProfileComponent
+    
+
+    //hoadon
+    HoadonComponent,
+     BilltableComponent,
+     FormbillComponent,
+     SearchPipe
+
   ],
   imports: [
     BrowserModule,
@@ -83,9 +102,10 @@ import { ProfileComponent } from './frontend/profile/profile.component';
     CommonModule,
     MatDialogModule,
     NgxPaginationModule,
-    CKEditorModule
+    CKEditorModule,
+    FontAwesomeModule
   ],
-  providers: [ToastService,DatePipe],
+  providers: [ToastService,DatePipe,CurrencyPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

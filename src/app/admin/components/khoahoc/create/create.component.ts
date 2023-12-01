@@ -29,6 +29,7 @@ import { KhoaHoc } from 'src/app/Models/khoahoc';
 export class CreateCourseComponent implements OnInit {
   type: any;
   id: any;
+  token:any
   detailCourse: any;
   levels: any;
   teachers: any;
@@ -67,6 +68,7 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit() {
     this.type = this.data.type;
     this.id = this.data.id;
+    this.token = this.data.token;
     this.getDataForm();
   }
 
@@ -84,28 +86,29 @@ export class CreateCourseComponent implements OnInit {
   }
 
   getDeTailCourse() {
-    this.khService.detail(this.id).subscribe((data) => {
+    console.log(this.id)
+    this.khService.detail(this.id,this.token).subscribe((data) => {
       this.khoahoc = data.data;
       console.log(this.khoahoc);
     });
   }
 
   getLevels() {
-    this.khService.listLevels().subscribe((data) => {
+    this.khService.listLevels(this.token).subscribe((data) => {
       this.levels = data.data;
       console.log(this.levels);
     });
   }
 
   getTeachers() {
-    this.khService.listTeachers().subscribe((data) => {
+    this.khService.listTeachers(this.token).subscribe((data) => {
       this.teachers = data.data;
       console.log(this.teachers);
     });
   }
 
   getDetailCate() {
-    this.khService.listDetailCate().subscribe((data) => {
+    this.khService.listDetailCate(this.token).subscribe((data) => {
       this.detailCates = data.data;
       console.log(this.detailCates);
     });
@@ -116,7 +119,7 @@ export class CreateCourseComponent implements OnInit {
       if (this.imageUrl && this.ckeditorData) {
         this.khoahoc.MoTaDayDu = this.ckeditorData;
         this.khoahoc.AnhKhoaHoc = this.imageUrl;
-        this.khService.create(this.khoahoc).subscribe((data) => {
+        this.khService.create(this.khoahoc,this.token).subscribe((data) => {
           this.createStatus = data.data;
           alert(this.createStatus);
         });
@@ -132,7 +135,7 @@ export class CreateCourseComponent implements OnInit {
   edit() {
     if (this.selectedFile && this.imageUrl) {
       this.khoahoc.AnhKhoaHoc = this.imageUrl;
-      this.khService.update(this.khoahoc).subscribe((data) => {
+      this.khService.update(this.khoahoc,this.token).subscribe((data) => {
         this.alertStatus = data.status;
 
         if (this.alertStatus) {
@@ -140,7 +143,7 @@ export class CreateCourseComponent implements OnInit {
         }
       });
     } else {
-      this.khService.update(this.khoahoc).subscribe((data) => {
+      this.khService.update(this.khoahoc,this.token).subscribe((data) => {
         this.alertStatus = data.status;
 
         if (this.alertStatus) {
@@ -156,7 +159,7 @@ export class CreateCourseComponent implements OnInit {
       formData.append('image', this.selectedFile);
       console.log(formData.get('image'));
 
-      this.khService.upload(formData).subscribe((data) => {
+      this.khService.upload(formData,this.token).subscribe((data) => {
         this.imageUrl = data.fileurl;
         console.log(this.imageUrl);
       });

@@ -4,7 +4,10 @@ import { AdminComponent } from './admin.component';
 import { KhoahocComponent } from './components/khoahoc/khoahoc.component';
 import { IndexCourseComponent } from './components/khoahoc/index/index.component';
 import { TableCourseComponent } from './components/khoahoc/table/table.component';
-import { CreateCourseComponent } from './components/khoahoc/create/create.component';
+
+import { HoadonComponent } from './components/hoadon/hoadon.component';
+import { BilltableComponent } from './components/hoadon/billtable/billtable.component';
+import { FormbillComponent } from './components/hoadon/formbill/formbill.component';
 
 const routes: Routes = [
   {
@@ -22,13 +25,24 @@ const routes: Routes = [
           {
             path:'list',
             component:TableCourseComponent
+          }
+        ]
+      },
+      {
+        path:'hoadon',
+        component:HoadonComponent,
+        children:[
+          {
+            path:'list',
+            component:BilltableComponent
           },
-          // {
-          //   path:'create',
-          //   component:CreateCourseComponent
-          // }
+          {
+            path:'tools/:string',
+            component:FormbillComponent
+          }
         ]
       }
+
     ]
   }
 ];

@@ -3,7 +3,6 @@
   style="width: 1000px"
 >
   <div class="card">
-    <h5 class="card-header">Bootstrap {{type}} Form</h5>
     <div class="card-body">
       <div class="needs-validation" novalidate>
         <div class="row">
@@ -20,21 +19,43 @@
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustom02">Ảnh khóa học</label>
-            <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <form
+              (ngSubmit)="onSubmit()"
+              enctype="multipart/form-data"
+              class="d-flex"
+            >
+             
               <input
                 type="file"
+                class="form-control"
+                id="inputGroupFile04"
+                aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload"
                 name="image"
                 (change)="onFileSelected($event)"
               />
-              <button type="submit" class="btn btn-success">Upload</button>
+              <button
+                class="btn btn-success"
+                type="submit"
+                id="inputGroupFileAddon04"
+              >
+                Tải Lên
+              </button>
             </form>
-            <img *ngIf="imageUrl" [src]="imageUrl" width="150" height="200"/>
-            <img *ngIf="khoahoc.AnhKhoaHoc !== ''" [src]="khoahoc.AnhKhoaHoc" src="" alt=""  width="150" height="200">
+            <img *ngIf="imageUrl" [src]="imageUrl" width="150" height="200" />
+            <img
+              *ngIf="khoahoc.AnhKhoaHoc !== ''"
+              [src]="khoahoc.AnhKhoaHoc"
+              src=""
+              alt=""
+              width="150"
+              height="200"
+            />
             <div class="valid-feedback">Looks good!</div>
           </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustomUsername">Mô tả ngắn</label>
             <div class="input-group">
               <input
@@ -48,20 +69,26 @@
             </div>
           </div>
 
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustom01">Mô tả đầy đủ</label>
-            <ckeditor [(ngModel)]="khoahoc.MoTaDayDu" [editor]="Editor" (change)="onChange($event)"> </ckeditor>
+            <ckeditor
+              [(ngModel)]="khoahoc.MoTaDayDu"
+              [editor]="Editor"
+              (change)="onChange($event)"
+            >
+            </ckeditor>
             <div class="valid-feedback">Looks good!</div>
           </div>
         </div>
-        <div class="form-row">
+        <div class="form-row mt-2">
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
             <label for="validationCustom03">Thời gian</label>
             <input
-              type="text"
+              type="date"
               class="form-control"
               id="validationCustom03"
               required
+             
               [(ngModel)]="khoahoc.ThoiGian"
             />
             <div class="invalid-feedback">Please provide a valid city.</div>
@@ -77,15 +104,16 @@
             />
             <div class="invalid-feedback">Please provide a valid state.</div>
           </div>
-          <div class="row">
+          <div class="row ml-3 mt-3">
             <div class="col-sm-10 pb-2 pb-sm-4 pb-lg-0 pr-0">
               <label class="be-checkbox custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" [(ngModel)]="khoahoc.TrangThai"/><span
-                  class="custom-control-label"
-                  >Remember me</span
-                >
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [(ngModel)]="khoahoc.TrangThai"
+                />
+                <span class="custom-control-label">Trạng Thái</span>
               </label>
-
             </div>
           </div>
         </div>
@@ -117,6 +145,8 @@
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
             <label for="validationCustom03">Tên cấp độ</label>
             <select class="form-control" [(ngModel)]="khoahoc.MaCapDo">
+              <option selected>Chọn cấp độ ...</option>
+              <input type="text" class="form-control" />
               <option *ngFor="let item of levels" [value]="item.MaCapDo">
                 {{ item.TenCapDo }}
               </option>
@@ -126,6 +156,8 @@
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
             <label for="validationCustom04">Tên giảng viên</label>
             <select class="form-control" [(ngModel)]="khoahoc.MaGiangVien">
+              <option selected>Chọn giảng viên ...</option>
+              <input type="text" class="form-control" />
               <option *ngFor="let item of teachers" [value]="item.MaGiangVien">
                 {{ item.TenGiangVien }}
               </option>
@@ -135,6 +167,8 @@
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
             <label for="validationCustom05">Tên chi tiết danh mục</label>
             <select class="form-control" [(ngModel)]="khoahoc.MaDanhMuc">
+              <option selected>Chọn tên chi tiết danh mục...</option>
+              <input type="text" class="form-control" />
               <option *ngFor="let item of detailCates" [value]="item.MaCTDM">
                 {{ item.TenCTDM }}
               </option>
@@ -142,10 +176,26 @@
             <div class="invalid-feedback">Please provide a valid zip.</div>
           </div>
 
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <button *ngIf="type === 'create'" class="btn btn-primary" type="submit" (click)="create()">Submit {{type}}</button>
-            <button *ngIf="type === 'edit'" class="btn btn-primary" type="submit" (click)="edit()">Submit {{type}}</button>
-            <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="display: flex;justify-content: space-between;" >
+            <button
+              *ngIf="type === 'create'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="create()"
+            >
+              Tạo
+            </button>
+            <button
+              *ngIf="type === 'edit'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="edit()"
+            >
+              Cập nhật
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+              Đóng
+            </button>
           </div>
         </div>
       </div>
