@@ -51,6 +51,7 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,6 +89,7 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
      BilltableComponent,
      FormbillComponent,
      SearchPipe
+
 
   ],
   imports: [

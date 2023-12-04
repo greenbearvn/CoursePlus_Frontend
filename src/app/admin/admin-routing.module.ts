@@ -37,7 +37,11 @@ const routes: Routes = [
             component:BilltableComponent
           },
           {
-            path:'tools/:string',
+            path:'tools/:type',
+            component:FormbillComponent
+          },
+          {
+            path:'tools/:type/:id',
             component:FormbillComponent
           }
         ]

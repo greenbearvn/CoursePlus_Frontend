@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { ToastService } from 'angular-toastify';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,7 +8,8 @@ import { KhoaHoc } from 'src/app/Models/khoahoc';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import {faEye} from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-course-table',
@@ -30,18 +31,16 @@ export class TableCourseComponent {
     public dialog: MatDialog,
     private _toastService: ToastService,
     private khoahocService: KhoahocService,
-    private currencyPipe: CurrencyPipe,
-    
+    private currencyPipe: CurrencyPipe
   ) {}
 
   lists: any;
   p: number = 1;
-  date: any;
-  deleteStatus: any;
-  token:any;
 
-  searchData:any = ''
-  
+  deleteStatus: any;
+  token: any;
+
+  searchData: any = '';
 
   khoahoc: KhoaHoc = {
     id: 0,
@@ -59,13 +58,39 @@ export class TableCourseComponent {
     MaDanhMuc: 0,
   };
 
+  ///add cart
+  listItems: any = [];
 
+  // Tongtien: any = 0;
+
+  cartItem: any = {
+    id: 0,
+    TenKhoaHoc: '',
+    AnhKhoaHoc: '',
+    MaGiangVien: 0,
+    MaCapDo: 0,
+    GiaCu: 0,
+    GiamGia: 0,
+    GiaMoi: 0,
+  };
+
+  @Output() listItemEvent = new EventEmitter<{
+    listItems: any;
+    Tongtien: any;
+  }>();
+
+  @Input()
+  listDetails!: any;
+
+  @Input()
+  Tongtien!: any;
 
   //font awesome
 
-  faPenToSquare:any =  faPenToSquare;
-  faTrash:any = faTrash;
-  faEye:any = faEye;
+  faPenToSquare: any = faPenToSquare;
+  faTrash: any = faTrash;
+  faEye: any = faEye;
+  faPlus: any = faPlus;
 
   ngOnInit() {
     this.getUserInSession();
@@ -84,16 +109,15 @@ export class TableCourseComponent {
     });
   }
 
-  openDialog(type: string, id: number,token:string): void {
+  openDialog(type: string, id: number, token: string): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
         id: id,
-        token:token
+        token: token,
       },
       maxHeight: '90vh',
-      panelClass: 'my-outlined-dialog'
-     
+      panelClass: 'my-outlined-dialog',
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.getLists();
@@ -102,7 +126,7 @@ export class TableCourseComponent {
 
   deleteItem(id: number) {
     this.khoahoc.id = id;
-    this.khoahocService.delete(this.khoahoc,this.token).subscribe((data) => {
+    this.khoahocService.delete(this.khoahoc, this.token).subscribe((data) => {
       this.lists = data.data;
       this.deleteStatus = data.status;
       if (this.deleteStatus) {
@@ -111,8 +135,46 @@ export class TableCourseComponent {
     });
   }
 
-  
+  addCartItem(khoahoc: any) {
+    const cartItem = {
+      id: khoahoc.id,
+      TenKhoaHoc: khoahoc.TenKhoaHoc,
+      AnhKhoaHoc: khoahoc.AnhKhoaHoc,
+      MaGiangVien: khoahoc.MaGiangVien,
+      MaDanhMuc: khoahoc.MaDanhMuc,
+      GiaCu: khoahoc.GiaCu,
+      GiamGia: khoahoc.GiamGia,
+      GiaMoi: khoahoc.GiaMoi,
+      MaCapDo: khoahoc.MaCapDo,
+    };
+    if (!this.listItems) {
+      this.listItems = [];
+    }
 
- 
+    const result = this.listItems.filter((item: any) => item.id === khoahoc.id);
 
+    if (this.listDetails.length !== 0) {
+      const existLDT = this.listDetails.filter(
+        (item: any) => item.id === khoahoc.id
+      );
+      if (existLDT.length !== 0) {
+        console.log('da ton tai');
+      } else {
+        this.Tongtien= Number(this.Tongtien) + Number(cartItem.GiaMoi);
+        this.listItems.push(cartItem);
+      }
+    } else {
+      if (result.length !== 0) {
+        console.log('da ton tai');
+      } else {
+        this.Tongtien= Number(this.Tongtien) + Number(cartItem.GiaMoi);
+        this.listItems.push(cartItem);
+      }
+    }
+
+    this.listItemEvent.emit({
+      listItems: this.listItems,
+      Tongtien: this.Tongtien,
+    });
+  }
 }
