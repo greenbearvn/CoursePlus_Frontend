@@ -16,6 +16,14 @@ export class PaymentComponent {
 
   data: any;
   vnpayUrl:any;
+  listBanks:any;
+  bankCode:any;
+  content:any = "Thanh toán khóa học";
+
+  ngOnInit() {
+    this.getListBanks();
+  }
+
 
   SaveData() {
     this.paymentService.saveToDB().subscribe((data) => {
@@ -25,11 +33,15 @@ export class PaymentComponent {
   }
 
   AddTransaction() {
-    this.paymentService.transation().subscribe((data) => {
-      this.vnpayUrl = data.data;
-      console.log(this.vnpayUrl)
-      window.location.href = this.vnpayUrl;
-    });
+
+    if(this.bankCode){
+      this.paymentService.transation(this.bankCode,this.content).subscribe((data) => {
+        this.vnpayUrl = data.data;
+        console.log(this.vnpayUrl)
+        window.location.href = this.vnpayUrl;
+      });
+    }
+    
   }
 
   AddCollection(){
@@ -37,5 +49,17 @@ export class PaymentComponent {
       this.data = data.data;
       console.log(this.data);
     });
+  }
+
+  getListBanks(){
+    this.paymentService.listBanks().subscribe((data) => {
+      this.listBanks = data.data;
+      console.log(this.listBanks);
+    });
+  }
+
+  getBankId(bank:any){
+    this.bankCode = bank.code;
+    console.log(this.bankCode)
   }
 }

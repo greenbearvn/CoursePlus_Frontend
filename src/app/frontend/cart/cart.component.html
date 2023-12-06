@@ -3,13 +3,13 @@
     <div class="max-w-3xl mx-auto">
       <div class="bg-white rounded-md shadow-md">
         <h3 class="border-b font-semibold px-5 py-4 text-base text-gray-500">
-          Your cart (12 items)
+          Giỏ hàng bạn đang có {{countItem}}
         </h3>
         <div class="divide-y">
           <div class="flex items-start space-x-6 relative py-7 px-6" *ngFor="let item of cartList">
             <div class="h-28 overflow-hidden relative rounded-md w-44">
               <img
-                src="courseplus/assets/images/courses/img-5.jpg"
+                [src]="item.AnhKhoaHoc"
                 alt=""
                 class="absolute w-full h-full inset-0 object-cover"
               />
@@ -27,7 +27,8 @@
                 <div class="flex items-center">{{item.ThoiLuongKhoaHoc}}</div>
               </div>
             </div>
-            <h5 class="font-semibold text-black text-xl">$ {{item.GiaMoi}}</h5>
+            <h4 class="font-semibold text-black text-xl"> {{item.GiaCu | currency : "VND"}}</h4>
+            <h5 class="font-semibold text-black text-xl"> {{item.GiaMoi | currency : "VND"}}</h5>
             <button
               class="absolute bottom-9 font-semibold right-4 text-blue text-blue-500" (click)="deleteItem(item.id)"
             >
@@ -39,24 +40,25 @@
         <div class="border-t mt-5 pt-6 space-y-6">
           <div class="flex justify-between px-6">
             <div class="flex-1 min-w-0">
-              <h1 class="text-lg font-medium">Subtotal</h1>
+              <h1 class="text-lg font-medium">Tổng tiền</h1>
               <p>
-                All Courses have a <strong>30-day</strong> money-back guarantee
+                Tất cả khóa học có <strong>30 ngày</strong> hoàn tiền nếu có trục trặc
               </p>
             </div>
-            <h5 class="font-semibold text-black text-xl">$ {{totalMoney}}</h5>
+            <h5 class="font-semibold text-black text-xl"> {{totalMoney | currency : "VND"}}</h5>
           </div>
           <div class="px-6 pb-5">
             <a
-              href="#"
+            [title]="'Thanh toán'"
+            [routerLink]="['/payment']"
               class="bg-blue-600 block py-3 rounded-md text-white text-center text-base font-semibold hover:text-white hover:bg-blue-700"
             >
-              Checkout
+              Đi trang thanh toán
             </a>
             <div class="flex items-center justify-center mt-4 space-x-1.5">
-              <p class="font-medium">or</p>
-              <a hf="#" class="text-blue-600 font-semibold text-center">
-                Continue Shopping</a
+              <p class="font-medium">Hoặc</p>
+              <a class="text-blue-600 font-semibold text-center" [routerLink]="['/home']">
+                Tiếp tục mua hàng</a
               >
             </div>
           </div>

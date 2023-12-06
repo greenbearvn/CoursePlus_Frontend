@@ -1,4 +1,5 @@
 <div class="main_content mt-5">
+  <lib-toastify-toast-container></lib-toastify-toast-container>
   <div class="container p-0">
     <div
       class="bg-blue-600 md:rounded-b-lg md:-mt-8 md:pb-8 md:pt-12 p-8 relative overflow-hidden"
@@ -20,7 +21,7 @@
           <li>
             <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
 
-            <s>{{ detail.GiaCu }} đ</s>
+            <s>{{ detail.GiaCu | currency : "VND" }} </s>
           </li>
           <li class="flex items-center">
             <span
@@ -33,12 +34,9 @@
           <li>
             <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
 
-            {{ detail.GiaMoi }} đ
+            {{ detail.GiaMoi | currency : "VND" }} 
           </li>
-          <li>
-            <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
-            1200 Enerolled
-          </li>
+          
         </ul>
         <ul class="lg:flex items-center text-gray-200">
           <li>
@@ -51,7 +49,7 @@
             </a>
           </li>
           <li><span class="lg:block hidden mx-3 text-2xl">·</span></li>
-          <li>{{ detail.ThoiGian }}</li>
+          <li>{{ detail.ThoiGian| date : "dd/MM/yyyy"}}</li>
         </ul>
       </div>
       <img

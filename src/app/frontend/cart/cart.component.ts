@@ -17,6 +17,7 @@ export class CartComponent {
   cartList: any;
 
   totalMoney: any = 0;
+  countItem: any = 0;
 
   ngOnInit() {
     this.cartService.getlistCart().subscribe((data) => {
@@ -41,7 +42,7 @@ export class CartComponent {
   getTotalMoney() {
     this.cartService.totalMoney().subscribe((data) => {
       this.totalMoney = data.data;
-      console.log(this.totalMoney);
+      this.countItem = data.count;
     });
   }
 }

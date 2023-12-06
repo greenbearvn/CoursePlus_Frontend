@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe,CurrencyPipe } from '@angular/common';
+import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,14 +17,14 @@ import { CartComponent } from './frontend/cart/cart.component';
 import { PaymentComponent } from './frontend/payment/payment.component';
 import { SuccessComponent } from './frontend/success/success.component';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { WatchingComponent } from './frontend/watching/watching.component';
 import { RegisterComponent } from './frontend/register/register.component';
 import { LoginComponent } from './frontend/login/login.component';
 import { ChatComponent } from './frontend/chat/chat.component';
 import { ProfileComponent } from './frontend/profile/profile.component';
-
+import { BlogComponent } from './frontend/blog/blog.component';
 
 import { AdminComponent } from './admin/admin.component';
 import { KhoahocComponent } from './admin/components/khoahoc/khoahoc.component';
@@ -43,14 +41,14 @@ import { IndexCourseComponent } from './admin/components/khoahoc/index/index.com
 import { TableCourseComponent } from './admin/components/khoahoc/table/table.component';
 import { CreateCourseComponent } from './admin/components/khoahoc/create/create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BilltableComponent } from './admin/components/hoadon/billtable/billtable.component';
 import { FormbillComponent } from './admin/components/hoadon/formbill/formbill.component';
 import { SearchPipe } from './admin/components/pipe/search.pipe';
-
-
-
+import { CompletedComponent } from './frontend/quiz/completed/completed.component';
+import { CategoriesComponent } from './frontend/categories/categories.component';
+import { BlogdetailComponent } from './frontend/blogdetail/blogdetail.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +68,10 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
     FrontendComponent,
     ChatComponent,
     ProfileComponent,
-    
+    CompletedComponent,
+    BlogComponent,
+    CategoriesComponent,
+    BlogdetailComponent,
 
     AdminComponent,
     HeaderAdminComponent,
@@ -82,15 +83,13 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
     IndexCourseComponent,
     TableCourseComponent,
     CreateCourseComponent,
-    
 
     //hoadon
     HoadonComponent,
-     BilltableComponent,
-     FormbillComponent,
-     SearchPipe
-
-
+    BilltableComponent,
+    FormbillComponent,
+    SearchPipe,
+    
   ],
   imports: [
     BrowserModule,
@@ -105,9 +104,9 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
     MatDialogModule,
     NgxPaginationModule,
     CKEditorModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
-  providers: [ToastService,DatePipe,CurrencyPipe],
+  providers: [ToastService, DatePipe, CurrencyPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

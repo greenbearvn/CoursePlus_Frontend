@@ -12,6 +12,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BlogComponent } from './blog/blog.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { BlogdetailComponent } from './blogdetail/blogdetail.component';
 
 const routes: Routes = [
   {
@@ -23,7 +26,7 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'quiz',
+        path: 'video/test/:id',
         component: QuizComponent,
       },
       {
@@ -65,6 +68,18 @@ const routes: Routes = [
       {
         path: 'profile/:id',
         component: ProfileComponent,
+      },
+      {
+        path: 'blog',
+        component: BlogComponent,
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+      },
+      {
+        path: 'blog/detail/:id',
+        component: BlogdetailComponent,
       },
     ],
   },

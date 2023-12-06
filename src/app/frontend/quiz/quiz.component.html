@@ -2,29 +2,31 @@
   rel="stylesheet"
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 />
-<div class="container">
+<div class="container" style="margin-left: 300px;margin-top: 70px;">
+  <h2>{{detailTest.TenBaiKT}}</h2>
   <div class="question-card mt-4">
     <div class="card">
-      <div class="card-header">
-        {{ currentQuestion + 1 }}
-      </div>
+      <h4 class="card-header">
+       Câu {{ currentQuestion + 1 }}
+      </h4>
       <div class="card-body">
-        <h5 class="card-title">{{ questions[currentQuestion].MoTaCauHoi }}</h5>
+        <h5 class="card-title">{{ questions[currentQuestion].MoTaCauHoi }}:</h5>
 
         <div
           class="form-check"
           *ngFor="let choice of questions[currentQuestion].choices"
         >
-          <button
-            type="button"
+          <div
+            
             (click)="
-              checkAnswer(choice.MaCauHoi, choice.SoTTChon, choice.MaLuaChon)
-            "
-            class="btn btn-outline-success"
+              checkAnswer(choice.MaCauHoi, choice.SoTTChon, choice.MaLuaChon)"
+
+               [className]="mach == choice.MaCauHoi && mlc == choice.MaLuaChon ? 'btn btn-success  mt-3':'btn btn-outline-success  mt-3'"
+            class="btn btn-outline-success mt-3"
             
           >
             {{ choice.NoiDung }}
-          </button>
+          </div>
         </div>
       </div>
 
@@ -37,34 +39,11 @@
       </button>
       <button
         *ngIf="currentQuestion + 1 == questions.length"
-        (click)="submit()"
-        class="btn btn-primary"
+        (click)="openDialog(totalPoint,correctedChoices)"
+        class="btn btn-primary mt-3 p-3"
       >
-        Submit
+        Check
       </button>
     </div>
   </div>
 </div>
-
-<!-- <label class="form-check-label">
-            <input
-              type="radio"
-              (click)="
-                checkAnswer(
-                  question.MaCauHoi,
-                  choice.SoTTChon,
-                  choice.MaLuaChon
-                )
-              "
-              class="form-check-input"
-              name="radio"
-             
-            />{{ choice.NoiDung }}
-          </label> -->
-
-          <!-- [classname]="{
-            'btn-success':
-              isCorrected &&
-              choice.MaCauHoi == mach &&
-              choice.MaLuaChon == mlc
-          }" -->

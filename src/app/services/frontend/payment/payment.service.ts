@@ -12,8 +12,8 @@ export class PaymentService {
     return this.http.post('/api/payment/savedata',{});
   }
 
-  transation(): Observable<any> {
-    return this.http.post('/api/payment/onlinepay',{});
+  transation(bankCode:any,content:any): Observable<any> {
+    return this.http.post('/api/payment/onlinepay',{bankCode,content});
   }
   returndata(): Observable<any> {
     return this.http.get('/api/payment/returndata');
@@ -21,5 +21,9 @@ export class PaymentService {
 
   addCollection(): Observable<any> {
     return this.http.get('/api/payment/addcollections');
+  }
+
+  listBanks(): Observable<any> {
+    return this.http.get('https://api.vietqr.io/v2/banks');
   }
 }

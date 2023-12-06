@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from 'angular-toastify';
 import { DetailService } from 'src/app/services/frontend/detail/detail.service';
 import { CartService } from 'src/app/services/frontend/cart/cart.service';
 import { Cart } from 'src/app/Models/cart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -18,7 +21,9 @@ export class DetailComponent {
   constructor(
     private route: ActivatedRoute,
     private detailService: DetailService,
-    private cartService: CartService
+    private cartService: CartService,
+    private _toastService: ToastService,
+    private router: Router
   ) {}
 
   detail: any;
@@ -93,10 +98,19 @@ export class DetailComponent {
     });
   }
 
-  addCart(cart: Cart) {
+  addCart(cart: any) {
     this.cartService.addCart(cart).subscribe((data) => {
       this.isAddCart = data.data;
-      alert(this.isAddCart);
+      if (this.isAddCart) {
+        this._toastService.info('Đã thêm vào giỏ hàng thành công!!!');
+        window.location.reload();
+      }
+      else{
+        this._toastService.info('Đã tồn tại vào giỏ hàng!!!');
+        window.location.reload();
+      }
     });
   }
+
+  
 }
