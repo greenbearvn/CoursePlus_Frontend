@@ -2,203 +2,267 @@
   <div class="container">
     <div class="text-2xl font-semibold">Articles</div>
     <div class="flex flex-col">
-      <label for="message" class="text-gray-700 font-medium mb-1">Message</label>
-      <input id="message" name="message" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:border-blue-500">
-    </div>
-    <nav class="cd-secondary-nav border-b md:m-0 nav-small">
-      <ul>
-        <!-- <li class="active"><a  class="lg:px-2"> Suggestions </a></li> -->
-        <li
-          *ngFor="let cate of cates"
-          (click)="filterCate(cate.madm)"
-          style="cursor: pointer"
-        >
-          <a class="lg:px-2"> {{ cate.tendm }} </a>
-        </li>
-        <li
-          *ngFor="let item of detailCates"
-          (click)="filterDetailCate(item.MaCTDM)"
-          style="cursor: pointer"
-        >
-          <a class="lg:px-2"> {{ item.TenCTDM }} </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="lg:flex lg:space-x-4 lg:-mx-4 mt-6">
-      <div class="lg:w-10/12">
-        <div class="divide-y tube-card px-6 md:m-0 -mx-5 py-2">
-          <div class="md:flex md:space-x-6 py-5" *ngFor="let item of listBlog">
-            <a>
-              <div
-                class="md:w-56 w-full h-36 overflow-hidden rounded-lg relative shadow-sm"
-              >
-                <img
-                  src="../../courseplus/assets/images/blog/img-4.jpg"
-                  [src]="item.AnhMinhHoa"
-                  alt=""
-                  class="w-full h-full absolute inset-0 object-cover"
-                />
-                <div
-                  class="absolute bg-blue-100 font-semibold px-2.5 py-1 rounded-full text-blue-500 text-xs top-2.5 left-2.5"
-                >
-                  {{ item.TenCTDM }}
+      <div class="w-full max-w-sm">
+        <div class="flex items-center border-b border-teal-500 py-2">
+          <a
+            class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
+            href="#modal-overflow"
+            style="background-color: aquamarine"
+            uk-toggle="target: #modal-example"
+            uk-toggle
+          >
+            Tạo bài viết
+          </a>
+
+          <div id="modal-overflow" uk-modal>
+            <div class="uk-modal-dialog">
+              <button
+                class="uk-modal-close-default m-3"
+                type="button"
+                uk-close
+              ></button>
+              <div class="uk-modal-header">
+                <h2 class="uk-modal-title">Tạo Bài Viết</h2>
+              </div>
+              <div class="uk-modal-body" uk-overflow-auto>
+                <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+                  <div class="col-span-2">
+                    <label for="email">
+                      Tên bài viết: <span class="text-red-600">*</span></label
+                    >
+                    <input
+                      type="text"
+                      placeholder=""
+                      id="email"
+                      class="shadow-none with-border"
+                      name="TenBaiViet"
+                      [(ngModel)]="blog.TenBaiViet"
+                      style="border: gray 1px solid"
+                    />
+                  </div>
+                  <div class="col-span-2">
+                    <label for="about">About me</label>
+                    <ckeditor [editor]="Editor" (change)="onChange($event)">
+                    </ckeditor>
+                  </div>
+                  <!-- Website logo  -->
+                  <label for="system_info" class="font-medium"
+                    >Ảnh Bài Viết
+                  </label>
+                  <div class="col-span-2 flex py-2 space-x-5">
+                    <form
+                      (ngSubmit)="onSubmit()"
+                      enctype="multipart/form-data"
+                      class="d-flex"
+                    >
+                      <input
+                        type="file"
+                        placeholder=""
+                        id="location"
+                        class="shadow-none with-border"
+                        (change)="onFileSelected($event)"
+                        name="image"
+                      />
+                      <button
+                        type="submit"
+                        class="button"
+                        style="width: 200px; margin-left: 10px; padding: 5px"
+                      >
+                        Tải Lên
+                      </button>
+                    </form>
+                  </div>
+
+                  <div class="col-span-2">
+                    <img
+                      *ngIf="imageUrl"
+                      [src]="imageUrl"
+                      width="150"
+                      height="200"
+                    />
+                  </div>
+              
+                  <div class="col-span-2">
+                    <label> Mã chi tiết danh mục</label>
+                    <select
+                      [(ngModel)]="blog.MaDanhMuc"
+                      style="border: gray 1px solid"
+                    >
+                      <option selected>Chọn tên chi tiết danh mục...</option>
+                      <option
+                        *ngFor="let item of detailCates"
+                        [value]="item.MaCTDM"
+                      >
+                        {{ item.TenCTDM }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="uk-modal-footer text-right">
+                  <button class="button gray uk-modal-close" type="button">
+                    Cancel
+                  </button>
+                  <button class="button" type="button" (click)="createPost()">
+                    Tạo
+                  </button>
                 </div>
               </div>
-            </a>
-            <div class="flex-1 md:pt-0 pt-4">
-              <a
-                href="../../courseplus/default/blog-read.html"
-                class="text-lg font-semibold line-clamp-2 leading-8"
-              >
-                {{ item.TenBaiViet }}
-              </a>
-              <p class="line-clamp-2">
-                {{ item.NoiDung }}
-              </p>
             </div>
           </div>
-        </div>
-        <div class="flex justify-center mt-5">
-          <button
-            class="bg-white text-white px-4 py-2 rounded text-sm"
-            (click)="getMore()"
-          >
-            Load More
-          </button>
         </div>
       </div>
-      <!--  Sidebar  -->
-      <div class="lg:w-80 w-full">
-        <div
-          class="space-y-5"
-          uk-sticky="offset:22; bottom:true ; top:30 ; animation: uk-animation-slide-top-small"
-        >
-          <div class="tube-card p-6">
-            <div class="flex items-start justify-between">
-              <div>
-                <h4 class="text-lg -mb-0.5 font-semibold">Recently Posted</h4>
+      <nav class="cd-secondary-nav border-b md:m-0 nav-small">
+        <ul>
+          <!-- <li class="active"><a  class="lg:px-2"> Suggestions </a></li> -->
+          <li
+            *ngFor="let cate of cates"
+            (click)="filterCate(cate.madm)"
+            style="cursor: pointer"
+            [className]="
+              filter.findWith == 'dm' && filter.cateId == cate.madm
+                ? 'active'
+                : 'inactive'
+            "
+          >
+            <a class="lg:px-2"> {{ cate.tendm }} </a>
+          </li>
+          <li
+            *ngFor="let item of detailCates"
+            (click)="filterDetailCate(item.MaCTDM)"
+            style="cursor: pointer"
+            [className]="
+              filter.findWith == 'ctdm' && filter.cateId == item.MaCTDM
+                ? 'active'
+                : 'inactive'
+            "
+          >
+            <a class="lg:px-2"> {{ item.TenCTDM }} </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="lg:flex lg:space-x-4 lg:-mx-4 mt-6">
+        <div class="lg:w-10/12">
+          <div class="divide-y tube-card px-6 md:m-0 -mx-5 py-2">
+            <div *ngFor="let item of listBlog">
+              <div class="md:flex md:space-x-6 py-5" *ngIf="item.TrangThai > 0">
+                <a
+                  [title]="item.TenBaiViet"
+                  [routerLink]="['/blog/detail', item.MaBaiViet]"
+                  class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
+                >
+                  <div
+                    class="md:w-56 w-full h-36 overflow-hidden rounded-lg relative shadow-sm"
+                  >
+                    <img
+                      src="../../courseplus/assets/images/blog/img-4.jpg"
+                      [src]="item.AnhMinhHoa"
+                      alt=""
+                      class="w-full h-full absolute inset-0 object-cover"
+                    />
+                    <div
+                      class="absolute bg-blue-100 font-semibold px-2.5 py-1 rounded-full text-blue-500 text-xs top-2.5 left-2.5"
+                    >
+                      {{ item.TenCTDM }}
+                    </div>
+                  </div>
+                </a>
+                <div class="flex-1 md:pt-0 pt-4">
+                  <a
+                    [title]="item.TenBaiViet"
+                    [routerLink]="['/blog/detail', item.MaBaiViet]"
+                    class="text-lg font-semibold line-clamp-2 leading-8"
+                  >
+                    {{ item.TenBaiViet }}
+                  </a>
+                  <p class="line-clamp-2">
+                    {{ item.NoiDung }}
+                  </p>
+                </div>
               </div>
-              <a href="#" class="text-blue-600">
-                <!-- <ion-icon name="refresh" class="-mt-0.5 -mr-2 hover:bg-gray-100 p-1.5 rounded-full text-lg md hydrated" role="img" aria-label="refresh"></ion-icon>  -->
-              </a>
             </div>
-            <ul>
-              <li>
-                <a
-                  href="../../courseplus/default/blog-read.html"
-                  class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
-                >
-                  <h3 class="font-medium line-clamp-2">
-                    Interesting JavaScript and CSS Libraries you should know
-                  </h3>
-                  <div
-                    class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
-                  >
-                    <div>Sep 12, 2020</div>
-                    <div class="pb-1">.</div>
-                    <!-- <ion-icon name="chatbox-ellipses-outline"></ion-icon> -->
-                    <div>23</div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="../../courseplus/default/blog-read.html"
-                  class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
-                >
-                  <h3 class="font-medium line-clamp-2">
-                    Awesome Web Dev Tools and Resources For 2021
-                  </h3>
-                  <div
-                    class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
-                  >
-                    <div>Sep 12, 2020</div>
-                    <div class="pb-1">.</div>
-                    <!-- <ion-icon name="chatbox-ellipses-outline"></ion-icon> -->
-                    <div>23</div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="../../courseplus/default/blog-read.html"
-                  class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
-                >
-                  <h3 class="font-medium line-clamp-2">
-                    Interesting Web development and CSS Libraries
-                  </h3>
-                  <div
-                    class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
-                  >
-                    <div>Sep 12, 2020</div>
-                    <div class="pb-1">.</div>
-                    <!-- <ion-icon name="chatbox-ellipses-outline"></ion-icon>  -->
-                    <div>23</div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="../../courseplus/default/blog-read.html"
-                  class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
-                >
-                  <h3 class="font-medium line-clamp-2">
-                    Awesome Web Dev Tools and Resources For 2021
-                  </h3>
-                  <div
-                    class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
-                  >
-                    <div>Sep 12, 2020</div>
-                    <div class="pb-1">.</div>
-                    <!-- <ion-icon name="chatbox-ellipses-outline"></ion-icon> <div> 23</div> -->
-                  </div>
-                </a>
-              </li>
-            </ul>
-            <a
-              href="#"
-              class="hover:bg-gray-100 -mb-2 mt-0.5 h-8 flex items-center justify-center rounded-md text-blue-400 text-sm"
-            >
-              See all
-            </a>
           </div>
-          <div class="mt-6">
-            <h4 class="text-lg mb-2 font-semibold">Các thẻ</h4>
-            <div class="flex flex-wrap font-medium gap-2">
-              <a
-                class="bg-white px-3.5 py-1.5 rounded shadow text-sm"
-                *ngFor="let cate of cates"
-                (click)="filterCate(cate.madm)"
-                style="cursor: pointer"
-              >
-                {{ cate.tendm }}
-              </a>
+          <div class="flex justify-center mt-5">
+            <button
+              class="bg-white text-white px-4 py-2 rounded text-sm"
+              (click)="getMore()"
+            >
+              Load More
+            </button>
+          </div>
+        </div>
+        <!--  Sidebar  -->
+        <div class="lg:w-80 w-full">
+          <div
+            class="space-y-5"
+            uk-sticky="offset:22; bottom:true ; top:30 ; animation: uk-animation-slide-top-small"
+          >
+            <div class="tube-card p-6">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h4 class="text-lg -mb-0.5 font-semibold">Gợi ý bài viết</h4>
+                </div>
+                <a href="#" class="text-blue-600">
+                  <!-- <ion-icon name="refresh" class="-mt-0.5 -mr-2 hover:bg-gray-100 p-1.5 rounded-full text-lg md hydrated" role="img" aria-label="refresh"></ion-icon>  -->
+                </a>
+              </div>
+              <ul>
+                <li *ngFor="let item of relateBlogs">
+                  <a
+                    [title]="item.TenBaiViet"
+                    [routerLink]="['/blog/detail', item.MaBaiViet]"
+                    class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
+                    *ngIf="item.TrangThai > 0"
+                  >
+                    <h3 class="font-medium line-clamp-2">
+                      {{ item.TenBaiViet }}
+                    </h3>
+                    <div
+                      class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
+                    >
+                      <div>{{ item.NgayDang | date : "dd/MM/yyyy" }}</div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-6">
+              <h4 class="text-lg mb-2 font-semibold">Các thẻ</h4>
+              <div class="flex flex-wrap font-medium gap-2">
+                <a
+                  class="bg-white px-3.5 py-1.5 rounded shadow text-sm"
+                  *ngFor="let cate of cates"
+                  (click)="filterCate(cate.madm)"
+                  style="cursor: pointer"
+                >
+                  {{ cate.tendm }}
+                </a>
 
-              <a
-                class="bg-white px-3.5 py-1.5 rounded shadow text-sm"
-                *ngFor="let item of detailCates"
-                (click)="filterDetailCate(item.MaCTDM)"
-                style="cursor: pointer"
-              >
-                {{ item.TenCTDM }}
-              </a>
+                <a
+                  class="bg-white px-3.5 py-1.5 rounded shadow text-sm"
+                  *ngFor="let item of detailCates"
+                  (click)="filterDetailCate(item.MaCTDM)"
+                  style="cursor: pointer"
+                >
+                  {{ item.TenCTDM }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- footer -->
-  <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
-    <div
-      class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
-    >
-      <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
-      <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
-        <a href="#"> About</a>
-        <a href="#"> Help</a>
-        <a href="#"> Terms</a>
-        <a href="#"> Privacy</a>
+    <!-- footer -->
+    <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
+      <div
+        class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
+      >
+        <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
+        <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
+          <a href="#"> About</a>
+          <a href="#"> Help</a>
+          <a href="#"> Terms</a>
+          <a href="#"> Privacy</a>
+        </div>
       </div>
     </div>
   </div>

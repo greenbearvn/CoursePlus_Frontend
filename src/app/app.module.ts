@@ -50,6 +50,7 @@ import { CompletedComponent } from './frontend/quiz/completed/completed.componen
 import { CategoriesComponent } from './frontend/categories/categories.component';
 import { BlogdetailComponent } from './frontend/blogdetail/blogdetail.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,9 +70,12 @@ import { BlogdetailComponent } from './frontend/blogdetail/blogdetail.component'
     ChatComponent,
     ProfileComponent,
     CompletedComponent,
-    BlogComponent,
     CategoriesComponent,
+
+
+    BlogComponent,
     BlogdetailComponent,
+
 
     AdminComponent,
     HeaderAdminComponent,
