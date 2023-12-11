@@ -3,7 +3,7 @@ export interface Cart{
     MaKhoaHoc:number,
     TenKhoaHoc:string,
     MaGiangVien:number,
-    TenGiangVien:string,
+    TenHoSo:string,
     MaCapDo:number,
     TenCapDo:string,
     GiaMoi:number,

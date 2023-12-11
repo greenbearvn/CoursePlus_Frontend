@@ -1,0 +1,93 @@
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <h5 class="card-header">Người dùng</h5>
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Tên người dùng</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              value="Mark"
+              name=""
+              required
+              [(ngModel)]="nguoidung.TenNguoiDung"
+            />
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              value="Mark"
+              name=""
+              required
+              [(ngModel)]="nguoidung.Email"
+            />
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Mật khẩu</label>
+            <input
+              type="password"
+              class="form-control"
+              id="validationCustom01"
+              value="Mark"
+              name=""
+              required
+              [(ngModel)]="nguoidung.MatKhau"
+            />
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+          <label for="validationCustom05">Quyền</label>
+          <select
+            class="form-control"
+            [(ngModel)]="nguoidung.Quyen"
+            name="quyen"
+            id="quyen"
+          >
+            <option disabled selected>Chọn Quyền...</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <div class="invalid-feedback">Please select a valid option.</div>
+        </div>
+
+        <div class="form-row">
+          <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+            style="display: flex; justify-content: space-between"
+          >
+            <button
+              *ngIf="type === 'create'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="submit('create')"
+            >
+              Tạo
+            </button>
+            <button
+              *ngIf="type === 'edit'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="submit('edit')"
+            >
+              Cập nhật
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

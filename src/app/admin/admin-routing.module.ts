@@ -4,55 +4,94 @@ import { AdminComponent } from './admin.component';
 import { KhoahocComponent } from './components/khoahoc/khoahoc.component';
 import { IndexCourseComponent } from './components/khoahoc/index/index.component';
 import { TableCourseComponent } from './components/khoahoc/table/table.component';
+import { KhoahocdetailComponent } from './components/khoahoc/khoahocdetail/khoahocdetail.component';
 
 import { HoadonComponent } from './components/hoadon/hoadon.component';
 import { BilltableComponent } from './components/hoadon/billtable/billtable.component';
 import { FormbillComponent } from './components/hoadon/formbill/formbill.component';
 
+import { NguoiDungAdminListComponent } from './components/nguoidung-admin/list/list.component';
+
+
+import { BaihocComponent } from './components/baihoc/baihoc.component';
+import { LessionlistComponent } from './components/baihoc/lessionlist/lessionlist.component';
+
 const routes: Routes = [
   {
-    path:'admin',
-    component:AdminComponent,
-    children:[
+    path: 'admin',
+    component: AdminComponent,
+    children: [
       {
-        path:'khoahoc',
-        component:KhoahocComponent,
-        children:[
+        path: 'khoahoc',
+        component: KhoahocComponent,
+        children: [
           {
-            path:'index',
-            component:IndexCourseComponent
+            path: 'index',
+            component: IndexCourseComponent,
           },
           {
-            path:'list',
-            component:TableCourseComponent
-          }
-        ]
+            path: 'list',
+            component: TableCourseComponent,
+          },
+          {
+            path: 'detail/:id',
+            component: KhoahocdetailComponent,
+          },
+        ],
       },
       {
-        path:'hoadon',
-        component:HoadonComponent,
-        children:[
+        path: 'hoadon',
+        component: HoadonComponent,
+        children: [
           {
-            path:'list',
-            component:BilltableComponent
+            path: 'list',
+            component: BilltableComponent,
           },
           {
-            path:'tools/:type',
-            component:FormbillComponent
+            path: 'tools/:type',
+            component: FormbillComponent,
           },
           {
-            path:'tools/:type/:id',
-            component:FormbillComponent
-          }
-        ]
-      }
-
-    ]
-  }
+            path: 'tools/:type/:id',
+            component: FormbillComponent,
+          },
+        ],
+      },
+      {
+        path: 'nguoidung',
+        component: HoadonComponent,
+        children: [
+          {
+            path: 'list',
+            component: NguoiDungAdminListComponent,
+          },
+        ],
+      },
+      
+      {
+        path: 'baihoc',
+        component: BaihocComponent,
+        children: [
+          {
+            path: 'list/:id',
+            component: LessionlistComponent,
+          },
+          {
+            path: 'tools/:type',
+            component: FormbillComponent,
+          },
+          {
+            path: 'tools/:type/:id',
+            component: FormbillComponent,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

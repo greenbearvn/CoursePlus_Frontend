@@ -35,7 +35,7 @@
           autocomplete="off"
         />
       </div>
-      <div style="display: flex">
+      <div style="display: flex" *ngIf="statusLogin">
         <div>
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
@@ -54,7 +54,6 @@
                 [routerLink]="['/payment']"
                 >Thanh toán</a
               >
-              
             </div>
             <ul class="dropdown_cart_scrollbar" data-simplebar>
               <li *ngFor="let item of cartList">
@@ -87,7 +86,7 @@
         <div>
           <a href="#">
             <img
-              src="../../../assets/home/images/avatars/placeholder.png"
+            [src]="user.AnhDaiDien"
               class="header_widgets_avatar"
               alt=""
             />
@@ -101,12 +100,13 @@
                 <a href="#" class="user">
                   <div class="user_avatar">
                     <img
-                      src="../../../assets/home/images/avatars/avatar-2.jpg"
+                     
+                      [src]="user.AnhDaiDien"
                       alt=""
                     />
                   </div>
                   <div class="user_name">
-                    <div>Stella Johnson</div>
+                    <div>{{ user.TenNguoiDung }}</div>
                     <span> </span>
                   </div>
                 </a>
@@ -123,29 +123,32 @@
                 <hr />
               </li>
               <li>
-                <a href="#">
+                <a
+                  [title]="'Hồ sơ'"
+                  [routerLink]="['/profile/' + user.MaNguoiDung]"
+                >
                   <!-- <ion-icon name="person-circle-outline" class="is-icon"></ion-icon> -->
-                  My Account
+                  Hồ sơ
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li>  
+                <a [title]="'Bộ sưu tập'" [routerLink]="['/collection']">
                   <!-- <ion-icon name="card-outline" class="is-icon"></ion-icon> -->
-                  Subscriptions
+                  Bộ sưu tập
                 </a>
               </li>
               <li>
                 <a href="#">
                   <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
-                  My Billing
+                  Đơn hàng của tôi
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="#">
-                  <!-- <ion-icon name="settings-outline" class="is-icon"></ion-icon> -->
+                  
                   Account Settings
                 </a>
-              </li>
+              </li> -->
               <li>
                 <hr />
               </li>
@@ -164,14 +167,26 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a (click)="logout()">
                   <!-- <ion-icon name="log-out-outline" class="is-icon"></ion-icon> -->
-                  Log Out
+                  Đăng xuất
                 </a>
               </li>
             </ul>
           </div>
         </div>
+      </div>
+      <div class="flex" *ngIf="statusLogin == false">
+        <a [title]="'Đăng nhập'" [routerLink]="['account/login']">
+          <button class="button mr-3" style="background-color: goldenrod">
+            Đăng nhập
+          </button>
+        </a>
+        <a [title]="'Đăng ký'" [routerLink]="['account/register']">
+          <button class="button" style="background-color: cornflowerblue">
+            Đăng ký
+          </button>
+        </a>
       </div>
     </div>
   </div>

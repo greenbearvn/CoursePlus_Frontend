@@ -16,5 +16,12 @@ export class AccountService {
   login(user: nguoidung): Observable<any> {
     return this.http.post('/api/account/authen', user );
   }
+  getUser():Observable<any> {
+    return this.http.get('/api/account/getUser');
+  }
+
+  logout():Observable<any> {
+    return this.http.post('/api/account/logout' , {});
+  }
 } 
   

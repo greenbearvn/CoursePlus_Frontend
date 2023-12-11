@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CategoryService } from 'src/app/services/frontend/category/category.service';
 
 @Component({
   selector: 'app-categories',
@@ -10,4 +11,20 @@ import { Component } from '@angular/core';
     '../css/tailwin.css',
   ],
 })
-export class CategoriesComponent {}
+export class CategoriesComponent {
+  constructor(private cateSer: CategoryService) {}
+
+  cates: any;
+  detailCates: any;
+
+  ngOnInit() {
+    this.getList();
+  }
+
+  getList() {
+    this.cateSer.getCate().subscribe((data) => {
+      this.cates = data.cates;
+      this.detailCates = data.detailCates;
+    });
+  }
+}

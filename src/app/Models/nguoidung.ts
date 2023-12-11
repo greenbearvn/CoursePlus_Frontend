@@ -3,7 +3,7 @@ export interface nguoidung {
     TenNguoiDung:string,
     Email:string,
     MatKhau:string,
-    Quyen:boolean
+    Quyen:string
 
   
 }

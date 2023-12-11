@@ -158,8 +158,8 @@
             <select class="form-control" [(ngModel)]="khoahoc.MaGiangVien">
               <option selected>Chọn giảng viên ...</option>
               <input type="text" class="form-control" />
-              <option *ngFor="let item of teachers" [value]="item.MaGiangVien">
-                {{ item.TenGiangVien }}
+              <option *ngFor="let item of teachers" [value]="item.MaHoSo">
+                {{ item.TenHoSo }}
               </option>
             </select>
             <div class="invalid-feedback">Please provide a valid state.</div>

@@ -49,6 +49,18 @@ import { SearchPipe } from './admin/components/pipe/search.pipe';
 import { CompletedComponent } from './frontend/quiz/completed/completed.component';
 import { CategoriesComponent } from './frontend/categories/categories.component';
 import { BlogdetailComponent } from './frontend/blogdetail/blogdetail.component';
+import { CollectionComponent } from './frontend/collection/collection.component';
+import { BaihocComponent } from './admin/components/baihoc/baihoc.component';
+import { NguoidungAdminComponent } from './admin/components/nguoidung-admin/nguoidung-admin.component';
+import { NguoiDungAdminListComponent } from './admin/components/nguoidung-admin/list/list.component';
+import { ModalnguoidungadminComponent } from './admin/components/nguoidung-admin/modalnguoidungadmin/modalnguoidungadmin.component';
+import { KhoahocdetailComponent } from './admin/components/khoahoc/khoahocdetail/khoahocdetail.component';
+import { LessionlistComponent } from './admin/components/baihoc/lessionlist/lessionlist.component';
+import { LessionmodalComponent } from './admin/components/baihoc/lessionmodal/lessionmodal.component';
+import { AdminVideoComponent } from './admin/components/admin-video/admin-video.component';
+import { VideoModalComponent } from './admin/components/admin-video/video-modal/video-modal.component';
+
+
 
 
 @NgModule({
@@ -93,6 +105,20 @@ import { BlogdetailComponent } from './frontend/blogdetail/blogdetail.component'
     BilltableComponent,
     FormbillComponent,
     SearchPipe,
+    CollectionComponent,
+    BaihocComponent,
+
+
+    ///nguoidung
+    NguoidungAdminComponent,
+    NguoiDungAdminListComponent,
+    ModalnguoidungadminComponent,
+    KhoahocdetailComponent,
+    LessionlistComponent,
+    LessionmodalComponent,
+    AdminVideoComponent,
+    VideoModalComponent
+
     
   ],
   imports: [

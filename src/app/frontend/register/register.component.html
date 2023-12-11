@@ -1,4 +1,7 @@
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
+<link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
 <div id="wrapper" class="flex flex-col justify-between h-screen">
   <!-- header-->
   <div class="bg-white py-4 shadow dark:bg-gray-800">
@@ -28,24 +31,22 @@
       <form
         class="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md"
       >
-        <h1 class="lg:text-2xl text-xl font-semibold mb-6">Register</h1>
-        
-        <div>
-          <label class="mb-0" for="username"> Username </label>
-          <input
+        <h1 class="lg:text-2xl text-xl font-semibold mb-6">Đăng ký</h1>
 
-          [(ngModel)]="user.TenNguoiDung" name="TenNguoiDung"
+        <div>
+          <label class="mb-0" for="username"> Tên người dùng </label>
+          <input
+            [(ngModel)]="user.TenNguoiDung"
+            name="TenNguoiDung"
             type="text"
-            
             placeholder="Username"
             id="username"
-            
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
-            
+            style="border: 1px grey solid;"
           />
         </div>
         <div>
-          <label class="mb-0" for="email"> Email Address </label>
+          <label class="mb-0" for="email"> Địa chỉ Email </label>
           <input
             type="email"
             placeholder="Info@example.com"
@@ -53,10 +54,11 @@
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
             [(ngModel)]="user.Email"
             name="Email"
+            style="border: 1px grey solid;"
           />
         </div>
         <div>
-          <label class="mb-0" for="password"> Password </label>
+          <label class="mb-0" for="password"> Mật khẩu </label>
           <input
             type="password"
             placeholder="******"
@@ -64,11 +66,12 @@
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
             [(ngModel)]="user.MatKhau"
             name="MatKhau"
+            style="border: 1px grey solid;"
           />
         </div>
 
         <div>
-          <label class="mb-0" for="password"> Nhap Lai mat khau </label>
+          <label class="mb-0" for="password"> Nhập lại mật khẩu </label>
           <input
             type="password"
             placeholder="******"
@@ -76,19 +79,20 @@
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
             [(ngModel)]="rePass"
             name="rePass"
+            style="border: 1px grey solid;"
           />
         </div>
-        
+
         <div class="checkbox">
           <input type="checkbox" id="chekcbox1" checked="" />
           <label for="chekcbox1"
-            ><span class="checkbox-icon"></span> I agree to the
+            ><span class="checkbox-icon"></span> Tôi chấp nhận với các
             <a
               href="courseplus/default/pages-terms.html"
               target="_blank"
               class="uk-text-bold uk-text-small uk-link-reset"
             >
-              Terms and Conditions
+              Điều khoản và điều kiện
             </a>
           </label>
         </div>
@@ -98,7 +102,7 @@
             class="bg-blue-600 font-semibold p-2 mt-5 rounded-md text-center text-white w-full"
             (click)="register()"
           >
-            Get Started
+            Đăng ký
           </button>
         </div>
       </form>

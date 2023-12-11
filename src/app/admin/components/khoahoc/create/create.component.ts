@@ -42,7 +42,7 @@ export class CreateCourseComponent implements OnInit {
   alertStatus: any;
 
   khoahoc: KhoaHoc = {
-    id: 0,
+    id: 0,  
     TenKhoaHoc: '',
     AnhKhoaHoc: '',
     MoTaNgan: '',

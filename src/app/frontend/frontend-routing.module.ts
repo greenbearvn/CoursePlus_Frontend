@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BlogComponent } from './blog/blog.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BlogdetailComponent } from './blogdetail/blogdetail.component';
+import { CollectionComponent } from './collection/collection.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
       {
         path: 'blog/detail/:id',
         component: BlogdetailComponent,
+      },
+      {
+        path: 'collection',
+        component: CollectionComponent,
       },
     ],
   },

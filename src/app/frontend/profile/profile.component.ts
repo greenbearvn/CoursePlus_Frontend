@@ -21,14 +21,14 @@ export class ProfileComponent {
     TenNguoiDung: '',
     Email: '',
     MatKhau: '',
-    Quyen: false,
+    Quyen: '',
   };
 
   profile: any;
   room: any = 0;
   userSession:any;
 
-  ngOnInit() {
+  ngOnInit() {  
     const routeParams = this.route.snapshot.paramMap;
     const id = Number(routeParams.get('id'));
     this.getDetailProfile(id);
@@ -54,9 +54,6 @@ export class ProfileComponent {
     });
   }
   
-  // navigateToRoom() {
-  //   this.router.navigateByUrl('/chat' );
-  // }
 
   navigateToRoom(id: any) {
     this.router.navigateByUrl('/chat/'+id );

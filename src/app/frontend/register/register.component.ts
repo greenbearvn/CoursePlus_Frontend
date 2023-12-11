@@ -23,7 +23,7 @@ export class RegisterComponent {
     TenNguoiDung: '',
     Email: '',
     MatKhau: '',
-    Quyen: false,
+    Quyen: '',
   };
 
   register() {

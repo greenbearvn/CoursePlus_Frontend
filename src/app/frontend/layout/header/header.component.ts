@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/frontend/cart/cart.service';
+import { AccountService } from 'src/app/services/frontend/account/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,15 @@ export class HeaderComponent {
   totalMoney: any = 0;
   countItem: any = 0;
 
-  constructor(private cartService: CartService) {}
+  user: any;
+
+  statusLogin: any;
+
+  constructor(
+    private cartService: CartService,
+    private userSer: AccountService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cartService.getlistCart().subscribe((data) => {
@@ -29,6 +39,7 @@ export class HeaderComponent {
     });
 
     this.getTotalMoney();
+    this.getUser();
   }
 
   getTotalMoney() {
@@ -48,4 +59,24 @@ export class HeaderComponent {
     });
     this.getTotalMoney();
   }
+
+  getUser() {
+    this.userSer.getUser().subscribe((data) => {
+      this.user = data.profile;
+      this.statusLogin = data.status;
+      console.log(this.user);
+    });
+  }
+
+  logout() {
+    this.userSer.logout().subscribe((data) => {
+      this.statusLogin = data.status;
+      this.navigateToHome();
+    });
+  }
+
+  navigateToHome() {
+    this.router.navigateByUrl('/home' );
+  }
+
 }

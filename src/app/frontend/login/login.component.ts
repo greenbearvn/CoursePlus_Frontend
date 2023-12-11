@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { nguoidung } from 'src/app/Models/nguoidung';
 import { ToastService } from 'angular-toastify';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 
 @Component({
@@ -16,7 +17,8 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
 export class LoginComponent {
   constructor(
     private accountService: AccountService,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private router: Router
   ) {}
 
   userLoginData: any;
@@ -27,7 +29,7 @@ export class LoginComponent {
     TenNguoiDung: '',
     Email: '',
     MatKhau: '',
-    Quyen: false,
+    Quyen: '',
   };
 
   login() {
@@ -38,13 +40,20 @@ export class LoginComponent {
         this.statusLogin = data.status;
         console.log(this.statusLogin)
         if (this.statusLogin) {
-          this._toastService.info('Da Dang Nhap Thanh Cong');
+          this._toastService.info('Đã đăng nhập thành công');
+          this.navigateToHome();
+          
         } else {
-          this._toastService.info('Da Dang Nhap Khong Thanh Cong');
+          this._toastService.warn('Đã đăng nhập không thành công');
         }
       });
     } else {
       console.log('Nhap du thong tin');
     }
+  }
+
+  
+  navigateToHome() {
+    window.location.href = '/home';
   }
 }

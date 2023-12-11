@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+      <div class="d-flex card-header justify-content-between">
+        <h5 class="">Danh sách bài học</h5>
+        <div class="d-flex">
+          <div class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Tìm kiếm......"
+              aria-label="Search"
+              [(ngModel)]="searchData"
+            />
+          </div>
+          <button
+            class="btn btn-primary"
+            mat-raised-button
+            (click)="openDialog('create', 0)"
+          >
+            Tạo bài học
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table  table-bordered first">
+            <thead>
+              <tr>
+                <th>STT</th>
+
+                <th>Tên bài học</th>
+                <th>Thời gian hoàn thành</th>
+                <th></th>
+                <th>Danh sách Video</th>
+                <th>Thêm Video</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let item of lessions
+                    | search : searchData
+                    | paginate : { itemsPerPage: 10, currentPage: p };
+                  let i = index
+                "
+              >
+              <td>{{ i + 1 }}</td>
+                <td>{{ item.TenBaiHoc }}</td>
+                <td>{{ item.ThoiGianHoanThanh }}</td>
+
+                <td class="d-flex flex-column">
+                  <button
+                    class="btn btn-primary m-1"
+                    mat-raised-button
+                    (click)="openDialog('edit', item.MaBaiHoc)"
+                  >
+                    <fa-icon [icon]="faPenToSquare"></fa-icon>
+                  </button>
+                  <button
+                    class="btn btn-danger m-1"
+                    (click)="deleteLession(item)"
+                  >
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </button>
+
+                  <!-- <button class="btn btn-success m-1">
+                    <fa-icon [icon]="faEye"></fa-icon>
+                  </button>
+
+                  <button
+                    class="btn btn-danger m-1"
+                    (click)="addCartItem(item)"
+                  >
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </button> -->
+                </td>
+                <td *ngIf="videos">
+                  <thead>
+                    <tr>
+                     
+                      <th>Tên video</th>
+                      <th>Thời lượng video</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let video of videos
+                          | search : searchData
+                          | paginate : { itemsPerPage: 10, currentPage: p };
+                        let i = index
+                      "
+                    >
+                      <td *ngIf="video.MaBaiHoc === item.MaBaiHoc">
+                        {{ video.TenVideo }}
+                      </td>
+                      <td *ngIf="video.MaBaiHoc === item.MaBaiHoc">
+                        {{ video.ThoiLuongVideo }}
+                      </td>
+                      <td
+                        class="d-flex"
+                        *ngIf="video.MaBaiHoc === item.MaBaiHoc"
+                      >
+                        <button
+                          class="btn btn-primary m-1"
+                          mat-raised-button
+                          (click)="
+                            openVideoModal('edit', video.MaVideo, item.MaBaiHoc)
+                          "
+                        >
+                          <fa-icon [icon]="faPenToSquare"></fa-icon>
+                        </button>
+                        <button
+                          class="btn btn-danger m-1"
+                          mat-raised-button
+                          (click)="deleteVideo(video)"
+                        >
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </td>
+
+                <td>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <button
+                          class="btn btn-primary m-1"
+                          mat-raised-button
+                          (click)="openVideoModal('create', 0, item.MaBaiHoc)"
+                        >
+                          <fa-icon [icon]="faPenToSquare"></fa-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

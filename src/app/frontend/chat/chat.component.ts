@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit {
     TenNguoiDung: '',
     MatKhau: '',
     Email: '',
-    Quyen: false,
+    Quyen: '',
   };
 
   sendData: any = {
