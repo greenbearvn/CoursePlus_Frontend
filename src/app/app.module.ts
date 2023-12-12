@@ -59,6 +59,13 @@ import { LessionlistComponent } from './admin/components/baihoc/lessionlist/less
 import { LessionmodalComponent } from './admin/components/baihoc/lessionmodal/lessionmodal.component';
 import { AdminVideoComponent } from './admin/components/admin-video/admin-video.component';
 import { VideoModalComponent } from './admin/components/admin-video/video-modal/video-modal.component';
+import { AdminDanhmucComponent } from './admin/components/admin-danhmuc/admin-danhmuc.component';
+import { DanhmucListComponent } from './admin/components/admin-danhmuc/danhmuc-list/danhmuc-list.component';
+import { DanhmucModalComponent } from './admin/components/admin-danhmuc/danhmuc-modal/danhmuc-modal.component';
+import { DanhmucDetailComponent } from './admin/components/admin-danhmuc/danhmuc-detail/danhmuc-detail.component';
+import { AdminDanhmucDetailComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail.component';
+import { AdminDanhmucDetailListComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail-list/admin-danhmuc-detail-list.component';
+import { AdminDanhmucDetailModalComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail-modal/admin-danhmuc-detail-modal.component';
 
 
 
@@ -117,7 +124,14 @@ import { VideoModalComponent } from './admin/components/admin-video/video-modal/
     LessionlistComponent,
     LessionmodalComponent,
     AdminVideoComponent,
-    VideoModalComponent
+    VideoModalComponent,
+    AdminDanhmucComponent,
+    DanhmucListComponent,
+    DanhmucModalComponent,
+    DanhmucDetailComponent,
+    AdminDanhmucDetailComponent,
+    AdminDanhmucDetailListComponent,
+    AdminDanhmucDetailModalComponent
 
     
   ],

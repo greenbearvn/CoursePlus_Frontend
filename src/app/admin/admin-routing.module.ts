@@ -12,9 +12,12 @@ import { FormbillComponent } from './components/hoadon/formbill/formbill.compone
 
 import { NguoiDungAdminListComponent } from './components/nguoidung-admin/list/list.component';
 
-
 import { BaihocComponent } from './components/baihoc/baihoc.component';
 import { LessionlistComponent } from './components/baihoc/lessionlist/lessionlist.component';
+
+import { AdminDanhmucComponent } from './components/admin-danhmuc/admin-danhmuc.component';
+import { DanhmucListComponent } from './components/admin-danhmuc/danhmuc-list/danhmuc-list.component';
+import { DanhmucDetailComponent } from './components/admin-danhmuc/danhmuc-detail/danhmuc-detail.component';
 
 const routes: Routes = [
   {
@@ -67,7 +70,7 @@ const routes: Routes = [
           },
         ],
       },
-      
+
       {
         path: 'baihoc',
         component: BaihocComponent,
@@ -79,6 +82,24 @@ const routes: Routes = [
           {
             path: 'tools/:type',
             component: FormbillComponent,
+          },
+          {
+            path: 'tools/:type/:id',
+            component: FormbillComponent,
+          },
+        ],
+      },
+      {
+        path: 'category',
+        component: AdminDanhmucComponent,
+        children: [
+          {
+            path: 'list',
+            component: DanhmucListComponent,
+          },
+          {
+            path: 'detail/:id',
+            component: DanhmucDetailComponent,
           },
           {
             path: 'tools/:type/:id',
