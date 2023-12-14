@@ -2,13 +2,11 @@
   rel="stylesheet"
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 />
-<div class="container" style="margin-left: 300px;margin-top: 70px;">
-  <h2>{{detailTest.TenBaiKT}}</h2>
+<div class="container" style="margin-left: 300px; margin-top: 70px">
+  <h2>{{ detailTest.TenBaiKT }}</h2>
   <div class="question-card mt-4">
     <div class="card">
-      <h4 class="card-header">
-       Câu {{ currentQuestion + 1 }}
-      </h4>
+      <h4 class="card-header">Câu {{ currentQuestion + 1 }}</h4>
       <div class="card-body">
         <h5 class="card-title">{{ questions[currentQuestion].MoTaCauHoi }}:</h5>
 
@@ -17,13 +15,13 @@
           *ngFor="let choice of questions[currentQuestion].choices"
         >
           <div
-            
-            (click)="
-              checkAnswer(choice.MaCauHoi, choice.SoTTChon, choice.MaLuaChon)"
-
-               [className]="mach == choice.MaCauHoi && mlc == choice.MaLuaChon ? 'btn btn-success  mt-3':'btn btn-outline-success  mt-3'"
+            (click)="checkAnswer(choice)"
+            [className]="
+              mach == choice.MaCauHoi && mlc == choice.MaLuaChon
+                ? 'btn btn-success  mt-3'
+                : 'btn btn-outline-success  mt-3'
+            "
             class="btn btn-outline-success mt-3"
-            
           >
             {{ choice.NoiDung }}
           </div>
@@ -39,7 +37,7 @@
       </button>
       <button
         *ngIf="currentQuestion + 1 == questions.length"
-        (click)="openDialog(totalPoint,correctedChoices)"
+        (click)="openDialog( correctedChoices)"
         class="btn btn-primary mt-3 p-3"
       >
         Check

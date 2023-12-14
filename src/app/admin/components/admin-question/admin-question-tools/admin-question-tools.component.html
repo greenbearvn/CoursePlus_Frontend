@@ -1,0 +1,74 @@
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <h5 class="card-header">Câu hỏi</h5>
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Mô tả câu hỏi</label>
+            <ckeditor
+              [(ngModel)]="question.MoTaCauHoi"
+              [editor]="Editor"
+              (change)="onChangeQuesDes($event)"
+            >
+            </ckeditor>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Gợi ý (*không bắt buộc)</label>
+            <ckeditor
+              [(ngModel)]="question.GoiY"
+              [editor]="Editor"
+              (change)="onChangeSuggest($event)"
+            >
+            </ckeditor>
+          </div>
+        </div>
+
+        <div class="form-row mt-5">
+          <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+            style="display: flex; justify-content: space-between"
+          >
+            <button
+              *ngIf="type === 'create'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="createQuestion()"
+            >
+              Tạo
+            </button>
+            <button
+              *ngIf="type === 'edit'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="submit('edit')"
+            >
+              Cập nhật
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row mt-5">
+      <div
+        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+        style="display: flex; justify-content: space-between"
+      >
+        <button
+          class="btn btn-primary"
+          type="button"
+          (click)="openDialog('create')"
+        >
+          Tạo lựa chọn
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

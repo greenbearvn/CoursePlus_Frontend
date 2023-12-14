@@ -21,11 +21,8 @@ export class QuizService {
     return this.http.get('/api/home/home/choices');
   }
 
-  checkAnswer(macauhoi: any, sochon: any): Observable<any> {
-    return this.http.post('/api/lession/quiz/checkanswer', {
-      macauhoi,
-      sochon,
-    });
+  checkAnswer(choice: any): Observable<any> {
+    return this.http.post('/api/lession/quiz/checkanswer', choice);
   }
 
   saveData(assignment: assignment): Observable<any> {

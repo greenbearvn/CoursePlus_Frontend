@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalnguoidungadminComponent } from '../modalnguoidungadmin/modalnguoidungadmin.component';
 import { NguoidungService } from 'src/app/services/admin/nguoidung/nguoidung.service';
@@ -9,7 +9,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app- nguoidung-admin-list',
+  selector: 'app-nguoidung-admin-list',
   templateUrl: './list.component.html',
   styleUrls: [
     './list.component.css',
@@ -37,6 +37,17 @@ export class NguoiDungAdminListComponent {
 
   ///
   faPenToSquare: any = faPenToSquare;
+  faPlus: any = faPlus;
+
+  ///add cart
+  listItems: any = [];
+
+  @Input()
+  listDetails!: any;
+
+  @Output() listItemEvent = new EventEmitter<{
+    listItems: any;
+  }>();
 
   openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(ModalnguoidungadminComponent, {
@@ -67,6 +78,44 @@ export class NguoiDungAdminListComponent {
     this.nguoidungService.list().subscribe((data) => {
       this.list = data.data;
       console.log(this.list);
+    });
+  }
+
+  addUserConven(nguoidung: any) {
+    const cartItem = {
+      MaNguoiDung: nguoidung.MaNguoiDung,
+      TenNguoiDung: nguoidung.TenNguoiDung,
+      Email: nguoidung.Email,
+      MatKhau: nguoidung.MatKhau,
+      Quyen: nguoidung.Quyen,
+    };
+    if (!this.listItems) {
+      this.listItems = [];
+    }
+
+    const result = this.listItems.filter(
+      (item: any) => item.MaNguoiDung === nguoidung.MaNguoiDung
+    );
+
+    if (this.listDetails.length !== 0) {
+      const existLDT = this.listDetails.filter(
+        (item: any) => item.MaNguoiDung === nguoidung.MaNguoiDung
+      );
+      if (existLDT.length !== 0) {
+        console.log('da ton tai');
+      } else {
+        this.listItems.push(cartItem);
+      }
+    } else {
+      if (result.length !== 0) {
+        console.log('da ton tai');
+      } else {
+        this.listItems.push(cartItem);
+      }
+    }
+
+    this.listItemEvent.emit({
+      listItems: this.listItems,
     });
   }
 }

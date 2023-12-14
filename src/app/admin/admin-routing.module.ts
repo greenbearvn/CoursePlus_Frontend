@@ -19,6 +19,14 @@ import { AdminDanhmucComponent } from './components/admin-danhmuc/admin-danhmuc.
 import { DanhmucListComponent } from './components/admin-danhmuc/danhmuc-list/danhmuc-list.component';
 import { DanhmucDetailComponent } from './components/admin-danhmuc/danhmuc-detail/danhmuc-detail.component';
 
+import { AdminConventionComponent } from './components/admin-convention/admin-convention.component';
+import { AdminConventionListComponent } from './components/admin-convention/admin-convention-list/admin-convention-list.component';
+import { AdminConventionCreateComponent } from './components/admin-convention/admin-convention-create/admin-convention-create.component';
+
+import { AdminTestComponent } from './components/admin-test/admin-test.component';
+import { AdminTestListComponent } from './components/admin-test/admin-test-list/admin-test-list.component';
+import { AdminTestToolComponent } from './components/admin-test/admin-test-tool/admin-test-tool.component';
+
 const routes: Routes = [
   {
     path: 'admin',
@@ -104,6 +112,42 @@ const routes: Routes = [
           {
             path: 'tools/:type/:id',
             component: FormbillComponent,
+          },
+        ],
+      },
+      {
+        path: 'convention',
+        component: AdminConventionComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminConventionListComponent,
+          },
+          {
+            path: 'tools/:type',
+            component: AdminConventionCreateComponent,
+          },
+          {
+            path: 'tools/:type/:id',
+            component: AdminConventionCreateComponent,
+          },
+        ],
+      },
+      {
+        path: 'test',
+        component: AdminTestComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminTestListComponent,
+          },
+          {
+            path: 'tools/:type',
+            component: AdminTestToolComponent,
+          },
+          {
+            path: 'tools/:type/:id',
+            component: AdminTestToolComponent,
           },
         ],
       },

@@ -16,12 +16,12 @@ export class CompletedComponent {
     public dialogRef: MatDialogRef<CompletedComponent>,
     public dialog: MatDialog
   ) {}
-  totalPoint: any;
+
   correctedChoices: any;
   totalQues:any;
 
   ngOnInit() {
-    this.totalPoint = this.data.totalPoint;
+    
     this.correctedChoices = this.data.correctedChoices;
     this.totalQues = this.data.totalQues;
   }

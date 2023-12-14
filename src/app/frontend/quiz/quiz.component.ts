@@ -20,7 +20,7 @@ export class QuizComponent {
   checkData: any;
 
   /// share data
-  totalPoint: any = 0;
+
   correctedChoices: any = 0;
 
   mlc: any;
@@ -66,15 +66,15 @@ export class QuizComponent {
     });
   }
 
-  checkAnswer(macauhoi: any, luachon: any, maluachon: any) {
-    this.quizService.checkAnswer(macauhoi, luachon).subscribe((data) => {
+  checkAnswer(choice: any) {
+    console.log(choice);
+    this.quizService.checkAnswer(choice).subscribe((data) => {
       this.checkData = data;
 
-      this.totalPoint += this.checkData.Diem;
-      this.mlc = maluachon;
-      this.mach = macauhoi;
+      this.mlc = choice.MaLuaChon;
+      this.mach = choice.MaCauHoi;
 
-      if (this.checkData.Diem > 0) {
+      if (this.checkData.Dung > 0) {
         this.isCorrected = true;
         this.correctedChoices += 1;
       }
@@ -87,10 +87,9 @@ export class QuizComponent {
     }
   }
 
-  openDialog(totalPoint: number, correctedChoices: number): void {
+  openDialog(correctedChoices: number): void {
     const dialogRef = this.dialog.open(CompletedComponent, {
       data: {
-        totalPoint: totalPoint,
         correctedChoices: correctedChoices,
         totalQues: this.questions.length,
       },
@@ -102,8 +101,8 @@ export class QuizComponent {
       MaBaiLam: 0,
       MaNguoiDung: 0,
       MaBaiKT: this.MaBaiKT,
-      ThoiGianNop: Date(),
-      DiemSo: this.totalPoint,
+      ThoiGianNop: '',
+      DiemSo: 0,
     };
 
     this.quizService.saveData(this.assignment).subscribe((data) => {

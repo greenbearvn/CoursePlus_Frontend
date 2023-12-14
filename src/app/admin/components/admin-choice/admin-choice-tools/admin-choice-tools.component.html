@@ -1,0 +1,68 @@
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <h5 class="card-header">Lựa chọn</h5>
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Nội dung</label>
+            <ckeditor
+              [(ngModel)]="choice.NoiDung"
+              [editor]="Editor"
+              (change)="onChangeDes($event)"
+            >
+            </ckeditor>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+            <label for="validationCustom05">Quyền</label>
+            <select
+              class="form-control"
+              [(ngModel)]="choice.Dung"
+              name="quyen"
+              id="quyen"
+            >
+              <option disabled selected>Chọn Trạng Thái...</option>
+              <option value="1">Đúng</option>
+              <option value="0">Sai</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+              style="display: flex; justify-content: space-between"
+            >
+              <button
+                *ngIf="type === 'create'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="createChoice()"
+              >
+                Tạo
+              </button>
+              <button
+                *ngIf="type === 'edit'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="submit('edit')"
+              >
+                Cập nhật
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="closeModal()"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

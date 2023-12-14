@@ -66,6 +66,17 @@ import { DanhmucDetailComponent } from './admin/components/admin-danhmuc/danhmuc
 import { AdminDanhmucDetailComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail.component';
 import { AdminDanhmucDetailListComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail-list/admin-danhmuc-detail-list.component';
 import { AdminDanhmucDetailModalComponent } from './admin/components/admin-danhmuc-detail/admin-danhmuc-detail-modal/admin-danhmuc-detail-modal.component';
+import { AdminConventionComponent } from './admin/components/admin-convention/admin-convention.component';
+import { AdminConventionListComponent } from './admin/components/admin-convention/admin-convention-list/admin-convention-list.component';
+import { AdminConventionCreateComponent } from './admin/components/admin-convention/admin-convention-create/admin-convention-create.component';
+import { AdminTestComponent } from './admin/components/admin-test/admin-test.component';
+import { AdminTestListComponent } from './admin/components/admin-test/admin-test-list/admin-test-list.component';
+import { AdminTestToolComponent } from './admin/components/admin-test/admin-test-tool/admin-test-tool.component';
+import { AdminQuestionComponent } from './admin/components/admin-question/admin-question.component';
+import { AdminQuestionToolsComponent } from './admin/components/admin-question/admin-question-tools/admin-question-tools.component';
+import { AdminChoiceComponent } from './admin/components/admin-choice/admin-choice.component';
+import { AdminChoiceToolsComponent } from './admin/components/admin-choice/admin-choice-tools/admin-choice-tools.component';
+
 
 
 
@@ -131,7 +142,17 @@ import { AdminDanhmucDetailModalComponent } from './admin/components/admin-danhm
     DanhmucDetailComponent,
     AdminDanhmucDetailComponent,
     AdminDanhmucDetailListComponent,
-    AdminDanhmucDetailModalComponent
+    AdminDanhmucDetailModalComponent,
+    AdminConventionComponent,
+    AdminConventionListComponent,
+    AdminConventionCreateComponent,
+    AdminTestComponent,
+    AdminTestListComponent,
+    AdminTestToolComponent,
+    AdminQuestionComponent,
+    AdminQuestionToolsComponent,
+    AdminChoiceComponent,
+    AdminChoiceToolsComponent,
 
     
   ],
