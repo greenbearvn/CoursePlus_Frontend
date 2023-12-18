@@ -1,5 +1,9 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Output, EventEmitter, Input, Inject } from '@angular/core';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { ModalnguoidungadminComponent } from '../modalnguoidungadmin/modalnguoidungadmin.component';
 import { NguoidungService } from 'src/app/services/admin/nguoidung/nguoidung.service';
 
@@ -26,11 +30,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class NguoiDungAdminListComponent {
   constructor(
     public dialog: MatDialog,
-    private nguoidungService: NguoidungService
+    private nguoidungService: NguoidungService,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
+    // public dialogRef: MatDialogRef<NguoiDungAdminListComponent>
   ) {}
 
   list: any;
   p: number = 1;
+  user: any;
+  type:any;
   // token: any;
 
   searchData: any;
@@ -57,7 +65,7 @@ export class NguoiDungAdminListComponent {
         // token: token,
       },
       maxHeight: '90vh',
-      panelClass: 'my-outlined-dialog',
+    
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
@@ -65,11 +73,12 @@ export class NguoiDungAdminListComponent {
   ngOnInit() {
     this.getUserInSession();
     this.getLists();
+    // this.type = this.data.type;
   }
 
   getUserInSession() {
     // this.khoahocService.getUser().subscribe((data) => {
-    //   this.token = data.data.Token;
+    //   this.token = data.data.Token;  
     //   this.getLists();
     // });
   }
@@ -118,4 +127,8 @@ export class NguoiDungAdminListComponent {
       listItems: this.listItems,
     });
   }
+
+  
+
+  
 }

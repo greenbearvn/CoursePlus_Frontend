@@ -76,10 +76,19 @@ import { AdminQuestionComponent } from './admin/components/admin-question/admin-
 import { AdminQuestionToolsComponent } from './admin/components/admin-question/admin-question-tools/admin-question-tools.component';
 import { AdminChoiceComponent } from './admin/components/admin-choice/admin-choice.component';
 import { AdminChoiceToolsComponent } from './admin/components/admin-choice/admin-choice-tools/admin-choice-tools.component';
-
-
-
-
+import { AdminProfileComponent } from './admin/components/admin-profile/admin-profile.component';
+import { AdminProfileListComponent } from './admin/components/admin-profile/admin-profile-list/admin-profile-list.component';
+import { AdminProfileModalComponent } from './admin/components/admin-profile/admin-profile-modal/admin-profile-modal.component';
+import { AdminProfileListUsersComponent } from './admin/components/admin-profile/admin-profile-list-users/admin-profile-list-users.component';
+import { AdminBlogComponent } from './admin/components/admin-blog/admin-blog.component';
+import { AdminBlogListComponent } from './admin/components/admin-blog/admin-blog-list/admin-blog-list.component';
+import { AdminBlogModalComponent } from './admin/components/admin-blog/admin-blog-modal/admin-blog-modal.component';
+import { AdminLevelComponent } from './admin/components/admin-level/admin-level.component';
+import { AdminLevelListComponent } from './admin/components/admin-level/admin-level-list/admin-level-list.component';
+import { AdminLevelModalComponent } from './admin/components/admin-level/admin-level-modal/admin-level-modal.component';
+import { AdminCommentComponent } from './admin/components/admin-comment/admin-comment.component';
+import { AdminCommentListComponent } from './admin/components/admin-comment/admin-comment-list/admin-comment-list.component';
+import { AdminCommentModalComponent } from './admin/components/admin-comment/admin-comment-modal/admin-comment-modal.component';
 
 @NgModule({
   declarations: [
@@ -102,10 +111,8 @@ import { AdminChoiceToolsComponent } from './admin/components/admin-choice/admin
     CompletedComponent,
     CategoriesComponent,
 
-
     BlogComponent,
     BlogdetailComponent,
-
 
     AdminComponent,
     HeaderAdminComponent,
@@ -125,7 +132,6 @@ import { AdminChoiceToolsComponent } from './admin/components/admin-choice/admin
     SearchPipe,
     CollectionComponent,
     BaihocComponent,
-
 
     ///nguoidung
     NguoidungAdminComponent,
@@ -153,8 +159,19 @@ import { AdminChoiceToolsComponent } from './admin/components/admin-choice/admin
     AdminQuestionToolsComponent,
     AdminChoiceComponent,
     AdminChoiceToolsComponent,
-
-    
+    AdminProfileComponent,
+    AdminProfileListComponent,
+    AdminProfileModalComponent,
+    AdminProfileListUsersComponent,
+    AdminBlogComponent,
+    AdminBlogListComponent,
+    AdminBlogModalComponent,
+    AdminLevelComponent,
+    AdminLevelListComponent,
+    AdminLevelModalComponent,
+    AdminCommentComponent,
+    AdminCommentListComponent,
+    AdminCommentModalComponent,
   ],
   imports: [
     BrowserModule,

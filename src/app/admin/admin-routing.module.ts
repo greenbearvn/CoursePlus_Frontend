@@ -27,6 +27,20 @@ import { AdminTestComponent } from './components/admin-test/admin-test.component
 import { AdminTestListComponent } from './components/admin-test/admin-test-list/admin-test-list.component';
 import { AdminTestToolComponent } from './components/admin-test/admin-test-tool/admin-test-tool.component';
 
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { AdminProfileListComponent } from './components/admin-profile/admin-profile-list/admin-profile-list.component';
+import { AdminProfileModalComponent } from './components/admin-profile/admin-profile-modal/admin-profile-modal.component';
+
+import { AdminBlogComponent } from './components/admin-blog/admin-blog.component';
+import { AdminBlogListComponent } from './components/admin-blog/admin-blog-list/admin-blog-list.component';
+import { AdminBlogModalComponent } from './components/admin-blog/admin-blog-modal/admin-blog-modal.component';
+
+import { AdminLevelComponent } from './components/admin-level/admin-level.component';
+import { AdminLevelListComponent } from './components/admin-level/admin-level-list/admin-level-list.component';
+
+import { AdminCommentComponent } from './components/admin-comment/admin-comment.component';
+import { AdminCommentListComponent } from './components/admin-comment/admin-comment-list/admin-comment-list.component';
+
 const routes: Routes = [
   {
     path: 'admin',
@@ -148,6 +162,46 @@ const routes: Routes = [
           {
             path: 'tools/:type/:id',
             component: AdminTestToolComponent,
+          },
+        ],
+      },
+      {
+        path: 'profile',
+        component: AdminProfileComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminProfileListComponent,
+          },
+        ],
+      },
+      {
+        path: 'blog',
+        component: AdminBlogComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminBlogListComponent,
+          },
+        ],
+      },
+      {
+        path: 'level',
+        component: AdminLevelComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminLevelListComponent,
+          },
+        ],
+      },
+      {
+        path: 'comment',
+        component: AdminCommentComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminCommentListComponent,
           },
         ],
       },

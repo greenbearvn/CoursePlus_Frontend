@@ -2,7 +2,7 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
       <div class="d-flex card-header justify-content-between">
-        <h5 class="">Danh Sách Người Dùng</h5>
+        <h5 class="">Danh Sách Cấp Độ</h5>
         <div class="d-flex">
           <div class="form-inline my-2 my-lg-0">
             <input
@@ -29,46 +29,44 @@
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Tên Người dùng</th>
-                <th>Email</th>
-
-                <th>Quyền</th>
-
+                <th>Tên cấp độ</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr
                 *ngFor="
-                  let item of list
+                  let item of lists
                     | search : searchData
                     | paginate : { itemsPerPage: 10, currentPage: p };
                   let i = index
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
-                <td>
-                  {{ item.Email }}
-                </td>
-
-                <td>{{ item.Quyen }}</td>
+                <td>{{ item.TenCapDo }}</td>
 
                 <td class="d-flex flex-column">
                   <button
                     class="btn btn-primary m-1"
                     mat-raised-button
-                    (click)="openDialog('edit', item.MaNguoiDung)"
+                    (click)="openDialog('update', item.MaCapDo)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
-                 
                   <button
-                    class="btn btn-success m-1"
-                    (click)="addUserConven(item)"
+                    class="btn btn-secondary m-1"
+                    (click)="delete(item)"
                   >
-                    <fa-icon [icon]="faPlus"></fa-icon>
+                    <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
+                  <a
+                    [title]="item.TenKhoaHoc"
+                    [routerLink]="['/admin/khoahoc/detail', item.id]"
+                  >
+                    <button class="btn btn-success m-1">
+                      <fa-icon [icon]="faEye"></fa-icon>
+                    </button>
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -76,7 +74,6 @@
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
-     
     </div>
   </div>
 </div>

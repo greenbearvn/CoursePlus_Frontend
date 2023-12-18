@@ -1,0 +1,162 @@
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+            <label for="validationCustom04">Người Dùng</label>
+            <div class="d-flex">
+              <select class="form-control" [(ngModel)]="profile.MaHoSo">
+                <option
+                  *ngFor="let item of listUsers"
+                  [value]="item.MaNguoiDung"
+                >
+                  {{ item.TenNguoiDung }}
+                </option>
+              </select>
+              <button class="btn btn-success ml-5" (click)="openDialog('create')">
+                Danh sách
+              </button>
+            </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Tên hồ sơ</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              value="Mark"
+              name=""
+              required
+              [(ngModel)]="profile.TenHoSo"
+            />
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustom02">Ảnh hồ sơ</label>
+            <form
+              (ngSubmit)="onSubmit()"
+              enctype="multipart/form-data"
+              class="d-flex"
+            >
+              <input
+                type="file"
+                class="form-control"
+                id="inputGroupFile04"
+                aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload"
+                name="image"
+                (change)="onFileSelected($event)"
+              />
+              <button
+                class="btn btn-success"
+                type="submit"
+                id="inputGroupFileAddon04"
+              >
+                Tải Lên
+              </button>
+            </form>
+            <img *ngIf="imageUrl" [src]="imageUrl" width="150" height="200" />
+            <img
+              *ngIf="profile.AnhDaiDien !== ''"
+              [src]="profile.AnhDaiDien"
+              src=""
+              alt=""
+              width="150"
+              height="200"
+            />
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustomUsername">Số điện thoại</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustomUsername"
+                required
+                [(ngModel)]="profile.SoDienThoai"
+              />
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustomUsername">Email</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustomUsername"
+                required
+                [(ngModel)]="profile.Email"
+              />
+            </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustom01">Mô tả </label>
+            <ckeditor
+              [(ngModel)]="profile.MoTa"
+              [editor]="Editor"
+              (change)="onChange($event)"
+            >
+            </ckeditor>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+            <label for="validationCustom04">Danh mục</label>
+            <select class="form-control" [(ngModel)]="profile.MaDanhMuc">
+              <option *ngFor="let item of listCategories" [value]="item.madm">
+                {{ item.tendm }}
+              </option>
+            </select>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <div class="input-group d-flex">
+              
+
+              <label class="be-checkbox custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [(ngModel)]="profile.GiangVien"
+                />
+                <span class="custom-control-label">Giảng viên</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+              style="display: flex; justify-content: space-between"
+            >
+              <button
+                *ngIf="type === 'create'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="submit('create')"
+              >
+                Tạo
+              </button>
+              <button
+                *ngIf="type == 'update'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="update()"
+              >
+                Cập nhật
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="closeModal()"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

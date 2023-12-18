@@ -5,16 +5,14 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ToastService } from 'angular-toastify';
-import { choice } from 'src/app/Models/admin/choice';
-import { TestService } from 'src/app/services/admin/test/test.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { LevelService } from 'src/app/services/admin/level/level.service';
+import { level } from 'src/app/Models/admin/level';
 
 @Component({
-  selector: 'app-admin-choice-tools',
-  templateUrl: './admin-choice-tools.component.html',
+  selector: 'app-admin-level-modal',
+  templateUrl: './admin-level-modal.component.html',
   styleUrls: [
-    './admin-choice-tools.component.css',
+    './admin-level-modal.component.css',
     '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
     '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
     '../../../assets/polygon/concept/assets/libs/css/style.css',
@@ -25,74 +23,68 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
     '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
   ],
 })
-export class AdminChoiceToolsComponent {
+export class AdminLevelModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<AdminChoiceToolsComponent>,
-    private testService: TestService,
+    public dialogRef: MatDialogRef<AdminLevelModalComponent>,
+    private levelService: LevelService,
     public dialog: MatDialog,
     private _toastService: ToastService
   ) {}
 
-  type: any;
-  id: any;
-  question: any;
-
-  NoiDung: any;
-  Editor = ClassicEditor;
-
-  choice: any = {
-    MaLuaChon: 0,
-    MaCauHoi: 0,
-    NoiDung: '',
-    Dung: 0,
+  level: level = {
+    MaCapDo: 0,
+    TenCapDo: '',
   };
 
+  type: any;
+  id: any;
+
+  ///
   createRes: any;
+  updateRes: any;
 
   ngOnInit() {
     this.type = this.data.type;
     this.id = this.data.id;
-    this.question = this.data.question;
-    this.getDetail(this.id);
+    // this.getUserInSession();
+
+    this.detail();
+  }
+
+  detail() {
+    if (this.type == 'update') {
+      this.levelService.detail(this.id).subscribe((data) => {
+        this.level = data.data;
+        console.log(this.level);
+      });
+    }
   }
 
   submit(type: any) {
-    if (type === 'create') {
+    if (type == 'create') {
       this.create();
     } else {
       this.update();
     }
   }
 
-  getDetail(id: number) {
-    if (id >= 0) {
-      this.choice = this.question.Choices[id];
-      console.log(this.choice);
-    }
-  }
-
   create() {
-    this.choice.NoiDung = this.NoiDung;
-    console.log(this.choice);
-  }
-
-  update() {
-    console.log(this.choice)
-    this.testService.updateChoice(this.choice).subscribe((data) => {
+    this.levelService.create(this.level).subscribe((data) => {
       this.createRes = data.data;
       if (this.createRes == true) {
-        this._toastService.info('Đã cập nhật thành công!!!');
+        this._toastService.info('Thêm thành công!!!');
       }
     });
   }
 
-  public onChangeDes({ editor }: ChangeEvent) {
-    this.NoiDung = editor.data.get();
-  }
-
-  createChoice(): void {
-    this.dialogRef.close(this.choice);
+  update() {
+    this.levelService.update(this.level).subscribe((data) => {
+      this.updateRes = data.data;
+      if (this.createRes == true) {
+        this._toastService.info('Cập nhật thành công!!!');
+      }
+    });
   }
 
   closeModal(): void {

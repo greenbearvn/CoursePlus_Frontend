@@ -8,6 +8,9 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ActivatedRoute } from '@angular/router';
 
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-admin-test-tool',
   templateUrl: './admin-test-tool.component.html',
@@ -36,6 +39,9 @@ export class AdminTestToolComponent {
   searchData: any = '';
   p: any = 1;
 
+  desData: any;
+  question: any;
+
   test: any = {
     MaBaiKT: 0,
     TenBaiKT: '',
@@ -52,43 +58,81 @@ export class AdminTestToolComponent {
   ckeditorData: any;
   Editor = ClassicEditor;
 
+  //// Fontawesome
+  faPenToSquare: any = faPenToSquare;
+  faTrash: any = faTrash;
+
   // data res
   createRes: any;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.id = Number(routeParams.get('id'));
+
+    this.type = routeParams.get('type');
+
+    if (this.id && this.type == 'update') {
+      this.getDetail();
+    }
+
+    this.getListTeachers();
+    this.getListVideos();
   }
 
-  openDialog(type: string): void {
+  openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(AdminQuestionToolsComponent, {
       data: {
         type: type,
-        // id: id,
+        id: id,
+        test: this.test,
         // token: token,
       },
       maxHeight: '90vh',
     });
     dialogRef.afterClosed().subscribe((question) => {
-      this.test.Questions.push(question);
+      if (question !== undefined) {
+        this.test.Questions.push(question);
+        console.log(this.test);
+      }
+    });
+  }
+
+  getDetail() {
+    this.testServices.detail(this.id).subscribe((data) => {
+      this.test = data.data;
+      this.test.MoTaBaiKT = data.data.MoTaBaiKT;
       console.log(this.test);
     });
   }
 
   public onChange({ editor }: ChangeEvent) {
     this.ckeditorData = editor.data.get();
-    console.log(this.ckeditorData);
   }
 
   submit(type: any) {
     if (type === 'create') {
       this.create();
+    } else {
+      this.update();
     }
+  }
+
+  getListVideos(): void {
+    this.testServices.listVideo().subscribe((data) => {
+      this.listVideos = data.data;
+      console.log(this.listVideos);
+    });
+  }
+
+  getListTeachers(): void {
+    this.testServices.listTeachers().subscribe((data) => {
+      this.listTeachers = data.data;
+      console.log(this.listTeachers);
+    });
   }
 
   create() {
     this.test.MoTaBaiKT = this.ckeditorData;
-
     console.log(this.test);
 
     this.testServices.create(this.test).subscribe((data) => {
@@ -100,5 +144,28 @@ export class AdminTestToolComponent {
     });
   }
 
-  update() {}
+  update() {
+    this.test.MoTaBaiKT = this.ckeditorData;
+    console.log(this.test);
+
+    this.testServices.update(this.test).subscribe((data) => {
+      this.createRes = data.data;
+      console.log(this.createRes);
+      if (this.createRes == true) {
+        this._toastService.info('Da Cap Nhat Thanh Cong');
+      }
+    });
+  }
+
+  deleteQuiz(index: number, cauhoi: any) {
+    if (this.type == 'create' && index && !cauhoi) {
+      this.test.Questions.splice(index, 1);
+    } else {
+      this.test.Questions.splice(index, 1);
+      this.testServices.deleteQuestion(cauhoi).subscribe((data) => {
+        this.createRes = data.data;
+        console.log(this.createRes);
+      });
+    }
+  }
 }
