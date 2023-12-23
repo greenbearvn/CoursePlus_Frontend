@@ -21,7 +21,7 @@
           </div>
         </form>
       </div>
-      <div class="row" *ngIf="listDetails">
+      <div class="row" *ngIf="listDetails != undefined">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <div class="d-flex card-header justify-content-between">
@@ -34,11 +34,8 @@
                   <thead>
                     <tr>
                       <th>STT</th>
-                      <th>Tên khóa học</th>
-                      <th>Ảnh khóa học</th>
-                      <th>Giá cũ</th>
-                      <th>Giảm giá</th>
-                      <th>Giá mới</th>
+                      <th>Tên người dùng</th>
+                      <th>Email</th>
 
                       <th></th>
                     </tr>
@@ -53,29 +50,17 @@
                       "
                     >
                       <td>{{ i + 1 }}</td>
-                      <td>{{ item.TenKhoaHoc }}</td>
-                      <td>
-                        <img
-                          [src]="item.AnhKhoaHoc"
-                          width="200"
-                          height="150"
-                          alt=""
-                          srcset=""
-                        />
-                      </td>
+                      <td>{{ item.TenNguoiDung }}</td>
 
-                      <td>{{ item.GiaCu | currency : "VND" }}</td>
-
-                      <td>{{ item.GiamGia }}</td>
-                      <td>{{ item.GiaMoi | currency : "VND" }}</td>
+                      <td>{{ item.Email }}</td>
 
                       <td class="d-flex flex-column">
-                        <!-- <button
+                        <button
                           class="btn btn-secondary m-1"
                           (click)="deleteItems(item)"
                         >
                           <fa-icon [icon]="faTrash"></fa-icon>
-                        </button> -->
+                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -93,7 +78,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <div class="d-flex card-header justify-content-between">
-              <h5 class="">Danh Sách Khóa Học</h5>
+              <h5 class="">Danh Sách Người Dùng</h5>
             </div>
 
             <div class="card-body">

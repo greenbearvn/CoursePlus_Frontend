@@ -13,16 +13,20 @@
               [(ngModel)]="searchData"
             />
           </div>
-          <a [title]="" [routerLink]="['/admin/test/tools/create']">
+          <a
+            *ngIf="MaGiangVien <= 0"
+            [title]=""
+            [routerLink]="['/admin/test/tools/create']"
+          >
             <button class="btn btn-primary">Tạo</button>
           </a>
-          <!-- <button
-                class="btn btn-primary"
-                mat-raised-button
-                (click)="openDialog('create', 0, token)"
-              >
-                Tạo
-              </button> -->
+          <a
+            *ngIf="MaGiangVien > 0"
+            [title]=""
+            [routerLink]="['/admin/test/manage/tools/create',MaGiangVien]"
+          >
+            <button class="btn btn-primary">Tạo</button>
+          </a>
         </div>
       </div>
 
@@ -33,7 +37,7 @@
               <tr>
                 <th>STT</th>
                 <th>Tên bài kiểm tra</th>
-                <th>Mô tả bài kiểm tra</th>
+               
                 <th>Tên giảng viên</th>
                 <th>Tên video</th>
                 <th></th>
@@ -50,19 +54,31 @@
               >
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.TenBaiKT }}</td>
-                <td>{{ item.MoTaBaiKT }}</td>
                 <td>{{ item.TenHoSo }}</td>
                 <td>{{ item.TenVideo }}</td>
 
                 <td class="d-flex flex-column">
-                  <button class="btn btn-success m-1">
+                  <button class="btn btn-success m-1" *ngIf="MaGiangVien > 0">
                     <a
-                      [title]="item.TenKhoaHoc"
-                      [routerLink]="['/admin/khoahoc/detail', item.id]"
+                      [title]="'Cập nhật bài kiểm tra'"
+                      [routerLink]="[
+                        '/admin/test/manage/tools/update/',
+                        MaGiangVien,
+                        item.MaBaiKT
+                      ]"
                     >
-                      <fa-icon [icon]="faEye"></fa-icon>
+                      <fa-icon [icon]="faPenToSquare"></fa-icon>
                     </a>
                   </button>
+                  <button class="btn btn-success m-1" *ngIf="MaGiangVien <= 0">
+                    <a
+                      [title]="'Cập nhật bài kiểm tra'"
+                      [routerLink]="['/admin/test/tools/update/', item.MaBaiKT]"
+                    >
+                      <fa-icon [icon]="faPenToSquare"></fa-icon>
+                    </a>
+                  </button>
+
                   <button
                     class="btn btn-secondary m-1"
                     (click)="deleteItem(item.id)"

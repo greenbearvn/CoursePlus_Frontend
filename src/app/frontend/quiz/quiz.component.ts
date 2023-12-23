@@ -53,7 +53,7 @@ export class QuizComponent {
 
     this.getDetailTest();
 
-    this.quizService.getAllData().subscribe((data) => {
+    this.quizService.getAllData(this.MaBaiKT).subscribe((data) => {
       this.questions = data.data;
       console.log(this.questions);
     });

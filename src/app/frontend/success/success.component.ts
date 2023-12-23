@@ -18,7 +18,22 @@ export class SuccessComponent {
   DataReturn() {
     this.paymentService.returndata().subscribe((data) => {
       this.status = data.data;
-      console.log(this.status)
+      if (this.status !=='97') {
+        this.SaveData();
+        this.AddCollection();
+      }
+    });
+  }
+
+  SaveData() {
+    this.paymentService.saveToDB().subscribe((data) => {
+      this.status = data.data;
+    });
+  }
+
+  AddCollection() {
+    this.paymentService.addCollection().subscribe((data) => {
+      this.status = data.data;
     });
   }
 }

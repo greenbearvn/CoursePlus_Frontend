@@ -10,13 +10,9 @@
       <!-- back to home link -->
       <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
         <a
-        [routerLink]="['/detail', makhoahoc]">
+          [routerLink]="['/detail', makhoahoc]"
           class="flex items-center text-blue-500"
         >
-          <!-- <ion-icon
-              name="chevron-back-outline"
-              class="md:text-lg text-2xl"
-            ></ion-icon> -->
           <span class="text-sm md:inline hidden"> back</span>
         </a>
       </div>
@@ -43,7 +39,7 @@
                   class="course-curriculum-list"
                   uk-switcher="connect: #video_tabs; animation: animation: uk-animation-slide-right-small, uk-animation-slide-left-medium"
                 >
-                <!-- <a [attr.href]="'/course/watching/detail/' + lession.MaKhoaHoc + '/' + video.MaVideo" *ngFor="let video of videos">
+                  <!-- <a [attr.href]="'/course/watching/detail/' + lession.MaKhoaHoc + '/' + video.MaVideo" *ngFor="let video of videos">
                   <li *ngIf="video.MaBaiHoc === lession.MaBaiHoc">
                     {{ video.TenVideo }}
                     <span class="hidden">{{ video.ThoiLuongVideo }}</span>
@@ -51,7 +47,7 @@
                 </a> -->
                   <li *ngFor="let video of videos">
                     <a
-                      (click)="changeVideo(lession.MaKhoaHoc,video.MaVideo)"
+                      (click)="changeVideo(lession.MaKhoaHoc, video.MaVideo)"
                       *ngIf="video.MaBaiHoc === lession.MaBaiHoc"
                       [className]="
                         detailVideo.MaVideo === video.MaVideo
@@ -71,34 +67,11 @@
         <div class="mt-5">
           <h3 class="mb-4 text-lg font-semibold">Quizzes</h3>
           <ul>
-            <li>
-              <a href="#">
-                <!-- <ion-icon name="timer-outline" class="side-icon"></ion-icon> -->
-                Taking small eco-friendly steps
+            <li *ngFor="let item of listTests">
+              <a [routerLink]="['/video/test', item.MaBaiKT]">
+               
+                {{ item.TenBaiKT }}
               </a>
-            </li>
-            <li>
-              <a href="#">
-                <!-- <ion-icon name="timer-outline" class="side-icon"></ion-icon> -->
-                Making your house eco-friendly
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <!-- <ion-icon name="timer-outline" class="side-icon"></ion-icon> -->
-                Building and renovating for eco-friendly homes
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <!-- <ion-icon name="log-in-outline" class="side-icon"></ion-icon> -->
-                Taking small eco-friendly
-              </a>
-              <ul>
-                <li><a href="#"> Making your house </a></li>
-                <li><a href="#"> Building and renovating </a></li>
-                <li><a href="#"> Taking small </a></li>
-              </ul>
             </li>
           </ul>
         </div>
@@ -223,7 +196,7 @@
                 class="rounded-full shadow w-12 h-12"
               />
               <div>
-                <h4 class="-mb-1 text-base">{{teacher.TenHoSo}}</h4>
+                <h4 class="-mb-1 text-base">{{ teacher.TenHoSo }}</h4>
                 <span class="text-sm">
                   Instructor <span class="text-gray-500"> 1 year ago </span>
                 </span>
@@ -263,8 +236,15 @@
               uk-accordion="multiple: true"
               class="divide-y space-y-3 space-y-6"
             >
-              <li style="background-color:#EFF1FC ;padding: 10px; border-radius: 10px;"  *ngFor="let question of questions">
-                <a [routerLink]="['/video/test',question.MaBaiKT]">
+              <li
+                style="
+                  background-color: #eff1fc;
+                  padding: 10px;
+                  border-radius: 10px;
+                "
+                *ngFor="let question of questions"
+              >
+                <a [routerLink]="['/video/test', question.MaBaiKT]">
                   {{ question.TenBaiKT }}
                 </a>
               </li>

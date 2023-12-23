@@ -36,13 +36,12 @@ export class LoginComponent {
     if (this.user.Email !== '' && this.user.MatKhau !== '') {
       this.accountService.login(this.user).subscribe((data) => {
         this.userLoginData = data.data;
-        console.log(this.userLoginData)
+        console.log(this.userLoginData);
         this.statusLogin = data.status;
-        console.log(this.statusLogin)
+        console.log(this.statusLogin);
         if (this.statusLogin) {
           this._toastService.info('Đã đăng nhập thành công');
           this.navigateToHome();
-          
         } else {
           this._toastService.warn('Đã đăng nhập không thành công');
         }
@@ -52,7 +51,6 @@ export class LoginComponent {
     }
   }
 
-  
   navigateToHome() {
     window.location.href = '/home';
   }

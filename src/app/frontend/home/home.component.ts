@@ -14,7 +14,6 @@ import { HomeService } from 'src/app/services/frontend/home/home.service';
   ],
 })
 export class HomeComponent {
-  data: any;
   teachers: any;
   newCourses: any;
   blogs: any;
@@ -22,34 +21,29 @@ export class HomeComponent {
   constructor(private homeService: HomeService) {}
 
   ngOnInit() {
-    this.getListBestSellCourses();
+    this.getListNewCourses();
+    this.getListKOLTeachers();
+    this.getListBlogs();
   }
 
-  getListBestSellCourses() {
-    this.homeService.getBestSeller().subscribe((data) => {
-      this.data = data;
-      console.log(data);
+  getListNewCourses() {
+    this.homeService.getListNew().subscribe((data) => {
+      this.newCourses = data.data;
+      console.log(this.newCourses);
     });
   }
 
   getListKOLTeachers() {
     this.homeService.getTeachers().subscribe((data) => {
-      this.teachers = data;
-      console.log(data);
-    });
-  }
-
-  getListNewCourse() {
-    this.homeService.getNewCourses().subscribe((data) => {
-      this.newCourses = data;
-      console.log(data);
+      this.teachers = data.data;
+      console.log(this.teachers);
     });
   }
 
   getListBlogs() {
     this.homeService.getListBlog().subscribe((data) => {
-      this.blogs = data;
-      console.log(data);
+      this.blogs = data.data;
+      console.log(this.blogs);
     });
   }
 }

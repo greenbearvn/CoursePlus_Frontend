@@ -104,7 +104,7 @@
             />
             <div class="invalid-feedback">Please provide a valid state.</div>
           </div>
-          <div class="row ml-3 mt-3">
+          <div class="row ml-3 mt-3" *ngIf="MaHoSo == undefined">
             <div class="col-sm-10 pb-2 pb-sm-4 pb-lg-0 pr-0">
               <label class="be-checkbox custom-control custom-checkbox">
                 <input
@@ -153,11 +153,11 @@
             </select>
             <div class="invalid-feedback">Please provide a valid city.</div>
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2" *ngIf="MaHoSo <= 0">
             <label for="validationCustom04">Tên giảng viên</label>
             <select class="form-control" [(ngModel)]="khoahoc.MaGiangVien">
               <option selected>Chọn giảng viên ...</option>
-              <input type="text" class="form-control" />
+           
               <option *ngFor="let item of teachers" [value]="item.MaHoSo">
                 {{ item.TenHoSo }}
               </option>

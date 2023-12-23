@@ -3,27 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomeService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-
-  getBestSeller(): Observable<any> {
-    return this.http.get('/api/product/list/bestseller');
+  getListNew(): Observable<any> {
+    return this.http.get('/api/home/list/new/courses');
   }
-
 
   getTeachers(): Observable<any> {
-    return this.http.get('/api/product/list/teacher');
-  }
-
-  getNewCourses(): Observable<any> {
-    return this.http.get('/api/product/list/newcourses');
+    return this.http.get('/api/home/list/new/teachers');
   }
 
   getListBlog(): Observable<any> {
-    return this.http.get('/api/product/list/blogs');
+    return this.http.get('/api/home/list/new/blogs');
   }
 }

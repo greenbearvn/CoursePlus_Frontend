@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/frontend/cart/cart.service';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 import { Router } from '@angular/router';
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   faCartShopping: any = faCartShopping;
+  faUser: any = faUser;
 
   cartList: any;
 
@@ -76,7 +78,6 @@ export class HeaderComponent {
   }
 
   navigateToHome() {
-    this.router.navigateByUrl('/home' );
+    this.router.navigateByUrl('/home');
   }
-
 }

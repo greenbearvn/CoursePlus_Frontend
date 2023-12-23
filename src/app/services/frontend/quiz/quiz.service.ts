@@ -13,8 +13,8 @@ export class QuizService {
     return this.http.get('/api/lession/test/detail/' + id);
   }
 
-  getAllData(): Observable<any> {
-    return this.http.get('/api/lession/quiz/1');
+  getAllData(id:number): Observable<any> {
+    return this.http.get('/api/lession/quiz/' + id);
   }
 
   getChoices(): Observable<any> {

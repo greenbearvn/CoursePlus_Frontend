@@ -17,6 +17,14 @@ export class CommentService {
     return this.http.get('/api/admin/comment/list/comments/course/' + id);
   }
 
+  listCourses(): Observable<any> {
+    return this.http.get('/api/admin/comment/list/courses');
+  }
+
+  listUsers(): Observable<any> {
+    return this.http.get('/api/admin/comment/list/users');
+  }
+
   detail(id: any): Observable<any> {
     return this.http.get('/api/admin/comment/detail/' + id);
   }

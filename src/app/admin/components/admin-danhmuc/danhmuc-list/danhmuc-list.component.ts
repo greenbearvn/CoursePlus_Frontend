@@ -4,6 +4,8 @@ import { CategoryService } from 'src/app/services/admin/category/category.servic
 import { DanhmucModalComponent } from '../danhmuc-modal/danhmuc-modal.component';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faEye } from '@fortawesome/free-regular-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-danhmuc-list',
@@ -29,7 +31,8 @@ export class DanhmucListComponent {
   p: number = 1;
 
   faPenToSquare: any = faPenToSquare;
-
+  faEye: any = faEye;
+  faTrash: any = faTrash;
 
   openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(DanhmucModalComponent, {
@@ -60,6 +63,12 @@ export class DanhmucListComponent {
     this.catSer.list().subscribe((data) => {
       this.list = data.data;
       console.log(this.list);
+    });
+  }
+
+  deleteItem(item: any) {
+    this.catSer.delete(item).subscribe((data) => {
+      this.getLists();
     });
   }
 }

@@ -6,6 +6,7 @@ import {
 } from '@angular/material/dialog';
 
 import { NguoidungService } from 'src/app/services/admin/nguoidung/nguoidung.service';
+import { TestedService } from 'src/app/services/admin/tested/tested.service';
 import { ToastService } from 'angular-toastify';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
@@ -32,6 +33,7 @@ export class AdminProfileListUsersComponent {
   constructor(
     public dialog: MatDialog,
     private nguoidungService: NguoidungService,
+    private testedService: TestedService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AdminProfileListUsersComponent>,
     private _toastService: ToastService
@@ -41,6 +43,7 @@ export class AdminProfileListUsersComponent {
   p: number = 1;
   user: any;
   type: any;
+  MaGiangVien: any;
 
   searchData: any;
 
@@ -50,8 +53,8 @@ export class AdminProfileListUsersComponent {
 
   ngOnInit() {
     this.getUserInSession();
+    this.MaGiangVien = this.data.MaGiangVien;
     this.getLists();
-    this.type = this.data.type;
   }
 
   getUserInSession() {
@@ -62,10 +65,17 @@ export class AdminProfileListUsersComponent {
   }
 
   getLists() {
-    this.nguoidungService.list().subscribe((data) => {
-      this.list = data.data;
-      console.log(this.list);
-    });
+    if (this.MaGiangVien > 0) {
+      this.testedService.listUser(this.MaGiangVien).subscribe((data) => {
+        this.list = data.data;
+        console.log(this.list);
+      });
+    } else {
+      this.nguoidungService.list().subscribe((data) => {
+        this.list = data.data;
+        console.log(this.list);
+      });
+    }
   }
   addUser(user: any) {
     this.user = user;

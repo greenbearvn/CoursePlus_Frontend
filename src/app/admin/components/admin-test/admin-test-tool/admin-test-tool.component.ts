@@ -7,9 +7,12 @@ import { ToastService } from 'angular-toastify';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ActivatedRoute } from '@angular/router';
+import { AdminTestVideoListComponent } from '../admin-test-video-list/admin-test-video-list.component';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-admin-test-tool',
@@ -39,13 +42,14 @@ export class AdminTestToolComponent {
   searchData: any = '';
   p: any = 1;
 
+  MaGiangVien: any;
+
   desData: any;
   question: any;
 
   test: any = {
     MaBaiKT: 0,
     TenBaiKT: '',
-    MoTaBaiKT: '',
     MaGiangVien: 0,
     MaVideo: 0,
     Questions: [],
@@ -61,6 +65,7 @@ export class AdminTestToolComponent {
   //// Fontawesome
   faPenToSquare: any = faPenToSquare;
   faTrash: any = faTrash;
+  faPlus: any = faPlus;
 
   // data res
   createRes: any;
@@ -68,6 +73,11 @@ export class AdminTestToolComponent {
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.id = Number(routeParams.get('id'));
+
+    this.MaGiangVien = Number(routeParams.get('MaGiangVien'));
+    if (this.MaGiangVien > 0) {
+      this.test.MaGiangVien = this.MaGiangVien;
+    }
 
     this.type = routeParams.get('type');
 
@@ -97,10 +107,20 @@ export class AdminTestToolComponent {
     });
   }
 
+  openListVideo(): void {
+    const dialogRef = this.dialog.open(AdminTestVideoListComponent, {
+      data: {},
+      maxHeight: '90vh',
+    });
+    dialogRef.afterClosed().subscribe((video) => {
+      this.test.MaVideo = video.MaVideo;
+    });
+  }
+
   getDetail() {
     this.testServices.detail(this.id).subscribe((data) => {
       this.test = data.data;
-      this.test.MoTaBaiKT = data.data.MoTaBaiKT;
+
       console.log(this.test);
     });
   }
@@ -118,10 +138,17 @@ export class AdminTestToolComponent {
   }
 
   getListVideos(): void {
-    this.testServices.listVideo().subscribe((data) => {
-      this.listVideos = data.data;
-      console.log(this.listVideos);
-    });
+    if (this.MaGiangVien > 0) {
+      this.testServices.listVideoPage(this.MaGiangVien).subscribe((data) => {
+        this.listVideos = data.data;
+        console.log(this.listVideos);
+      });
+    } else {
+      this.testServices.listVideoPage(this.MaGiangVien).subscribe((data) => {
+        this.listVideos = data.data;
+        console.log(this.listVideos);
+      });
+    }
   }
 
   getListTeachers(): void {
@@ -132,7 +159,7 @@ export class AdminTestToolComponent {
   }
 
   create() {
-    this.test.MoTaBaiKT = this.ckeditorData;
+ 
     console.log(this.test);
 
     this.testServices.create(this.test).subscribe((data) => {
@@ -145,7 +172,7 @@ export class AdminTestToolComponent {
   }
 
   update() {
-    this.test.MoTaBaiKT = this.ckeditorData;
+
     console.log(this.test);
 
     this.testServices.update(this.test).subscribe((data) => {

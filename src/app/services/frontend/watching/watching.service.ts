@@ -15,4 +15,8 @@ export class WatchingService {
   getQuestionOfVideo(mavideo: any): Observable<any> {
     return this.http.get('/api/watching/video/questions/' + mavideo);
   }
+
+  getAllTests(makhoahoc: any): Observable<any> {
+    return this.http.get('/api/watching/video/all/tests/' + makhoahoc);
+  }
 }

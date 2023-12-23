@@ -35,4 +35,8 @@ export class DetailService {
   getRecommendCourses(id: any): Observable<any> {
     return this.http.get('/api/product/detail/courses/recommend/' + id);
   }
+
+  checkBought(id:any): Observable<any> {
+    return this.http.get('/api/product/detail/check/bought/'+ id);
+  }
 }

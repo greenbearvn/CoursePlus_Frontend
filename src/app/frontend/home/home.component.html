@@ -7,10 +7,7 @@
   >
     <ul class="uk-slideshow-items rounded">
       <li>
-        <div
-          class="uk-position-cover"
-          uk-slideshow-parallax="scale: 1.2,1.2,1"
-        >
+        <div class="uk-position-cover" uk-slideshow-parallax="scale: 1.2,1.2,1">
           <img
             src="../../../assets/home/images/hero-1.jpg"
             class="object-cover"
@@ -27,30 +24,26 @@
               uk-slideshow-parallax="y: 100,0,0"
               class="lg:text-4xl text-2xl text-white font-semibold"
             >
-              Learn from the best
+              Học từ các chuyên gia
             </h1>
             <p
               uk-slideshow-parallax="y: 150,0,0"
               class="text-base text-white font-medium pb-4 lg:w-1/2"
             >
-              Choose from 130,000 online video courses with new additions
-              published every month
+              Với hơn 2.000.000 khóa học  uy tín hay ho trên toàn thế giới
             </p>
             <a
               uk-slideshow-parallax="y: 200,0,50"
               href="#"
               class="bg-opacity-90 bg-white py-2.5 rounded-md text-base text-center w-32"
             >
-              Get Started
+             Băt đầu
             </a>
           </div>
         </div>
       </li>
       <li>
-        <div
-          class="uk-position-cover"
-          uk-slideshow-parallax="scale: 1.2,1.2,1"
-        >
+        <div class="uk-position-cover" uk-slideshow-parallax="scale: 1.2,1.2,1">
           <img
             src="../../../assets/home/images/hero-2.jpg"
             class="object-cover"
@@ -93,7 +86,7 @@
   </div>
   <div class="container">
     <!--  course feature -->
-    <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
+    <!-- <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
       <h2 class="text-2xl font-semibold">Featured Classes</h2>
     </div>
     <div class="relative -mt-3" uk-slider="finite: true">
@@ -121,15 +114,14 @@
                 <div
                   class="font-semibold line-clamp-2 md:text-xl md:leading-relaxed"
                 >
-                  Learn How to Build Responsive Web Design Essentials
-                  HTML5 CSS3 and Bootstrap
+                  Learn How to Build Responsive Web Design Essentials HTML5 CSS3
+                  and Bootstrap
                 </div>
                 <div class="mt-2 md:block hidden">
                   <p class="line-clamp-2">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing
-                    elit, sed diam nonummy nibh euismod tincidunt ut
-                    laoreet dolore magna aliquam erat volutpat. Ut wisi
-                    enim ad minim veniam
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam
                   </p>
                 </div>
                 <div class="font-semibold mt-3">John Michael</div>
@@ -171,10 +163,9 @@
                 </div>
                 <div class="mt-2 md:block hidden">
                   <p class="line-clamp-2">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing
-                    elit, sed diam nonummy nibh euismod tincidunt ut
-                    laoreet dolore magna aliquam erat volutpat. Ut wisi
-                    enim ad minim veniam
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam
                   </p>
                 </div>
                 <div class="font-semibold mt-3">John Michael</div>
@@ -205,45 +196,36 @@
       >
         <i class="icon-feather-chevron-right"></i
       ></a>
-    </div>
+    </div> -->
     <!--  slider courses -->
     <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-      <h2 class="text-2xl font-semibold">Popular Classes</h2>
-      <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
+      <h2 class="text-2xl font-semibold">Khóa Học Mới Nhất</h2>
+      <a href="#" class="text-blue-500 sm:block hidden"> Xem tất cả </a>
     </div>
     <div class="mt-3">
-      <h4
-        class="py-3 border-b font-semibold text-grey-700 mx-1 mb-4"
-        hidden
-      >
+      <h4 class="py-3 border-b font-semibold text-grey-700 mx-1 mb-4" hidden>
         <!-- <ion-icon name="star"></ion-icon> -->
-        Featured today
+        Khóa Học Mới Nhất
       </h4>
       <!--  slider -->
       <div class="mt-3">
-        <h4
-          class="py-3 border-b font-semibold text-grey-700 mx-1 mb-4"
-          hidden
-        >
+        <h4 class="py-3 border-b font-semibold text-grey-700 mx-1 mb-4" hidden>
           <!-- <ion-icon name="star"></ion-icon>  -->
-          Featured today
+          Khóa Học Mới Nhất
         </h4>
         <div class="relative" uk-slider="finite: true">
           <div class="uk-slider-container px-1 py-3">
             <ul
               class="uk-slider-items uk-child-width-1-3@m uk-child-width-1-2@s uk-grid-small uk-grid"
             >
-              <li>
-                <a
-                [routerLink]="['/detail',1]"
-                  class="uk-link-reset"
-                  
-                >
+              <li *ngFor="let item of newCourses">
+                <a [routerLink]="['/detail', item.id]" class="uk-link-reset">
                   <div class="card uk-transition-toggle">
                     <div class="card-media h-40">
                       <div class="card-media-overly"></div>
                       <img
-                      src=".../../../assets/home/images/courses/img-1.jpg"
+                        src=".../../../assets/home/images/courses/img-1.jpg"
+                        [src]="item.AnhKhoaHoc"
                         alt=""
                         class=""
                       />
@@ -251,133 +233,21 @@
                     </div>
                     <div class="card-body p-4">
                       <div class="font-semibold line-clamp-2">
-                        Learn JavaScript and Express to become a
-                        professional JavaScript developer.
+                        {{ item.TenKhoaHoc }}
                       </div>
-                      <div
-                        class="flex space-x-2 items-center text-sm pt-3"
-                      >
-                        <div>13 hours</div>
-                        <div>·</div>
-                        <div>32 lectures</div>
+                      <div class="flex space-x-2 items-center text-sm pt-3">
+                        <div>{{ item.ThoiLuongKhoaHoc }}</div>
                       </div>
                       <div class="pt-1 flex items-center justify-between">
                         <div class="text-sm font-medium">
-                          John Michael
+                          {{ item.TenHoSo }}
                         </div>
-                        <div class="text-lg font-semibold">$14.99</div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/assets/courseplus/default/course-intro.html"
-                  class="uk-link-reset"
-                >
-                  <div class="card uk-transition-toggle">
-                    <div class="card-media h-40">
-                      <div class="card-media-overly"></div>
-                      <img
-                        
-                        src=".../../../assets/home/images/courses/img-2.jpg"
-                        alt=""
-                        class=""
-                      />
-                      <span class="icon-play"></span>
-                    </div>
-                    <div class="card-body p-4">
-                      <div class="font-semibold line-clamp-2">
-                        Learn Angular Fundamentals From beginning to
-                        advance
-                      </div>
-                      <div
-                        class="flex space-x-2 items-center text-sm pt-3"
-                      >
-                        <div>26 hours</div>
-                        <div>·</div>
-                        <div>26 lectures</div>
-                      </div>
-                      <div class="pt-1 flex items-center justify-between">
-                        <div class="text-sm font-medium">
-                          Stella Johnson
+                        <div class="text-lg font-semibold">
+                          <del>{{ item.GiaCu | currency : "VND" }}</del>
                         </div>
-                        <div class="text-lg font-semibold">$18.99</div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/assets/courseplus/default/course-intro.html"
-                  class="uk-link-reset"
-                >
-                  <div class="card uk-transition-toggle">
-                    <div class="card-media h-40">
-                      <div class="card-media-overly"></div>
-                      <img
-                        src="../../../assets/home/images/courses/img-3.jpg"
-                        alt=""
-                        class=""
-                      />
-                      <span class="icon-play"></span>
-                    </div>
-                    <div class="card-body p-4">
-                      <div class="font-semibold line-clamp-2">
-                        Responsive Web Design Essentials HTML5 CSS3
-                        Bootstrap
-                      </div>
-                      <div
-                        class="flex space-x-2 items-center text-sm pt-3"
-                      >
-                        <div>18 hours</div>
-                        <div>·</div>
-                        <div>42 lectures</div>
-                      </div>
-                      <div class="pt-1 flex items-center justify-between">
-                        <div class="text-sm font-medium">
-                          Monroe Parker
+                        <div class="text-lg font-semibold">
+                          {{ item.GiaMoi | currency : "VND" }}
                         </div>
-                        <div class="text-lg font-semibold">$11.99</div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/assets/courseplus/default/course-intro.html"
-                  class="uk-link-reset"
-                >
-                  <div class="card uk-transition-toggle">
-                    <div class="card-media h-40">
-                      <div class="card-media-overly"></div>
-                      <img
-                        src="../../../assets/home/images/courses/img-1.jpg"
-                        alt=""
-                        class=""
-                      />
-                      <span class="icon-play"></span>
-                    </div>
-                    <div class="card-body p-4">
-                      <div class="font-semibold line-clamp-2">
-                        Learn JavaScript and Express to become a
-                        professional JavaScript developer.
-                      </div>
-                      <div
-                        class="flex space-x-2 items-center text-sm pt-3"
-                      >
-                        <div>32 hours</div>
-                        <div>·</div>
-                        <div>lec 4</div>
-                      </div>
-                      <div class="pt-1 flex items-center justify-between">
-                        <div class="text-sm font-medium">
-                          Jesse Stevens
-                        </div>
-                        <div class="text-lg font-semibold">$29.99</div>
                       </div>
                     </div>
                   </div>
@@ -404,95 +274,23 @@
     </div>
     <!--  books  -->
     <div class="sm:my-4 my-3 flex items-end justify-between pt-3">
-      <h2 class="text-2xl font-semibold">Latest Books</h2>
-      <a href="#" class="text-blue-500 sm:block hidden"> See all </a>
+      <h2 class="text-2xl font-semibold">Giảng viên</h2>
+      <a href="#" class="text-blue-500 sm:block hidden">Xem tất cả</a>
     </div>
     <div class="relative" uk-slider="finite: true">
       <div class="uk-slider-container px-1 py-3">
         <ul
           class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-3@s uk-child-width-1-2 uk-grid-small uk-grid text-sm font-medium text-center"
         >
-          <li>
+          <li *ngFor="let item of teachers">
             <div class="card">
               <a href="/assets/courseplus/default/book-description.html">
                 <img
-                  src="../../../assets/home/images/book/book4.jpg"
-                  alt=""
+                  [src]="item.AnhDaiDien"
+                  [alt]="item.TenHoSo"
                   class="w-full h-52 object-cover"
                 />
-                <div class="p-3 truncate">HTML Breaker</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book5.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">CSS Master</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book1.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">Vue.js Basics</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book2.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">HTML5 & CSS3</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book3.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">Learn CSS</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book4.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">HTML Breaker</div>
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <a href="/assets/courseplus/default/book-description.html">
-                <img
-                  src="../../../assets/home/images/book/book5.jpg"
-                  alt=""
-                  class="w-full h-52 object-cover"
-                />
-                <div class="p-3 truncate">CSS Master</div>
+                <div class="p-3 truncate">{{ item.TenHoSo }}</div>
               </a>
             </div>
           </li>
@@ -522,32 +320,22 @@
       <h4
         class="py-3 px-5 border-b font-semibold text-grey-700 -mx-4 -mt-3 mb-4"
       >
-        Latest Episodes
+        Các bài viết mới
       </h4>
       <div class="relative -mx-1" uk-slider="finite: true">
         <div class="uk-slider-container md:px-1 px-2 py-3">
           <ul
             class="uk-slider-items uk-child-width-1-3@m uk-child-width-1-2 uk-grid-small uk-grid"
           >
-            <li>
+            <li *ngFor="let item of blogs">
               <a href="/assets/courseplus/default/episodes-watch.html">
                 <div
                   class="w-full md:h-40 h-28 overflow-hidden rounded-lg relative"
                 >
                   <img
-                    src="../../../assets/home/images/episodes/img-2.jpg"
-                    alt=""
+                    [src]="item.AnhMinhHoa"
+                    [alt]="item.TenBaiViet"
                     class="w-full h-full absolute inset-0 object-cover"
-                  />
-                  <span
-                    class="absolute bottom-2 right-2 px-2 py-1 text-xs font-semibold bg-black bg-opacity-50 text-white rounded"
-                  >
-                    12:21</span
-                  >
-                  <img
-                    src="../../../assets/home/images/icon-play.svg"
-                    class="w-12 h-12 uk-position-center"
-                    alt=""
                   />
                 </div>
               </a>
@@ -556,126 +344,16 @@
                   href="/assets/courseplus/default/episodes-watch.html"
                   class="font-semibold line-clamp-2"
                 >
-                  The PHP Singleton class
+                  {{ item.TenBaiViet }}
                 </a>
-                <p class="text-sm pt-1">
-                  By <a href="#"> Stella Johnson </a>
-                </p>
-              </div>
-            </li>
-            <li>
-              <a href="/assets/courseplus/default/episodes-watch.html">
-                <div
-                  class="w-full md:h-40 h-28 overflow-hidden rounded-lg relative"
-                >
-                  <img
-                    src="../../../assets/home/images/episodes/img-4.jpg"
-                    alt=""
-                    class="w-full h-full absolute inset-0 object-cover"
-                  />
-                  <span
-                    class="absolute bottom-2 right-2 px-2 py-1 text-xs font-semibold bg-black bg-opacity-50 text-white rounded"
-                  >
-                    12:21</span
-                  >
-                  <img
-                    src="../../../assets/home/images/icon-play.svg"
-                    class="w-12 h-12 uk-position-center"
-                    alt=""
-                  />
-                </div>
-              </a>
-              <div class="pt-3">
-                <a
-                  href="/assets/courseplus/default/episodes-watch.html"
-                  class="font-semibold line-clamp-2"
-                >
-                  Larafel $ fliepond
-                </a>
-                <p
-                  href="/assets/courseplus/default/episodes-watch.html"
-                  class="text-sm pt-1"
-                >
-                  By <a href="#"> Jesse Stevens </a>
-                </p>
-              </div>
-            </li>
-            <li>
-              <a href="/assets/courseplus/default/episodes-watch.html">
-                <div
-                  class="w-full md:h-40 h-28 overflow-hidden rounded-lg relative"
-                >
-                  <img
-                    src="../../../assets/home/images/episodes/img-1.jpg"
-                    alt=""
-                    class="w-full h-full absolute inset-0 object-cover"
-                  />
-                  <span
-                    class="absolute bottom-2 right-2 px-2 py-1 text-xs font-semibold bg-black bg-opacity-50 text-white rounded"
-                  >
-                    12:21</span
-                  >
-                  <img
-                    src="../../../assets/home/images/icon-play.svg"
-                    class="w-12 h-12 uk-position-center"
-                    alt=""
-                  />
-                </div>
-              </a>
-              <div class="pt-3">
-                <a
-                  href="/assets/courseplus/default/episodes-watch.html"
-                  class="font-semibold line-clamp-2"
-                >
-                  Creating a Laravel Package
-                </a>
-                <p class="text-sm pt-1">
-                  By <a href="#"> John Michael </a>
-                </p>
-              </div>
-            </li>
-            <li>
-              <a href="/assets/courseplus/default/episodes-watch.html">
-                <div
-                  class="w-full md:h-40 h-28 overflow-hidden rounded-lg relative"
-                >
-                  <img
-                    src="../../../assets/home/images/episodes/img-3.jpg"
-                    alt=""
-                    class="w-full h-full absolute inset-0 object-cover"
-                  />
-                  <span
-                    class="absolute bottom-2 right-2 px-2 py-1 text-xs font-semibold bg-black bg-opacity-50 text-white rounded"
-                  >
-                    12:21</span
-                  >
-                  <img
-                    src="../../../assets/home/images/icon-play.svg"
-                    class="w-12 h-12 uk-position-center"
-                    alt=""
-                  />
-                </div>
-              </a>
-              <div class="pt-3">
-                <a
-                  href="/assets/courseplus/default/episodes-watch.html"
-                  class="font-semibold line-clamp-2"
-                >
-                  Creating sticky in HTML
-                </a>
-                <p class="text-sm pt-1">
-                  By <a href="#"> Monroe Parker </a>
-                </p>
+                <p class="text-sm pt-1">Bởi <a href="#"> {{item.TenNguoiDung}} </a></p>
               </div>
             </li>
           </ul>
-          <!-- <a class="absolute bg-white top-16 flex items-center justify-center p-2 -left-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="previous">  <ion-icon name="chevron-back-outline"></ion-icon> </a>
-                      <a class="absolute bg-white top-16 flex items-center justify-center p-2 -right-4 rounded-full shadow-md text-xl w-9 z-10 dark:bg-gray-800 dark:text-white" href="#" uk-slider-item="next"> <ion-icon name="chevron-forward-outline"></ion-icon></a> -->
         </div>
       </div>
     </div>
+    <!-- footer -->
+    <app-footer></app-footer>
   </div>
-  <!-- footer -->
-  <!-- <app-footer></app-footer>
-  <router-outlet></router-outlet> -->
 </div>

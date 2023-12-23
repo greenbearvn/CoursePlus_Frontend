@@ -18,20 +18,8 @@
               />
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-12 col-sm-3 col-form-label text-sm-right"
-              >Mô tả bài kiểm tra:</label
-            >
-            <div class="col-12 col-sm-8 col-lg-6">
-              <ckeditor
-                [(ngModel)]="test.MoTaBaiKT"
-                [editor]="Editor"
-                (change)="onChange($event)"
-              >
-              </ckeditor>
-            </div>
-          </div>
-          <div class="form-group row">
+          
+          <div class="form-group row" *ngIf="MaGiangVien  <= 0">
             <label class="col-12 col-sm-3 col-form-label text-sm-right"
               >Giảng viên:</label
             >
@@ -48,6 +36,7 @@
                 </option>
               </select>
             </div>
+            
           </div>
           <div class="form-group row">
             <label class="col-12 col-sm-3 col-form-label text-sm-right"
@@ -66,6 +55,9 @@
                 </option>
               </select>
             </div>
+            <button class="btn btn-success" (click)="openListVideo()">
+              <fa-icon [icon]="faPlus"></fa-icon>
+            </button>
           </div>
         </form>
       </div>
@@ -129,7 +121,7 @@
                         </button>
                         <button
                           class="btn btn-secondary m-1"
-                          (click)="deleteQuiz(i,item)"
+                          (click)="deleteQuiz(i, item)"
                         >
                           <fa-icon [icon]="faTrash"></fa-icon>
                         </button>
@@ -146,14 +138,14 @@
         </div>
       </div>
 
-      <div class="form-group row text-right" *ngIf="type ==='create'">
+      <div class="form-group row text-right" *ngIf="type === 'create'">
         <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
           <button class="btn btn-space btn-success" (click)="submit('create')">
             Tạo bài kiểm tra
           </button>
         </div>
       </div>
-      <div class="form-group row text-right" *ngIf="type ==='update'">
+      <div class="form-group row text-right" *ngIf="type === 'update'">
         <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
           <button class="btn btn-space btn-success" (click)="submit('update')">
             Cập nhật bài kiểm tra

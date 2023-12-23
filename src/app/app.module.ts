@@ -89,6 +89,10 @@ import { AdminLevelModalComponent } from './admin/components/admin-level/admin-l
 import { AdminCommentComponent } from './admin/components/admin-comment/admin-comment.component';
 import { AdminCommentListComponent } from './admin/components/admin-comment/admin-comment-list/admin-comment-list.component';
 import { AdminCommentModalComponent } from './admin/components/admin-comment/admin-comment-modal/admin-comment-modal.component';
+import { AdminTestVideoListComponent } from './admin/components/admin-test/admin-test-video-list/admin-test-video-list.component';
+import { AdminTestedComponent } from './admin/components/admin-tested/admin-tested.component';
+import { AdminTestedListComponent } from './admin/components/admin-tested/admin-tested-list/admin-tested-list.component';
+import { AdminTestedModalComponent } from './admin/components/admin-tested/admin-tested-modal/admin-tested-modal.component';
 
 @NgModule({
   declarations: [
@@ -172,6 +176,10 @@ import { AdminCommentModalComponent } from './admin/components/admin-comment/adm
     AdminCommentComponent,
     AdminCommentListComponent,
     AdminCommentModalComponent,
+    AdminTestVideoListComponent,
+    AdminTestedComponent,
+    AdminTestedListComponent,
+    AdminTestedModalComponent,
   ],
   imports: [
     BrowserModule,

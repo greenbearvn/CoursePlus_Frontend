@@ -52,16 +52,17 @@ export class AdminCommentListComponent {
       data: {
         type: type,
         id: id,
+        makhoahoc: this.makhoahoc,
         // token: token,
       },
       maxHeight: '90vh',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getLists();
+    });
   }
 
   getLists() {
-
-   
     if (this.makhoahoc == undefined) {
       this.commentService.list().subscribe((data) => {
         this.list = data.data;

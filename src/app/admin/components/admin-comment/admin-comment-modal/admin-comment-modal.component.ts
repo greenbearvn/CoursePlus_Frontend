@@ -39,6 +39,11 @@ export class AdminCommentModalComponent {
   type: any;
   id: any;
 
+  makhoahoc: any;
+
+  ///
+  courses: any;
+  users: any;
 
   nguoidung: nguoidung = {
     MaNguoiDung: 0,
@@ -48,19 +53,113 @@ export class AdminCommentModalComponent {
     Quyen: '',
   };
 
-  comment:comment = {
-    MaBinhLuan:0,
-    MaKhoaHoc:0,
-    MaNguoiDung:0,
-    NoiDung:'',
-    ThoiGian:''
-  }
+  comment: comment = {
+    MaBinhLuan: 0,
+    MaKhoaHoc: 0,
+    MaNguoiDung: 0,
+    NoiDung: '',
+    ThoiGian: '',
+  };
 
   ckeditorData: any;
   Editor = ClassicEditor;
 
-
   statusCreate: any;
   statusEdit: any;
 
+  ngOnInit() {
+    this.type = this.data.type;
+    this.id = this.data.id;
+    this.makhoahoc = this.data.makhoahoc;
+    this.getDataForm();
+    if (this.makhoahoc == undefined) {
+      this.getCourses();
+    }
+    this.getUsers();
+  }
+
+  getDataForm() {
+    if (this.type == 'edit') {
+      this.getDetail();
+    }
+  }
+
+  getDetail() {
+    this.commentService.detail(this.id).subscribe((data) => {
+      this.comment = data.data;
+      console.log(this.comment);
+    });
+  }
+
+  getCourses() {
+    this.commentService.listCourses().subscribe((data) => {
+      this.courses = data.data;
+      console.log(this.courses);
+    });
+  }
+
+  getUsers() {
+    this.commentService.listUsers().subscribe((data) => {
+      this.users = data.data;
+      console.log(this.users);
+    });
+  }
+
+  submit(type: string) {
+    if (type === 'create') {
+      this.create();
+    } else {
+      this.update();
+    }
+  }
+
+  create() {
+    if (this.makhoahoc !== undefined) {
+      this.comment.MaKhoaHoc = this.makhoahoc;
+    }
+    this.commentService.create(this.comment).subscribe((data) => {
+      this.statusCreate = data.data;
+      if (this.statusCreate == true) {
+        this._toastService.info('Đã thêm  thành công');
+      } else {
+        this._toastService.warn('Đã thêm không thành công');
+      }
+    });
+  }
+
+  update() {
+    console.log(this.comment);
+    this.commentService.update(this.comment).subscribe((data) => {
+      this.statusEdit = data.data;
+
+      if (this.statusEdit == true) {
+        this._toastService.info('Đã cập nhật thành công!!!');
+      }
+    });
+  }
+
+  public onChange({ editor }: ChangeEvent) {
+    this.ckeditorData = editor.data.get();
+    console.log(this.ckeditorData);
+  }
+
+  openDialog(type: any): void {
+    const dialogRef = this.dialog.open(AdminProfileListUsersComponent, {
+      data: {
+        type: type,
+        // id: id,
+        // token: token,
+      },
+      maxHeight: '90vh',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.nguoidung = result;
+      this.comment.MaNguoiDung = this.nguoidung.MaNguoiDung;
+      console.log(this.nguoidung);
+    });
+  }
+
+  closeModal(): void {
+    this.dialogRef.close();
+  }
 }

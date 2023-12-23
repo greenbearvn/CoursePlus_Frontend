@@ -21,16 +21,18 @@ export class WatchingComponent {
     private detailService: DetailService,
     private watchingService: WatchingService
   ) {}
-  makhoahoc:any;
+  makhoahoc: any;
 
   detail: any;
   lessions: any;
   videos: any;
-  teacher:any;
+  teacher: any;
 
   detailVideo: any;
 
   questions: any;
+
+  listTests: any;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
@@ -56,7 +58,9 @@ export class WatchingComponent {
       this.videos = data.data;
     });
 
-    this.getTeacher()
+    this.getTeacher();
+
+    this.getAllTests();
   }
 
   showVideo(mavideo: number) {
@@ -82,6 +86,13 @@ export class WatchingComponent {
     this.detailService.getTeachersOfCour(this.makhoahoc).subscribe((data) => {
       this.teacher = data.data;
       console.log(this.teacher);
+    });
+  }
+
+  getAllTests() {
+    this.watchingService.getAllTests(this.makhoahoc).subscribe((data) => {
+      this.listTests = data.data;
+      console.log(this.listTests);
     });
   }
 }

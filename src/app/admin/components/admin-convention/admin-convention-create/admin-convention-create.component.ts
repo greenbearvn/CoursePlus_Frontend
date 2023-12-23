@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { ConventionService } from 'src/app/services/admin/convention/convention.service';
 import { convention } from 'src/app/Models/admin/convention';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-convention-create',
@@ -39,11 +40,16 @@ export class AdminConventionCreateComponent {
 
   createData: any;
   createUserConData: any;
+  updateStatus: any;
 
-  convention: convention = {
+  convention: any = {
     MaHoiThoai: 0,
     TenHoiThoai: '',
+    userconventions: '',
   };
+
+  //
+  faTrash: any = faTrash;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
@@ -54,10 +60,16 @@ export class AdminConventionCreateComponent {
       this.id = routeParams.get('id');
       // this.getDetail(this.id);
       this.getListUsers();
+      this.getDetail();
+      this.getListUsers();
     }
-    this.getListUsers();
-    // this.getListUsers();
-    // this.getListDetailItems();
+  }
+
+  getDetail() {
+    this.conventionService.detail(this.id).subscribe((data) => {
+      this.convention = data.data;
+      console.log(this.convention);
+    });
   }
 
   getListUsers() {
@@ -75,21 +87,44 @@ export class AdminConventionCreateComponent {
     if (this.statusForm === 'create') {
       this.create();
     } else {
+      this.update();
     }
   }
 
   create() {
+    this.convention.userconventions = this.lists;
     this.conventionService.create(this.convention).subscribe((data) => {
       this.createData = data.data;
-      if (this.createData > 0) {
-        this.conventionService
-          .createUserConvention(this.lists)
-          .subscribe((data) => {
-            this.createUserConData = data.status;
-            if (this.createUserConData === true) {
-              this._toastService.info('Đã thêm đơn hàng thành công');
-            }
-          });
+      if (this.createData == true) {
+        this._toastService.info('Thêm thành công!!!');
+      }
+    });
+  }
+
+  update() {
+    if (this.lists.length > 0) {
+      this.convention.userconventions = this.lists;
+      this.conventionService.update(this.convention).subscribe((data) => {
+        this.updateStatus = data.data;
+        if (this.updateStatus == true) {
+          this._toastService.info('Cập nhật thành công!!!');
+        }
+      });
+    } else {
+      this.conventionService.create(this.convention).subscribe((data) => {
+        this.updateStatus = data.data;
+        if (this.updateStatus == true) {
+          this._toastService.info('Cập nhật thành công!!!');
+        }
+      });
+    }
+  }
+
+  deleteItems(item: any) {
+    this.conventionService.delete(item).subscribe((data) => {
+      this.updateStatus = data.data;
+      if (this.updateStatus == true) {
+        this._toastService.info('Cập nhật thành công!!!');
       }
     });
   }

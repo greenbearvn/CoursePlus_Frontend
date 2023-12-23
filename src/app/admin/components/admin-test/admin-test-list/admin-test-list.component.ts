@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastService } from 'angular-toastify';
 import { TestService } from 'src/app/services/admin/test/test.service';
 import { test } from 'src/app/Models/admin/test';
+import { ActivatedRoute } from '@angular/router';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -26,12 +27,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class AdminTestListComponent {
   constructor(
     private _toastService: ToastService,
-    private testService: TestService
+    private testService: TestService,
+    private route: ActivatedRoute
   ) {}
 
   lists: any;
   p: number = 1;
   searchData: any = '';
+
+  MaGiangVien: any;
 
   //font awesome
   faPenToSquare: any = faPenToSquare;
@@ -40,6 +44,9 @@ export class AdminTestListComponent {
   faPlus: any = faPlus;
 
   ngOnInit() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.MaGiangVien = Number(routeParams.get('id'));
+
     this.getUserInSession();
     this.getLists();
   }
@@ -52,7 +59,7 @@ export class AdminTestListComponent {
   }
 
   getLists() {
-    this.testService.list().subscribe((data) => {
+    this.testService.list(this.MaGiangVien).subscribe((data) => {
       this.lists = data.data;
       console.log(this.lists);
     });
@@ -61,7 +68,7 @@ export class AdminTestListComponent {
   deleteItem(test: test) {
     this.testService.delete(test).subscribe((data) => {
       this.lists = data.data;
-      this._toastService.info('Da Xoa Thanh Cong');
+      this._toastService.info('Đã xóa thành công');
       this.getLists();
     });
   }

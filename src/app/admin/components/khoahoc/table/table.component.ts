@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateCourseComponent } from '../create/create.component';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 import { KhoaHoc } from 'src/app/Models/khoahoc';
-  
+import { ActivatedRoute } from '@angular/router';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -32,7 +32,8 @@ export class TableCourseComponent {
     public dialog: MatDialog,
     private _toastService: ToastService,
     private khoahocService: KhoahocService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private route: ActivatedRoute
   ) {}
 
   lists: any;
@@ -42,6 +43,7 @@ export class TableCourseComponent {
   token: any;
 
   searchData: any = '';
+  MaNguoiDung: any;
 
   khoahoc: KhoaHoc = {
     id: 0,
@@ -94,12 +96,27 @@ export class TableCourseComponent {
   faPlus: any = faPlus;
 
   ngOnInit() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.MaNguoiDung = Number(routeParams.get('id'));
+    console.log(this.MaNguoiDung);
+    if (this.MaNguoiDung > 0) {
+      this.getCourseOfUser();
+    }
     this.getUserInSession();
   }
   getUserInSession() {
     this.khoahocService.getUser().subscribe((data) => {
       this.token = data.data.Token;
-      this.getLists();
+      if (this.MaNguoiDung == 0) {
+        this.getLists();
+      }
+    });
+  }
+
+  getCourseOfUser() {
+    this.khoahocService.listCourse(this.MaNguoiDung).subscribe((data) => {
+      this.lists = data.data;
+      console.log(this.lists);
     });
   }
 
@@ -116,12 +133,17 @@ export class TableCourseComponent {
         type: type,
         id: id,
         token: token,
+        MaNguoiDung:this.MaNguoiDung,
       },
       maxHeight: '90vh',
       panelClass: 'my-outlined-dialog',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getLists();
+      if (this.MaNguoiDung > 0) {
+        this.getCourseOfUser();
+      } else {
+        this.getLists();
+      }
     });
   }
 
@@ -161,14 +183,14 @@ export class TableCourseComponent {
       if (existLDT.length !== 0) {
         console.log('da ton tai');
       } else {
-        this.Tongtien= Number(this.Tongtien) + Number(cartItem.GiaMoi);
+        this.Tongtien = Number(this.Tongtien) + Number(cartItem.GiaMoi);
         this.listItems.push(cartItem);
       }
     } else {
       if (result.length !== 0) {
         console.log('da ton tai');
       } else {
-        this.Tongtien= Number(this.Tongtien) + Number(cartItem.GiaMoi);
+        this.Tongtien = Number(this.Tongtien) + Number(cartItem.GiaMoi);
         this.listItems.push(cartItem);
       }
     }

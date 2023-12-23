@@ -27,16 +27,15 @@
             <span
               class="avg bg-red-500 mr-2 px-2 rounded text-white font-semiold"
             >
-              {{ detail.GiamGia }}
+              {{ detail.GiamGia }} %
             </span>
           </li>
 
           <li>
             <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
 
-            {{ detail.GiaMoi | currency : "VND" }} 
+            {{ detail.GiaMoi | currency : "VND" }}
           </li>
-          
         </ul>
         <ul class="lg:flex items-center text-gray-200">
           <li>
@@ -49,7 +48,7 @@
             </a>
           </li>
           <li><span class="lg:block hidden mx-3 text-2xl">·</span></li>
-          <li>{{ detail.ThoiGian| date : "dd/MM/yyyy"}}</li>
+          <li>{{ detail.ThoiGian | date : "dd/MM/yyyy" }}</li>
         </ul>
       </div>
       <img
@@ -169,10 +168,12 @@
                     class="hover:bg-gray-200 p-2 flex rounded"
                     *ngFor="let video of videos"
                   >
-                    <!-- <ion-icon name="play-circle" class="text-2xl mr-2"></ion-icon>  -->
-
-                    <div *ngIf="video.MaBaiHoc === lession.MaBaiHoc">
+                    <div
+                      *ngIf="video.MaBaiHoc === lession.MaBaiHoc"
+                      (click)="checkBought(detail.id, video.MaVideo)"
+                    >
                       {{ video.TenVideo }}
+
                       <span class="text-sm ml-auto">
                         {{ video.ThoiLuongVideo }}
                       </span>
@@ -301,14 +302,13 @@
               </div>
             </div>
           </div>
-          
 
           <a
-            class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white "
+            class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white"
             (click)="addCart(detail)"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           >
-            <div class="" style="color: #fff;">Mua Ngay</div>
+            <div class="" style="color: #fff">Mua Ngay</div>
           </a>
         </div>
         <div class="tube-card p-5">

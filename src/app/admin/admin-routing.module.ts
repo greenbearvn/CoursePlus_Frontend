@@ -41,6 +41,13 @@ import { AdminLevelListComponent } from './components/admin-level/admin-level-li
 import { AdminCommentComponent } from './components/admin-comment/admin-comment.component';
 import { AdminCommentListComponent } from './components/admin-comment/admin-comment-list/admin-comment-list.component';
 
+import { AdminDanhmucDetailComponent } from './components/admin-danhmuc-detail/admin-danhmuc-detail.component';
+import { AdminDanhmucDetailListComponent } from './components/admin-danhmuc-detail/admin-danhmuc-detail-list/admin-danhmuc-detail-list.component';
+
+import { AdminTestedComponent } from './components/admin-tested/admin-tested.component';
+import { AdminTestedListComponent } from './components/admin-tested/admin-tested-list/admin-tested-list.component';
+
+
 const routes: Routes = [
   {
     path: 'admin',
@@ -56,6 +63,10 @@ const routes: Routes = [
           },
           {
             path: 'list',
+            component: TableCourseComponent,
+          },
+          {
+            path: 'list/courses/user/:id',
             component: TableCourseComponent,
           },
           {
@@ -92,7 +103,6 @@ const routes: Routes = [
           },
         ],
       },
-
       {
         path: 'baihoc',
         component: BaihocComponent,
@@ -163,6 +173,20 @@ const routes: Routes = [
             path: 'tools/:type/:id',
             component: AdminTestToolComponent,
           },
+
+          /// manage 
+          {
+            path: 'manage/list/teacher/:id',
+            component: AdminTestListComponent,
+          },
+          {
+            path: 'manage/tools/:type/:MaGiangVien',
+            component: AdminTestToolComponent,
+          },
+          {
+            path: 'manage/tools/:type/:MaGiangVien/:id',
+            component: AdminTestToolComponent,
+          },
         ],
       },
       {
@@ -202,6 +226,20 @@ const routes: Routes = [
           {
             path: 'list',
             component: AdminCommentListComponent,
+          },
+        ],
+      },
+      {
+        path: 'tested',
+        component: AdminTestedComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminTestedListComponent,
+          },
+          {
+            path: 'list/teacher/:id',
+            component: AdminTestedListComponent,
           },
         ],
       },

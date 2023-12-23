@@ -10,8 +10,8 @@ import { choice } from 'src/app/Models/admin/choice';
 export class TestService {
   constructor(private http: HttpClient) {}
 
-  list(): Observable<any> {
-    return this.http.get('/api/admin/test/list');
+  list(id:number): Observable<any> {
+    return this.http.get('/api/admin/test/list/'+id);
   }
   listTeachers(): Observable<any> {
     return this.http.get('/api/admin/test/list/teachers');
@@ -50,5 +50,9 @@ export class TestService {
 
   deleteQuestion(question: any): Observable<any> {
     return this.http.post('/api/admin/test/delete/question', question);
+  }
+
+  listVideoPage(id: number): Observable<any> {
+    return this.http.get('/api/admin/test/list/videos/teacher/' + id);
   }
 }

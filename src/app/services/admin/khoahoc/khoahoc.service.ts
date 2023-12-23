@@ -72,10 +72,8 @@ export class KhoahocService {
     return this.http.post('/api/admin/khoahoc/update', khoahoc, { headers });
   }
 
-  // detail(id: any, token: string): Observable<any> {
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Bearer ${token}`,
-  //   });
-  //   return this.http.get('/api/admin/khoahoc/detail/' + id, { headers });
-  // }
+  listCourse(MaNguoiDung: any): Observable<any> {
+    
+    return this.http.get('/api/admin/usmanage//list/courses/user/'+  MaNguoiDung);
+  }
 }

@@ -76,7 +76,7 @@
                     <fa-icon [icon]="faPlus"></fa-icon>
                   </button> -->
                 </td>
-                <td *ngIf="videos">
+                <td *ngIf="item.videos.length > 0 ">
                   <thead>
                     <tr>
                      
@@ -88,21 +88,22 @@
                   <tbody>
                     <tr
                       *ngFor="
-                        let video of videos
+                        let video of item.videos
                           | search : searchData
-                          | paginate : { itemsPerPage: 10, currentPage: p };
+                          | paginate : { itemsPerPage: 2, currentPage: p };
                         let i = index
                       "
                     >
-                      <td *ngIf="video.MaBaiHoc === item.MaBaiHoc">
+                      <td >
                         {{ video.TenVideo }}
                       </td>
-                      <td *ngIf="video.MaBaiHoc === item.MaBaiHoc">
+                      <td>
                         {{ video.ThoiLuongVideo }}
                       </td>
                       <td
                         class="d-flex"
-                        *ngIf="video.MaBaiHoc === item.MaBaiHoc"
+                       
+                        
                       >
                         <button
                           class="btn btn-primary m-1"
@@ -122,6 +123,7 @@
                         </button>
                       </td>
                     </tr>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                   </tbody>
                 </td>
 
@@ -134,7 +136,7 @@
                           mat-raised-button
                           (click)="openVideoModal('create', 0, item.MaBaiHoc)"
                         >
-                          <fa-icon [icon]="faPenToSquare"></fa-icon>
+                          <fa-icon [icon]="faPlus"></fa-icon>
                         </button>
                       </td>
                     </tr>

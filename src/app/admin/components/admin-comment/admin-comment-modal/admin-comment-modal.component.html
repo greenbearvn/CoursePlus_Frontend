@@ -1,1 +1,88 @@
-<p>admin-comment-modal works!</p>
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <h5 class="card-header">Bài viết</h5>
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div
+            class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2"
+            *ngIf="makhoahoc == undefined"
+          >
+            <label for="validationCustom04">Khóa học</label>
+            <select class="form-control" [(ngModel)]="comment.MaKhoaHoc">
+              <option *ngFor="let item of courses" [value]="item.id">
+                {{ item.TenKhoaHoc }}
+              </option>
+            </select>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+            <label for="validationCustom04">Người Dùng</label>
+            <div class="d-flex">
+              <select class="form-control" [(ngModel)]="comment.MaNguoiDung">
+                <option *ngFor="let item of users" [value]="item.MaNguoiDung">
+                  {{ item.TenNguoiDung }}
+                </option>
+              </select>
+              <button
+                class="btn btn-success ml-5"
+                (click)="openDialog('create')"
+              >
+                Danh sách
+              </button>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustom01">Nội dung </label>
+            <ckeditor
+              [(ngModel)]="comment.NoiDung"
+              [editor]="Editor"
+              (change)="onChange($event)"
+            >
+            </ckeditor>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <label for="validationCustom01">Ngày đăng</label>
+          <input
+            type="date"
+            class="form-control"
+            id="validationCustom01"
+            name=""
+            required
+            [(ngModel)]="comment.ThoiGian"
+          />
+        </div>
+
+        <div class="form-row">
+          <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+            style="display: flex; justify-content: space-between"
+          >
+            <button
+              *ngIf="type === 'create'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="submit('create')"
+            >
+              Tạo
+            </button>
+            <button
+              *ngIf="type === 'edit'"
+              class="btn btn-primary"
+              type="submit"
+              (click)="submit('edit')"
+            >
+              Cập nhật
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

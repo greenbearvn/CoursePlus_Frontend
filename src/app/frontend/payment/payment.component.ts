@@ -15,51 +15,36 @@ export class PaymentComponent {
   constructor(private paymentService: PaymentService) {}
 
   data: any;
-  vnpayUrl:any;
-  listBanks:any;
-  bankCode:any;
-  content:any = "Thanh toán khóa học";
+  vnpayUrl: any;
+  listBanks: any;
+  bankCode: any;
+  content: any = 'Thanh toán khóa học';
 
   ngOnInit() {
     this.getListBanks();
   }
 
-
-  SaveData() {
-    this.paymentService.saveToDB().subscribe((data) => {
-      this.data = data.data;
-      console.log(this.data);
-    });
-  }
-
   AddTransaction() {
-
-    if(this.bankCode){
-      this.paymentService.transation(this.bankCode,this.content).subscribe((data) => {
-        this.vnpayUrl = data.data;
-        console.log(this.vnpayUrl)
-        window.location.href = this.vnpayUrl;
-      });
+    if (this.bankCode) {
+      this.paymentService
+        .transation(this.bankCode, this.content)
+        .subscribe((data) => {
+          this.vnpayUrl = data.data;
+          console.log(this.vnpayUrl);
+          window.location.href = this.vnpayUrl;
+        });
     }
-    
   }
 
-  AddCollection(){
-    this.paymentService.addCollection().subscribe((data) => {
-      this.data = data.data;
-      console.log(this.data);
-    });
-  }
-
-  getListBanks(){
+  getListBanks() {
     this.paymentService.listBanks().subscribe((data) => {
       this.listBanks = data.data;
       console.log(this.listBanks);
     });
   }
 
-  getBankId(bank:any){
+  getBankId(bank: any) {
     this.bankCode = bank.code;
-    console.log(this.bankCode)
+    console.log(this.bankCode);
   }
 }

@@ -9,6 +9,8 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 import { KhoaHoc } from 'src/app/Models/khoahoc';
+import { ManagecourseService } from 'src/app/services/frontend/managecourse/managecourse.service';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-course-create',
@@ -29,20 +31,23 @@ import { KhoaHoc } from 'src/app/Models/khoahoc';
 export class CreateCourseComponent implements OnInit {
   type: any;
   id: any;
-  token:any
+  token: any;
   detailCourse: any;
   levels: any;
   teachers: any;
   detailCates: any;
   ckeditorData: any;
+
+  MaHoSo: any;
   createStatus: any;
+  updateStatus: any;
+
   selectedFile: File | null = null;
   imageUrl: string | null = null;
   Editor = ClassicEditor;
-  alertStatus: any;
 
   khoahoc: KhoaHoc = {
-    id: 0,  
+    id: 0,
     TenKhoaHoc: '',
     AnhKhoaHoc: '',
     MoTaNgan: '',
@@ -62,13 +67,16 @@ export class CreateCourseComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateCourseComponent>,
     private khService: KhoahocService,
     public dialog: MatDialog,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private manageCourseSer: ManagecourseService
   ) {}
 
   ngOnInit() {
     this.type = this.data.type;
     this.id = this.data.id;
     this.token = this.data.token;
+    this.MaHoSo = this.data.MaNguoiDung;
+    this.khoahoc.MaGiangVien = this.MaHoSo;
     this.getDataForm();
   }
 
@@ -86,70 +94,138 @@ export class CreateCourseComponent implements OnInit {
   }
 
   getDeTailCourse() {
-    console.log(this.id)
-    this.khService.detail(this.id,this.token).subscribe((data) => {
-      this.khoahoc = data.data;
-      console.log(this.khoahoc);
-    });
+    if (this.MaHoSo > 0) {
+      this.manageCourseSer.detail(this.id).subscribe((data) => {
+        this.khoahoc = data.data;
+        console.log(this.khoahoc);
+      });
+    } else {
+      this.khService.detail(this.id, this.token).subscribe((data) => {
+        this.khoahoc = data.data;
+        console.log(this.khoahoc);
+      });
+    }
   }
 
   getLevels() {
-    this.khService.listLevels(this.token).subscribe((data) => {
-      this.levels = data.data;
-      console.log(this.levels);
-    });
+    if (this.MaHoSo > 0) {
+      this.manageCourseSer.listLevels().subscribe((data) => {
+        this.levels = data.data;
+        console.log(this.levels);
+      });
+    } else {
+      this.khService.listLevels(this.token).subscribe((data) => {
+        this.levels = data.data;
+        console.log(this.levels);
+      });
+    }
   }
 
   getTeachers() {
-    this.khService.listTeachers(this.token).subscribe((data) => {
-      this.teachers = data.data;
-      console.log(this.teachers);
-    });
+    if (this.MaHoSo > 0) {
+      this.manageCourseSer.listTeachers().subscribe((data) => {
+        this.teachers = data.data;
+        console.log(this.teachers);
+      });
+    } else {
+      this.khService.listTeachers(this.token).subscribe((data) => {
+        this.teachers = data.data;
+        console.log(this.teachers);
+      });
+    }
   }
 
   getDetailCate() {
-    this.khService.listDetailCate(this.token).subscribe((data) => {
-      this.detailCates = data.data;
-      console.log(this.detailCates);
-    });
+    if (this.MaHoSo > 0) {
+      this.manageCourseSer.listDetailCate().subscribe((data) => {
+        this.detailCates = data.data;
+        console.log(this.detailCates);
+      });
+    } else {
+      this.khService.listDetailCate(this.token).subscribe((data) => {
+        this.detailCates = data.data;
+        console.log(this.detailCates);
+      });
+    }
   }
 
   create() {
-    if (this.khoahoc.TenKhoaHoc !== '') {
-      if (this.imageUrl && this.ckeditorData) {
+    if (this.MaHoSo > 0) {
+      if (this.imageUrl) {
         this.khoahoc.MoTaDayDu = this.ckeditorData;
         this.khoahoc.AnhKhoaHoc = this.imageUrl;
-        this.khService.create(this.khoahoc,this.token).subscribe((data) => {
+        this.manageCourseSer.create(this.khoahoc).subscribe((data) => {
           this.createStatus = data.data;
-          alert(this.createStatus);
+          if (this.createStatus == true) {
+            this._toastService.info('Thêm thành công !!!');
+          } else {
+            this._toastService.info('Thêm không thành công !!!');
+          }
         });
-        console.log(this.khoahoc);
-      } else {
-        console.log('Nhap lai mat khau');
       }
     } else {
-      console.log('Nhap du thong tin');
+      if (this.imageUrl) {
+        this.khoahoc.MoTaDayDu = this.ckeditorData;
+        this.khoahoc.AnhKhoaHoc = this.imageUrl;
+        this.khService.create(this.khoahoc, this.token).subscribe((data) => {
+          this.createStatus = data.data;
+          if (this.createStatus == true) {
+            this._toastService.info('Thêm thành công !!!');
+          } else {
+            this._toastService.info('Thêm không thành công !!!');
+          }
+        });
+      }
     }
   }
 
   edit() {
-    if (this.selectedFile && this.imageUrl) {
-      this.khoahoc.AnhKhoaHoc = this.imageUrl;
-      this.khService.update(this.khoahoc,this.token).subscribe((data) => {
-        this.alertStatus = data.status;
+    if (this.MaHoSo > 0) {
+      if (this.selectedFile && this.imageUrl) {
+        this.khoahoc.AnhKhoaHoc = this.imageUrl;
+        this.manageCourseSer.update(this.khoahoc).subscribe((data) => {
+          this.updateStatus = data.status;
 
-        if (this.alertStatus) {
-          this._toastService.info('Da Cap Nhat Thanh Cong');
-        }
-      });
+          if (this.updateStatus == true) {
+            this._toastService.info('Cập nhật thành công !!!');
+          } else {
+            this._toastService.warn('Cập nhật không thành công !!!');
+          }
+        });
+      } else {
+        this.manageCourseSer.update(this.khoahoc).subscribe((data) => {
+          this.updateStatus = data.status;
+
+          if (this.updateStatus == true) {
+            this._toastService.info('Cập nhật thành công !!!');
+          } else {
+            this._toastService.warn('Cập nhật không thành công !!!');
+          }
+        });
+      }
     } else {
-      this.khService.update(this.khoahoc,this.token).subscribe((data) => {
-        this.alertStatus = data.status;
+      if (this.selectedFile && this.imageUrl) {
+        this.khoahoc.AnhKhoaHoc = this.imageUrl;
+        this.khService.update(this.khoahoc, this.token).subscribe((data) => {
+          this.updateStatus = data.status;
 
-        if (this.alertStatus) {
-          this._toastService.info('Da Cap Nhat Thanh Cong');
-        }
-      });
+          if (this.updateStatus == true) {
+            this._toastService.info('Cập nhật thành công !!!');
+          } else {
+            this._toastService.warn('Cập nhật không thành công !!!');
+          }
+        });
+      } else {
+        this.khService.update(this.khoahoc, this.token).subscribe((data) => {
+          this.updateStatus = data.status;
+
+          if (this.updateStatus == true) {
+            this._toastService.info('Cập nhật thành công !!!');
+          } else {
+            this._toastService.warn('Cập nhật không thành công !!!');
+          }
+        });
+      }
     }
   }
 
@@ -159,10 +235,17 @@ export class CreateCourseComponent implements OnInit {
       formData.append('image', this.selectedFile);
       console.log(formData.get('image'));
 
-      this.khService.upload(formData,this.token).subscribe((data) => {
-        this.imageUrl = data.fileurl;
-        console.log(this.imageUrl);
-      });
+      if (this.MaHoSo > 0) {
+        this.manageCourseSer.upload(formData).subscribe((data) => {
+          this.imageUrl = data.fileurl;
+          console.log(this.imageUrl);
+        });
+      } else {
+        this.khService.upload(formData, this.token).subscribe((data) => {
+          this.imageUrl = data.fileurl;
+          console.log(this.imageUrl);
+        });
+      }
     }
   }
 
@@ -180,6 +263,5 @@ export class CreateCourseComponent implements OnInit {
 
   public onChange({ editor }: ChangeEvent) {
     this.ckeditorData = editor.data.get();
-    console.log(this.ckeditorData);
   }
 }

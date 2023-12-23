@@ -30,10 +30,11 @@ export class DetailComponent {
   isAddCart: any = false;
   lessions: any;
   videos: any;
-  tests:any;
-  teacher:any;
-  comments:any;
-  recommends:any;
+  tests: any;
+  teacher: any;
+  comments: any;
+  recommends: any;
+  bought: any;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
@@ -45,8 +46,7 @@ export class DetailComponent {
 
     this.getTests(id);
     this.getTeacher(id);
-    this.getComments(id)
-
+    this.getComments(id);
   }
 
   getDetailCourse(id: number) {
@@ -84,14 +84,14 @@ export class DetailComponent {
     });
   }
 
-  getComments(id:number) {
+  getComments(id: number) {
     this.detailService.getAllComments(id).subscribe((data) => {
       this.comments = data.data;
       console.log(this.comments);
     });
   }
 
-  getRecommendCourse(id:number) {
+  getRecommendCourse(id: number) {
     this.detailService.getRecommendCourses(id).subscribe((data) => {
       this.recommends = data.data;
       console.log(this.recommends);
@@ -102,15 +102,27 @@ export class DetailComponent {
     this.cartService.addCart(cart).subscribe((data) => {
       this.isAddCart = data.data;
       if (this.isAddCart) {
-        this._toastService.info('Đã thêm vào giỏ hàng thành công!!!');
+        this._toastService.info('Đã thêm vào giỏ hàng thành công !!!');
         window.location.reload();
-      }
-      else{
-        this._toastService.info('Đã tồn tại vào giỏ hàng!!!');
+      } else {
+        this._toastService.warn('Đã tồn tại vào giỏ hàng !!!');
         window.location.reload();
       }
     });
   }
 
+  checkBought(id: any, mavideo: any) {
+    this.detailService.checkBought(id).subscribe((data) => {
+      this.bought = data.data;
+      if (this.bought == true) {
+        this.navigateToWatching(id, mavideo);
+      } else {
+        this._toastService.info('Vui lòng mua khóa học để kiểm tra!!!');
+      }
+    });
+  }
   
+  navigateToWatching(id: any, mavideo: any) {
+    this.router.navigateByUrl('/course/watching/detail/' + id + '/' + mavideo);
+  }
 }

@@ -39,7 +39,7 @@
         <div>
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
-          <div uk-drop="mode: click" class="dropdown_cart">
+          <div uk-drop="mode: click" class="dropdown_cart" style="margin-right: 50px;">
             <div class="cart-headline">
               <a
                 class="header_widgets"
@@ -85,11 +85,7 @@
 
         <div>
           <a href="#">
-            <img
-            [src]="user.AnhDaiDien"
-              class="header_widgets_avatar"
-              alt=""
-            />
+            <fa-icon [icon]="faUser"></fa-icon>
           </a>
           <div
             uk-drop="mode: click;offset:5"
@@ -99,11 +95,7 @@
               <li>
                 <a href="#" class="user">
                   <div class="user_avatar">
-                    <img
-                     
-                      [src]="user.AnhDaiDien"
-                      alt=""
-                    />
+                    <img [src]="user.AnhDaiDien" alt="" />
                   </div>
                   <div class="user_name">
                     <div>{{ user.TenNguoiDung }}</div>
@@ -131,7 +123,7 @@
                   Hồ sơ
                 </a>
               </li>
-              <li>  
+              <li>
                 <a [title]="'Bộ sưu tập'" [routerLink]="['/collection']">
                   <!-- <ion-icon name="card-outline" class="is-icon"></ion-icon> -->
                   Bộ sưu tập
@@ -143,12 +135,42 @@
                   Đơn hàng của tôi
                 </a>
               </li>
-              <!-- <li>
-                <a href="#">
-                  
-                  Account Settings
+
+              <li>
+                <a
+                  [title]="'Bộ sưu tập'"
+                  [routerLink]="[
+                    '/admin/khoahoc/list/courses/user/' + user.MaNguoiDung
+                  ]"
+                >
+                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                  Quản lý khóa học của tôi
                 </a>
-              </li> -->
+              </li>
+              <li>
+                <a
+                [title]="'Bài kiểm tra'"
+                [routerLink]="[
+                  '/admin/test/manage/list/teacher/' + user.MaNguoiDung
+                ]"
+                >
+                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                  Quản lý bài kiểm tra của tôi
+                </a>
+              </li>
+
+              <li>
+                <a
+                [title]="'Bài kiểm tra'"
+                [routerLink]="[
+                  '/admin/tested/list/teacher/' + user.MaNguoiDung
+                ]"
+                >
+                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                  Quản lý các bài học viên đã làm
+                </a>
+              </li>
+        
               <li>
                 <hr />
               </li>

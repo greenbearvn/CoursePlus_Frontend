@@ -1,0 +1,97 @@
+<div
+  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+  style="width: 1000px"
+>
+  <div class="card">
+    <div class="card-body">
+      <div class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+            <label for="validationCustom04">Người Dùng</label>
+            <div class="d-flex">
+              <select class="form-control" [(ngModel)]="tested.MaNguoiDung">
+                <option
+                  *ngFor="let item of listUsers"
+                  [value]="item.MaNguoiDung"
+                >
+                  {{ item.TenNguoiDung }}
+                </option>
+              </select>
+              <button
+                class="btn btn-success ml-5"
+                (click)="openDialog()"
+              >
+                Danh sách
+              </button>
+            </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <label for="validationCustom01">Bài kiểm tra</label>
+            <select class="form-control" [(ngModel)]="tested.MaBaiKT">
+              <option *ngFor="let item of listTests" [value]="item.MaBaiKT">
+                {{ item.TenBaiKT }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustomUsername">Thời gian nộp</label>
+            <div class="input-group">
+              <input
+                type="date"
+                class="form-control"
+                id="validationCustomUsername"
+                required
+                [(ngModel)]="tested.ThoiGianNop"
+              />
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
+            <label for="validationCustomUsername">Chính xác</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustomUsername"
+                required
+                [(ngModel)]="tested.ChinhXac"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+              style="display: flex; justify-content: space-between"
+            >
+              <button
+                *ngIf="type === 'create'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="submit('create')"
+              >
+                Tạo
+              </button>
+              <button
+                *ngIf="type == 'update'"
+                class="btn btn-primary"
+                type="submit"
+                (click)="update()"
+              >
+                Cập nhật
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="closeModal()"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
