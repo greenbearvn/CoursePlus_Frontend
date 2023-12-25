@@ -63,7 +63,7 @@ const routes: Routes = [
         component: ChatComponent,
       },
       {
-        path: 'chat/:id',
+        path: 'chat/:id/:MaHoSo',
         component: ChatComponent,
       },
       {

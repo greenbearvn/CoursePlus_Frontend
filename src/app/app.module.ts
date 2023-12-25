@@ -93,6 +93,7 @@ import { AdminTestVideoListComponent } from './admin/components/admin-test/admin
 import { AdminTestedComponent } from './admin/components/admin-tested/admin-tested.component';
 import { AdminTestedListComponent } from './admin/components/admin-tested/admin-tested-list/admin-tested-list.component';
 import { AdminTestedModalComponent } from './admin/components/admin-tested/admin-tested-modal/admin-tested-modal.component';
+import { CommentComponent } from './frontend/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -180,6 +181,7 @@ import { AdminTestedModalComponent } from './admin/components/admin-tested/admin
     AdminTestedComponent,
     AdminTestedListComponent,
     AdminTestedModalComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

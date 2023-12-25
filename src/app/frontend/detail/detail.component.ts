@@ -26,6 +26,8 @@ export class DetailComponent {
     private router: Router
   ) {}
 
+  id:any;
+
   detail: any;
   isAddCart: any = false;
   lessions: any;
@@ -38,15 +40,15 @@ export class DetailComponent {
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
-    const id = Number(routeParams.get('id'));
+    this.id = Number(routeParams.get('id'));
 
-    this.getDetailCourse(id);
-    this.getListLessionsOfCours(id);
-    this.getListVideoOfCours(id);
+    this.getDetailCourse(this.id);
+    this.getListLessionsOfCours(this.id);
+    this.getListVideoOfCours(this.id);
 
-    this.getTests(id);
-    this.getTeacher(id);
-    this.getComments(id);
+    this.getTests(this.id);
+    this.getTeacher(this.id);
+    this.getComments(this.id);
   }
 
   getDetailCourse(id: number) {

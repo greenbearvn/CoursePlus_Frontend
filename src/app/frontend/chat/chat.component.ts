@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ChatService } from 'src/app/services/frontend/chat/chat.service';
 import { nguoidung } from 'src/app/Models/nguoidung';
 import { Subscription } from 'rxjs';
+import { ToastService } from 'angular-toastify';
+
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-chat',
@@ -24,6 +27,8 @@ export class ChatComponent implements OnInit {
 
   room: any;
 
+  otherProfile: any;
+
   user: nguoidung = {
     MaNguoiDung: 0,
     TenNguoiDung: '',
@@ -40,12 +45,17 @@ export class ChatComponent implements OnInit {
     ThoiGian: new Date(),
   };
 
+  //font awesome
+
+  faPaperPlane: any = faPaperPlane;
+
   messageSubscription: Subscription = new Subscription();
 
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) {}
 
   getUser() {
@@ -59,9 +69,10 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     const id = Number(routeParams.get('id'));
+    const MaHoSo = Number(routeParams.get('MaHoSo'));
 
-    if (id) {
-      this.showConvention(id);
+    if (id > 0 && MaHoSo > 0) {
+      this.showConvention(id, MaHoSo);
     }
 
     this.getUser();
@@ -88,12 +99,23 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
-    this.sendData.MaHoiThoai = this.roomId;
-    this.chatService.sendMessage(this.sendData);
-    this.saveDataMessage();
+    if (this.sendData.NoiDung == '') {
+      this.toast.warn('Vui lòng nhập nội dung tin nhắn !!!');
+    } else {
+      this.sendData.MaHoiThoai = this.roomId;
+      this.chatService.sendMessage(this.sendData);
+      this.saveDataMessage();
 
-    this.sendData.NoiDung = '';
-    console.log(this.messageArray);
+      this.sendData.NoiDung = '';
+      console.log(this.messageArray);
+    }
+  }
+
+  getProfile(id: number) {
+    this.chatService.getProfileUser(id).subscribe((data: any) => {
+      this.otherProfile = data.data;
+      console.log(this.otherProfile);
+    });
   }
 
   getConvention() {
@@ -103,7 +125,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  showConvention(room: number) {
+  showConvention(room: number, id: number) {
     if (this.roomId !== room) {
       this.messageArray = [];
       this.roomId = room;
@@ -111,6 +133,8 @@ export class ChatComponent implements OnInit {
       this.roomJoined = true;
       this.getMessages();
       this.getMessagesInConv();
+      this.getProfile(id);
+  
     }
   }
 
@@ -131,6 +155,4 @@ export class ChatComponent implements OnInit {
       });
     }
   }
-
-  
 }

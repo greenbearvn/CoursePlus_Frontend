@@ -39,20 +39,23 @@ export class ChatService {
     return this.http.get('/api/chat/chatapp/list/conventions');
   }
 
+  getProfileUser(id: any): Observable<any> {
+    return this.http.get('/api/chat/chatapp/message/user/profile/' + id);
+  }
 
-  getMessagesInConv(id:any): Observable<any> {
+  getMessagesInConv(id: any): Observable<any> {
     return this.http.get('/api/chat/chatapp/messages/convention/' + id);
   }
 
-  createMessage(message:any): Observable<any> {
-    return this.http.post('/api/chat/chatapp/message/create',message);
+  createMessage(message: any): Observable<any> {
+    return this.http.post('/api/chat/chatapp/message/create', message);
   }
 
-  delMessage(id:any): Observable<any> {
+  delMessage(id: any): Observable<any> {
     return this.http.get('/api/chat/chatapp/message/delete/' + id);
   }
 
-  delConv(id:any): Observable<any> {
+  delConv(id: any): Observable<any> {
     return this.http.get('/api/chat/chatapp/convention/delete/' + id);
   }
 }

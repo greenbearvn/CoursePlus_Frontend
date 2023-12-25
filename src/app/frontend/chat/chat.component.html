@@ -75,28 +75,33 @@
               <a
                 class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery"
                 *ngFor="let covention of conventions"
-                (click)="showConvention(covention.MaHoiThoai)"
               >
-                <div class="relative w-14 h-14 shrink-0">
-                  <img
-                    src="socialite-v3.0/assets/images/avatars/avatar-5.jpg"
-                    alt=""
-                    class="object-cover w-full h-full rounded-full"
-                  />
-                  <div
-                    class="w-4 h-4 absolute bottom-0 right-0 bg-green-500 rounded-full border border-white dark:border-slate-800"
-                  ></div>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2 mb-1.5">
-                    <div
-                      class="mr-auto text-sm text-black dark:text-white font-medium"
-                    >
-                     {{covention.TenHoiThoai}}
-                    </div>
-                   
+                <div
+                  *ngFor="let item of covention.Profile"
+                  style="display: flex"
+                  (click)="
+                    showConvention(covention.MaHoiThoai, item.MaNguoiDung)
+                  "
+                  [className]="
+                    roomId == covention.MaHoiThoai ? 'bg-secondary' : 'inactive'
+                  "
+                >
+                  <div class="relative w-14 h-14 shrink-0">
+                    <img
+                      [src]="item.AnhDaiDien"
+                      alt=""
+                      class="object-cover w-full h-full rounded-full"
+                    />
                   </div>
-                  
+                  <div class="flex-1 min-w-0" style="margin: 20px">
+                    <div class="flex items-center gap-2 mb-1.5">
+                      <div
+                        class="mr-auto text-sm text-black dark:text-white font-medium"
+                      >
+                        {{ item.TenHoSo }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </a>
             </div>
@@ -140,8 +145,12 @@
                 class="cursor-pointer"
                 uk-toggle="target: .rightt ; cls: hidden"
               >
-                <div class="text-base font-bold">Monroe Parker</div>
-                <div class="text-xs text-green-500 font-semibold">Online</div>
+                <div
+                  class="text-base font-bold"
+                  *ngIf="otherProfile != undefined"
+                >
+                  {{ otherProfile.TenHoSo }}
+                </div>
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -212,18 +221,18 @@
               <div class="mt-8">
                 <div
                   class="md:text-xl text-base font-medium text-black dark:text-white"
+                  *ngIf="otherProfile != undefined"
                 >
-                  Monroe Parker
-                </div>
-                <div class="text-gray-500 text-sm dark:text-white/80">
-                  Monroepark
+                  {{ otherProfile.TenHoSo }}
                 </div>
               </div>
               <div class="mt-3.5">
                 <a
-                  href="socialite-v3.0/timeline.html"
+                  *ngIf="otherProfile != undefined"
+                  [title]="'Hồ sơ'"
+                  [routerLink]="['/profile', otherProfile.MaHoSo]"
                   class="inline-block rounded-lg px-4 py-1.5 text-sm font-semibold bg-secondery"
-                  >View profile</a
+                  >Xem Hồ Sơ</a
                 >
               </div>
             </div>
@@ -236,12 +245,10 @@
                   class="flex gap-3"
                   *ngIf="message.MaNguoiDung !== user.MaNguoiDung"
                 >
-                  <img
-                    src="socialite-v3.0/assets/images/avatars/avatar-2.jpg"
-                    alt=""
-                    class="w-9 h-9 rounded-full shadow"
-                  />
-                  <div class="px-4 py-2 rounded-[20px] max-w-sm bg-secondery">
+                  <div
+                    class="px-4 py-2 rounded-[20px] max-w-sm bg-secondery"
+                    style="color: gray; border-radius: 10px"
+                  >
                     {{ message.NoiDung }}
                   </div>
                 </div>
@@ -251,17 +258,12 @@
                   class="flex gap-2 flex-row-reverse items-end"
                   *ngIf="message.MaNguoiDung == user.MaNguoiDung"
                 >
-                  <img
-                    src="socialite-v3.0/assets/images/avatars/avatar-3.jpg"
-                    alt=""
-                    class="w-5 h-5 rounded-full shadow"
-                  />
                   <div
                     class="px-4 py-2 rounded-[20px] max-w-sm bg-gradient-to-tr from-sky-500 to-blue-500 text-white shadow"
-                    c
+                    style="color: #0497f0; border-radius: 10px"
                   >
                     {{ message.NoiDung }}
-                     <!-- <span (click)="message.NoiDung">del</span> -->
+                    <!-- <span (click)="message.NoiDung">del</span> -->
                   </div>
                 </div>
               </div>
@@ -436,16 +438,19 @@
                 [(ngModel)]="sendData.NoiDung"
                 placeholder="Write your message"
                 rows="1"
-                class="w-full resize-none bg-secondery rounded-full px-4 p-2"
+                style="width: 900px; border-radius: 2px solid black"
               ></textarea>
-             
+
               <button
                 type="button"
-                class="btn btn-success"
-                
+                style="
+                  background-color: #22c55e;
+                  border-radius: 10px;
+                  padding: 10px 20px 10px 20px;
+                "
                 (click)="sendMessage()"
               >
-                Send
+                <fa-icon [icon]="faPaperPlane" style="color: #fff"></fa-icon>
               </button>
             </div>
           </div>

@@ -39,7 +39,11 @@
         <div>
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
-          <div uk-drop="mode: click" class="dropdown_cart" style="margin-right: 50px;">
+          <div
+            uk-drop="mode: click"
+            class="dropdown_cart"
+            style="margin-right: 50px"
+          >
             <div class="cart-headline">
               <a
                 class="header_widgets"
@@ -149,10 +153,10 @@
               </li>
               <li>
                 <a
-                [title]="'Bài kiểm tra'"
-                [routerLink]="[
-                  '/admin/test/manage/list/teacher/' + user.MaNguoiDung
-                ]"
+                  [title]="'Bài kiểm tra'"
+                  [routerLink]="[
+                    '/admin/test/manage/list/teacher/' + user.MaNguoiDung
+                  ]"
                 >
                   <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
                   Quản lý bài kiểm tra của tôi
@@ -161,16 +165,22 @@
 
               <li>
                 <a
-                [title]="'Bài kiểm tra'"
-                [routerLink]="[
-                  '/admin/tested/list/teacher/' + user.MaNguoiDung
-                ]"
+                  [title]="'Bài kiểm tra'"
+                  [routerLink]="[
+                    '/admin/tested/list/teacher/' + user.MaNguoiDung
+                  ]"
                 >
                   <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
                   Quản lý các bài học viên đã làm
                 </a>
               </li>
-        
+              <li *ngIf="user.Quyen == 'admin'">
+                <a [title]="'Khóa học'" [routerLink]="['/admin/khoahoc/list']">
+                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                  Đến trang quản lý
+                </a>
+              </li>
+
               <li>
                 <hr />
               </li>
@@ -196,6 +206,11 @@
               </li>
             </ul>
           </div>
+        </div>
+        <div>
+          <a [title]="'Hội thoại'" [routerLink]="['/chat']">
+            <fa-icon [icon]="faMessage"></fa-icon>
+          </a>
         </div>
       </div>
       <div class="flex" *ngIf="statusLogin == false">

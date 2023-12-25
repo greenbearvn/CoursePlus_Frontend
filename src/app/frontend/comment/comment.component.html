@@ -1,0 +1,28 @@
+<div id="reviews" class="tube-card p-5">
+  <h3 class="text-lg font-semibold mb-3">Reviews</h3>
+
+  <div class="space-y-4 my-5" *ngFor="let comment of list">
+    <div class="bg-gray-50 border flex gap-x-4 p-4 relative rounded-md">
+      <img
+        src="../../courseplus/assets/images/avatars/avatar-4.jpg"
+        alt=""
+        class="rounded-full shadow w-12 h-12"
+      />
+
+      <div>
+        <h4 class="text-base m-0 font-semibold">{{comment.TenNguoiDung}}</h4>
+        <span class="text-gray-700 text-sm"> {{comment.ThoiGian}} </span>
+        <p class="mt-3 md:ml-0 -ml-16" [innerHTML]="comment.NoiDung"></p>
+      </div>
+      <fa-icon [icon]="faCircleInfo" (click)="checkDelete(comment.MaBinhLuan)" ></fa-icon>
+      <fa-icon [icon]="faTrash" *ngIf="showDelete == true" (click)="delete(comment)"></fa-icon>
+    </div>
+  </div>
+  <!-- <div class="flex justify-center mt-9">
+      <a
+        href="#"
+        class="bg-gray-50 border hover:bg-gray-100 px-4 py-1.5 rounded-full text-sm"
+        >More Comments ..</a
+      >
+    </div> -->
+</div>
