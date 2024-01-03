@@ -18,7 +18,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav flex-column">
+          <ul class="navbar-nav flex-column" *ngIf="user.Quyen == 'admin'">
             <li class="nav-divider">Menu</li>
             <li class="nav-item">
               <a
@@ -64,16 +64,8 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                [title]="'Bài học'"
-                [routerLink]="['/admin/baihoc/list']"
-                >Quản lý bài học</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
                 [title]="'Bài đã kiểm tra'"
-                [routerLink]="['/admin/hoadon/list']"
+                [routerLink]="['/admin/tested/list']"
                 >Quản lý bài đã kiểm tra</a
               >
             </li>
@@ -115,6 +107,48 @@
                 [title]="'Hồ sơ'"
                 [routerLink]="['/admin/profile/list']"
                 >Quản lý hồ sơ</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                [title]="'Hồ sơ'"
+                [routerLink]="['/admin/collection/list']"
+                >Quản lý bộ sưu tập</a
+              >
+            </li>
+          </ul>
+          <ul class="navbar-nav flex-column" *ngIf="user.Quyen != 'admin'">
+            <li class="nav-divider">Menu</li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                [title]="'Bộ sưu tập'"
+                [routerLink]="[
+                  '/admin/khoahoc/list/courses/user/' + user.MaNguoiDung
+                ]"
+                >Quản lý khóa học
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a
+                [title]="'Bài kiểm tra'"
+                [routerLink]="[
+                  '/admin/test/manage/list/teacher/' + user.MaNguoiDung
+                ]"
+                class="nav-link active"
+                >Quản lý bài kiểm tra</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                [title]="'Bài kiểm tra'"
+                [routerLink]="[
+                  '/admin/tested/list/teacher/' + user.MaNguoiDung
+                ]"
+                class="nav-link active"
+              >
+                Quản lý bài đã kiểm tra</a
               >
             </li>
           </ul>

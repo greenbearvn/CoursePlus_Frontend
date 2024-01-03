@@ -47,6 +47,9 @@ import { AdminDanhmucDetailListComponent } from './components/admin-danhmuc-deta
 import { AdminTestedComponent } from './components/admin-tested/admin-tested.component';
 import { AdminTestedListComponent } from './components/admin-tested/admin-tested-list/admin-tested-list.component';
 
+import { AdminCollectionComponent } from './components/admin-collection/admin-collection.component';
+import { AdminCollectionModalComponent } from './components/admin-collection/admin-collection-modal/admin-collection-modal.component';
+import { AdminCollectionListComponent } from './components/admin-collection/admin-collection-list/admin-collection-list.component';
 
 const routes: Routes = [
   {
@@ -88,7 +91,7 @@ const routes: Routes = [
             component: FormbillComponent,
           },
           {
-            path: 'tools/:type/:id',
+            path: 'tools/:type/:mahoadon',
             component: FormbillComponent,
           },
         ],
@@ -174,7 +177,7 @@ const routes: Routes = [
             component: AdminTestToolComponent,
           },
 
-          /// manage 
+          /// manage
           {
             path: 'manage/list/teacher/:id',
             component: AdminTestListComponent,
@@ -240,6 +243,16 @@ const routes: Routes = [
           {
             path: 'list/teacher/:id',
             component: AdminTestedListComponent,
+          },
+        ],
+      },
+      {
+        path: 'collection',
+        component: AdminCollectionComponent,
+        children: [
+          {
+            path: 'list',
+            component: AdminCollectionListComponent,
           },
         ],
       },

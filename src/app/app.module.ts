@@ -94,6 +94,11 @@ import { AdminTestedComponent } from './admin/components/admin-tested/admin-test
 import { AdminTestedListComponent } from './admin/components/admin-tested/admin-tested-list/admin-tested-list.component';
 import { AdminTestedModalComponent } from './admin/components/admin-tested/admin-tested-modal/admin-tested-modal.component';
 import { CommentComponent } from './frontend/comment/comment.component';
+import { CourseListComponent } from './frontend/course-list/course-list.component';
+import { AdminCollectionComponent } from './admin/components/admin-collection/admin-collection.component';
+import { AdminCollectionListComponent } from './admin/components/admin-collection/admin-collection-list/admin-collection-list.component';
+import { AdminCollectionModalComponent } from './admin/components/admin-collection/admin-collection-modal/admin-collection-modal.component';
+import { AdminCollectionListCoursesComponent } from './admin/components/admin-collection/admin-collection-list-courses/admin-collection-list-courses.component';
 
 @NgModule({
   declarations: [
@@ -182,6 +187,11 @@ import { CommentComponent } from './frontend/comment/comment.component';
     AdminTestedListComponent,
     AdminTestedModalComponent,
     CommentComponent,
+    CourseListComponent,
+    AdminCollectionComponent,
+    AdminCollectionListComponent,
+    AdminCollectionModalComponent,
+    AdminCollectionListCoursesComponent,
   ],
   imports: [
     BrowserModule,

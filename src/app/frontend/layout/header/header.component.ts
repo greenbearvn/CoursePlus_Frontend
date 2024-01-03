@@ -19,9 +19,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   faCartShopping: any = faCartShopping;
   faUser: any = faUser;
-  faMessage:any = faMessage;
+  faMessage: any = faMessage;
 
   cartList: any;
+
+  status: any;
 
   totalMoney: any = 0;
   countItem: any = 0;
@@ -37,13 +39,21 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
+    this.getListCart();
+    this.getTotalMoney();
+    this.getUser();
+  }
+
+  reloadListCart() {
+    this.getListCart();
+    this.getTotalMoney();
+  }
+
+  getListCart() {
     this.cartService.getlistCart().subscribe((data) => {
       this.cartList = data.data;
       console.log(this.cartList);
     });
-
-    this.getTotalMoney();
-    this.getUser();
   }
 
   getTotalMoney() {
@@ -55,11 +65,11 @@ export class HeaderComponent {
 
   deleteItem(id: any) {
     this.cartService.deleteItem(id).subscribe((data) => {
-      this.cartList = data.data;
-      if (this.cartList === false) {
-        alert('Khong co san pham');
+      this.status = data.data;
+      if (this.status == true) {
+        this.getListCart();
+        this.getTotalMoney();
       }
-      console.log(this.cartList);
     });
     this.getTotalMoney();
   }

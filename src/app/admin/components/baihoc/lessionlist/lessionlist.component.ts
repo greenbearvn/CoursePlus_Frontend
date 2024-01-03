@@ -75,7 +75,9 @@ export class LessionlistComponent {
       },
       maxHeight: '90vh',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getListVideos();
+    });
   }
 
   ngOnInit() {

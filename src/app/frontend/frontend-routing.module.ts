@@ -16,6 +16,7 @@ import { BlogComponent } from './blog/blog.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BlogdetailComponent } from './blogdetail/blogdetail.component';
 import { CollectionComponent } from './collection/collection.component';
+import { CourseListComponent } from './course-list/course-list.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,7 @@ const routes: Routes = [
     component: FrontendComponent,
     children: [
       {
-        path: 'home',
+        path: '',
         component: HomeComponent,
       },
       {
@@ -85,6 +86,14 @@ const routes: Routes = [
       {
         path: 'collection',
         component: CollectionComponent,
+      },
+      {
+        path: 'courselist',
+        component: CourseListComponent,
+      },
+      {
+        path: 'courselist/:type/:id',
+        component: CourseListComponent,
       },
     ],
   },

@@ -3,8 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { HoaDon } from 'src/app/Models/admin/hoadon';
 import { HoadonService } from 'src/app/services/admin/hoadon/hoadon.service';
+import { AdminProfileListUsersComponent } from '../../admin-profile/admin-profile-list-users/admin-profile-list-users.component';
+import { MatDialog } from '@angular/material/dialog';
+import { nguoidung } from 'src/app/Models/nguoidung';
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-formbill',
@@ -25,7 +29,8 @@ export class FormbillComponent {
   constructor(
     private route: ActivatedRoute,
     private _toastService: ToastService,
-    private hdService: HoadonService
+    private hdService: HoadonService,
+    public dialog: MatDialog
   ) {}
 
   type: any;
@@ -43,13 +48,21 @@ export class FormbillComponent {
 
   ///
 
+  nguoidung: nguoidung = {
+    MaNguoiDung: 0,
+    TenNguoiDung: '',
+    Email: '',
+    MatKhau: '',
+    Quyen: '',
+  };
+
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.type = routeParams.get('type');
     this.statusForm = this.type;
 
-    if (routeParams.get('id')) {
-      this.id = routeParams.get('id');
+    if (routeParams.get('mahoadon')) {
+      this.id = routeParams.get('mahoadon');
       this.getDetail(this.id);
     }
 
@@ -58,12 +71,28 @@ export class FormbillComponent {
   }
 
   lists: any;
-  listDetails: any ;
+  listDetails: any;
   listUsers: any;
   p: number = 1;
   searchData: any = '';
 
   faTrash: any = faTrash;
+  faPlus: any = faPlus;
+
+  openDialog(type: any): void {
+    const dialogRef = this.dialog.open(AdminProfileListUsersComponent, {
+      data: {
+        type: type,
+        // id: id,
+        // token: token,
+      },
+      maxHeight: '90vh',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.nguoidung = result;
+      this.hoadon.MaNguoiDung = this.nguoidung.MaNguoiDung;
+    });
+  }
 
   receiveData(values: { listItems: any; Tongtien: any }) {
     this.lists = values.listItems;
@@ -115,12 +144,14 @@ export class FormbillComponent {
         )
         .subscribe((data) => {
           this.resCU = data.data;
-          if (this.resCU) {
+          if (this.resCU == true) {
             this._toastService.info('Đã thêm đơn hàng thành công');
+            this.getListDetailItems();
           } else {
             this._toastService.warn(
               'Có khóa học đã được người mua trước đó!!!'
             );
+            this.getListDetailItems();
           }
         });
     } else {
@@ -134,9 +165,10 @@ export class FormbillComponent {
         )
         .subscribe((data) => {
           this.resCU = data.data;
-          if (this.resUpdate) {
+          if (this.resUpdate == true) {
             this._toastService.info(this.resUpdate);
           }
+          this.getListDetailItems();
         });
     }
   }

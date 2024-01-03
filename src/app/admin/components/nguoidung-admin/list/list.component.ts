@@ -6,6 +6,8 @@ import {
 } from '@angular/material/dialog';
 import { ModalnguoidungadminComponent } from '../modalnguoidungadmin/modalnguoidungadmin.component';
 import { NguoidungService } from 'src/app/services/admin/nguoidung/nguoidung.service';
+import { nguoidung } from 'src/app/Models/nguoidung';
+import { ToastService } from 'angular-toastify';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -31,21 +33,30 @@ export class NguoiDungAdminListComponent {
   constructor(
     public dialog: MatDialog,
     private nguoidungService: NguoidungService,
-    // @Inject(MAT_DIALOG_DATA) public data: any,
-    // public dialogRef: MatDialogRef<NguoiDungAdminListComponent>
+    private toast: ToastService // @Inject(MAT_DIALOG_DATA) public data: any, // public dialogRef: MatDialogRef<NguoiDungAdminListComponent>
   ) {}
 
   list: any;
   p: number = 1;
   user: any;
-  type:any;
+  type: any;
+  status: any;
   // token: any;
+
+  nguoidung: nguoidung = {
+    MaNguoiDung: 0,
+    TenNguoiDung: '',
+    Email: '',
+    MatKhau: '',
+    Quyen: '',
+  };
 
   searchData: any;
 
   ///
   faPenToSquare: any = faPenToSquare;
   faPlus: any = faPlus;
+  faTrash:any = faTrash;
 
   ///add cart
   listItems: any = [];
@@ -65,7 +76,6 @@ export class NguoiDungAdminListComponent {
         // token: token,
       },
       maxHeight: '90vh',
-    
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
@@ -78,7 +88,7 @@ export class NguoiDungAdminListComponent {
 
   getUserInSession() {
     // this.khoahocService.getUser().subscribe((data) => {
-    //   this.token = data.data.Token;  
+    //   this.token = data.data.Token;
     //   this.getLists();
     // });
   }
@@ -87,6 +97,27 @@ export class NguoiDungAdminListComponent {
     this.nguoidungService.list().subscribe((data) => {
       this.list = data.data;
       console.log(this.list);
+    });
+  }
+
+  changeRole(user: nguoidung) {
+    this.nguoidungService.update(user).subscribe((data) => {
+      this.status = data.data;
+      if (this.status == true) {
+        this.toast.info('Cập nhật quyền thành công');
+      }
+    });
+  }
+
+  delete(user: nguoidung) {
+    this.nguoidungService.delete(user).subscribe((data) => {
+      this.status = data.data;
+      if (this.status == true) {
+        this.toast.info('Xóa người dùng thành công !!!');
+      }
+      else{
+        this.toast.info('Xóa người dùng không thành công !!!');
+      }
     });
   }
 
@@ -127,8 +158,4 @@ export class NguoiDungAdminListComponent {
       listItems: this.listItems,
     });
   }
-
-  
-
-  
 }

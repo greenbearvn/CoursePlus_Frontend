@@ -67,21 +67,23 @@
 
                 <td>{{ item.GiamGia }}</td>
                 <td>{{ item.GiaMoi | currency : "VND" }}</td>
-                <td *ngIf=" MaNguoiDung <= 0">
+                <td *ngIf="MaNguoiDung <= 0">
                   <input
                     type="checkbox"
-                    *ngIf="item.TrangThai == 1 "
+                    *ngIf="item.TrangThai == 1"
+                    (click)="changeStatus(item)"
                     checked
                   />
                   <input
                     type="checkbox"
-                    *ngIf="item.TrangThai == 0 "
+                    *ngIf="item.TrangThai == 0"
+                    (click)="changeStatus(item)"
                   />
                 </td>
 
                 <td>{{ item.TenCapDo }}</td>
 
-                <td *ngIf=" MaNguoiDung <= 0">{{ item.TenHoSo }}</td>
+                <td *ngIf="MaNguoiDung <= 0">{{ item.TenHoSo }}</td>
                 <td>{{ item.TenCTDM }}</td>
                 <td class="d-flex flex-column">
                   <button

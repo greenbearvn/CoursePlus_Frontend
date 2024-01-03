@@ -14,7 +14,7 @@
             />
           </div>
           <button
-            class="btn btn-primary"
+            class="btn btn-success"
             mat-raised-button
             (click)="openDialog('create', 0)"
           >
@@ -24,7 +24,7 @@
       </div>
 
       <div class="card-body">
-        <div class="ta  ble-responsive">
+        <div class="ta ble-responsive">
           <table class="table table-striped table-bordered first">
             <thead>
               <tr>
@@ -62,8 +62,8 @@
                 <td>{{ item.tendm }}</td>
                 <td>{{ item.TenNguoiDung }}</td>
                 <td>
-                  <input type="checkbox" *ngIf="item.TrangThai == 1" checked />
-                  <input type="checkbox" *ngIf="item.TrangThai == 0" />
+                  <input type="checkbox" *ngIf="item.TrangThai == 1"  checked (click)="changeStatus(item)"/>
+                  <input type="checkbox" *ngIf="item.TrangThai == 0"  (click)="changeStatus(item)"/>
                 </td>
                 <td class="d-flex flex-column">
                   <button
@@ -74,11 +74,11 @@
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
-                    class="btn btn-primary m-1"
+                    class="btn btn-danger m-1"
                     mat-raised-button
-                    (click)="deleteBlog( item)"
+                    (click)="deleteBlog(item)"
                   >
-                    <fa-icon [icon]="faPenToSquare"></fa-icon>
+                    <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
                 </td>
               </tr>

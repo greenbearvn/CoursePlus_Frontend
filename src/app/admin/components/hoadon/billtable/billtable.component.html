@@ -12,9 +12,9 @@
             [(ngModel)]="searchData"
           />
         </div>
-        <button class="btn btn-primary" mat-raised-button>
-          <a [routerLink]="['/admin/hoadon/tools', 'create']"> Tạo </a>
-        </button>
+        <a [routerLink]="['/admin/hoadon/tools', 'create']" style="color: #fff">
+          <button class="btn btn-success" mat-raised-button>Tạo Hóa Đơn</button>
+        </a>
       </div>
 
       <div class="card-body">
@@ -46,21 +46,25 @@
                 <td>{{ item.Tongtien | currency : "VND" }}</td>
 
                 <td class="d-flex">
-                  <button class="btn btn-primary m-1" mat-raised-button>
-                    <a
-                      href=""
-                      [routerLink]="['/admin/hoadon/tools', 'update', item.MaDonHang]"
-                      ><fa-icon [icon]="faPenToSquare"></fa-icon
-                    ></a>
-                  </button>
+                  <a
+                    href=""
+                    [routerLink]="[
+                      '/admin/hoadon/tools',
+                      'update',
+                      item.MaDonHang
+                    ]"
+                    style="color: #fff"
+                  >
+                    <button class="btn btn-primary m-1" mat-raised-button>
+                      <fa-icon [icon]="faPenToSquare"></fa-icon>
+                    </button>
+                  </a>
+
                   <button
                     class="btn btn-secondary m-1"
                     (click)="deleteBill(item)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
-                  </button>
-                  <button class="btn btn-success m-1">
-                    <fa-icon [icon]="faEye"></fa-icon>
                   </button>
                 </td>
               </tr>

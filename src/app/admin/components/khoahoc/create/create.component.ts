@@ -56,7 +56,7 @@ export class CreateCourseComponent implements OnInit {
     ThoiLuongKhoaHoc: '',
     GiaCu: 0,
     GiamGia: 0,
-    TrangThai: false,
+    TrangThai: 0,
     MaCapDo: 0,
     MaGiangVien: 0,
     MaDanhMuc: 0,

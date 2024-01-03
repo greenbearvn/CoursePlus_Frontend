@@ -6,7 +6,7 @@
     <div class="left-side">
       <!-- Logo -->
       <div id="logo">
-        <a href="index.html">
+        <a [title]="'Trang chủ'" [routerLink]="['/']">
           <img src="../../../assets/home/images/logo.png" alt="" />
           <img
             src="https://demo.foxthemes.net/courseplus/assets/images/logo.png"
@@ -35,8 +35,8 @@
           autocomplete="off"
         />
       </div>
-      <div style="display: flex" *ngIf="statusLogin">
-        <div>
+      <div style="display: flex; margin-right:20px" *ngIf="statusLogin" (click) ="reloadListCart()">
+        <div style="margin-right: 20px;">
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
           <div
@@ -62,10 +62,7 @@
             <ul class="dropdown_cart_scrollbar" data-simplebar>
               <li *ngFor="let item of cartList">
                 <div class="cart_avatar">
-                  <img
-                    src="../../../assets/home/images/courses/img-1.jpg"
-                    alt=""
-                  />
+                  <img [src]="item.AnhKhoaHoc" alt="" />
                 </div>
                 <div class="cart_text">
                   <h4>{{ item.TenKhoaHoc }}</h4>
@@ -87,7 +84,7 @@
           </div>
         </div>
 
-        <div>
+        <div style="margin-right: 20px">
           <a href="#">
             <fa-icon [icon]="faUser"></fa-icon>
           </a>

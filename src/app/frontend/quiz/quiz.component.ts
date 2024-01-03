@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from 'src/app/services/frontend/quiz/quiz.service';
 import { assignment } from 'src/app/Models/frontend/assignment';
 import { CompletedComponent } from './completed/completed.component';
+import { AccountService } from 'src/app/services/frontend/account/account.service';
 
 @Component({
   selector: 'app-quiz',
@@ -35,16 +36,19 @@ export class QuizComponent {
     MaBaiLam: 0,
     MaNguoiDung: 0,
     MaBaiKT: 0,
-    ThoiGianNop: '',
-    DiemSo: 0,
+    ThoiGianNop: new Date(),
+    ChinhXac: 0,
   };
+
+  user: any;
 
   resSave: any;
 
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -52,6 +56,7 @@ export class QuizComponent {
     this.MaBaiKT = Number(routeParams.get('id'));
 
     this.getDetailTest();
+    this.getUser();
 
     this.quizService.getAllData(this.MaBaiKT).subscribe((data) => {
       this.questions = data.data;
@@ -63,6 +68,13 @@ export class QuizComponent {
     this.quizService.getTestDetail(this.MaBaiKT).subscribe((data) => {
       this.detailTest = data.data;
       console.log(this.detailTest);
+    });
+  }
+
+  getUser() {
+    this.accountService.getUser().subscribe((data) => {
+      this.user = data.data;
+      console.log(this.user);
     });
   }
 
@@ -99,10 +111,10 @@ export class QuizComponent {
 
     this.assignment = {
       MaBaiLam: 0,
-      MaNguoiDung: 0,
+      MaNguoiDung: this.user.MaNguoiDung,
       MaBaiKT: this.MaBaiKT,
-      ThoiGianNop: '',
-      DiemSo: 0,
+      ThoiGianNop: new Date(),
+      ChinhXac: correctedChoices,
     };
 
     this.quizService.saveData(this.assignment).subscribe((data) => {

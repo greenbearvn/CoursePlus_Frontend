@@ -131,9 +131,11 @@
               <div
                 class="relative cursor-pointer max-md:hidden"
                 uk-toggle="target: .rightt ; cls: hidden"
+                *ngIf="otherProfile != undefined"
               >
                 <img
-                  src="socialite-v3.0/assets/images/avatars/avatar-6.jpg"
+                  
+                  [src]="otherProfile.AnhDaiDien"
                   alt=""
                   class="w-8 h-8 rounded-full shadow"
                 />
@@ -212,9 +214,9 @@
           <div
             class="w-full p-5 py-10 overflow-y-auto md:h-[calc(100vh-204px)] h-[calc(100vh-195px)]"
           >
-            <div class="py-10 text-center text-sm lg:pt-8">
+            <div class="py-10 text-center text-sm lg:pt-8" *ngIf="otherProfile != undefined">
               <img
-                src="socialite-v3.0/assets/images/avatars/avatar-6.jpg"
+                [src]="otherProfile.AnhDaiDien"
                 class="w-24 h-24 rounded-full mx-auto mb-3"
                 alt=""
               />

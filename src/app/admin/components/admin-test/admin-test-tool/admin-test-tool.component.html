@@ -27,7 +27,7 @@
               <select
                 class="form-control"
                 [(ngModel)]="test.MaGiangVien"
-                name="MaNguoiDung"
+                name="MaGiangVien"
               >
                 <option selected>Chọn tên người dùng...</option>
 
@@ -46,9 +46,9 @@
               <select
                 class="form-control"
                 [(ngModel)]="test.MaVideo"
-                name="MaNguoiDung"
+                name="MaVideo"
               >
-                <option selected>Chọn tên người dùng...</option>
+                <option selected>Chọn Video...</option>
 
                 <option *ngFor="let item of listVideos" [value]="item.MaVideo">
                   {{ item.TenVideo }}
@@ -67,7 +67,7 @@
             class="btn btn-space btn-secondary"
             (click)="openDialog('create', -1)"
           >
-            Tạo Câu hỏi
+            Thêm Câu Hỏi
           </button>
         </div>
       </div>
@@ -107,14 +107,14 @@
                       <td class="d-flex flex-columx n">
                         <button
                           *ngIf="type == 'create'"
-                          class="btn btn-secondary m-1"
+                          class="btn btn-success m-1"
                           (click)="openDialog('create', i)"
                         >
                           <fa-icon [icon]="faPenToSquare"></fa-icon>
                         </button>
                         <button
                           *ngIf="type == 'update'"
-                          class="btn btn-secondary m-1"
+                          class="btn btn-success m-1"
                           (click)="openDialog('update', i)"
                         >
                           <fa-icon [icon]="faPenToSquare"></fa-icon>

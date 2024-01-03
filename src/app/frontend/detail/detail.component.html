@@ -170,7 +170,7 @@
                   >
                     <div
                       *ngIf="video.MaBaiHoc === lession.MaBaiHoc"
-                      (click)="checkBought(detail.id, video.MaVideo)"
+                      (click)="checkBought(detail.id, video.MaVideo, 0)"
                     >
                       {{ video.TenVideo }}
 
@@ -187,7 +187,10 @@
         <div id="tets">
           <h3 class="mb-4 text-xl font-semibold">Các bài kiểm tra thực hành</h3>
           <div class="tube-card p-4 divide-y space-y-3">
-            <a href="" *ngFor="let test of tests">
+            <a
+              *ngFor="let test of tests"
+              (click)="checkBought(detail.id, 0, test.MaBaiKT)"
+            >
               <div class="flex items-center px-5 py-3">{{ test.TenBaiKT }}</div>
             </a>
           </div>
@@ -242,37 +245,37 @@
             <div class="grid grid-cols-2 gap-4">
               <div class="flex flex-col space-y-2">
                 <div class="text-3xl font-semibold">3.2</div>
-                <div>Hours</div>
+                <div>Giờ</div>
                 <!-- <ion-icon name="time" class="text-lg" hidden></ion-icon> -->
               </div>
               <div class="flex flex-col space-y-2">
                 <div class="text-3xl font-semibold">12,140</div>
-                <div>Students</div>
+                <div>Học viên</div>
                 <!-- <ion-icon name="people-circle" class="text-lg" hidden></ion-icon> -->
               </div>
             </div>
             <hr class="-mx-5 border-gray-200 my-4" />
-            <h4 hidden>COURSE INCLUDES</h4>
+            <h4 hidden>KHÓA HỌC BAO GỒM</h4>
             <div class="-m-5 divide-y divide-gray-200 text-sm">
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="play-outline" class="text-2xl mr-2"></ion-icon>  -->
-                13 hours on-demand video
+                Video theo yêu cầu 13 giờ
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="key-outline" class="text-2xl mr-2"></ion-icon>  -->
-                Full lifetime access
+                Quyền truy cập trọn đời
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="download-outline" class="text-2xl mr-2"></ion-icon>  -->
-                42 downloadable resources
+                42 tài nguyên có thể tải xuống
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="help-circle-outline" class="text-2xl mr-2"></ion-icon> -->
-                Assignments
+               Bài tập
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="medal-outline" class="text-2xl mr-2"></ion-icon> -->
-                Certificate of Completion
+                Các chứng chỉ
               </div>
             </div>
           </div>
@@ -296,9 +299,10 @@
           </div>
           <div class="p-1">
             <a
-              href="#"
               class="-mx-3 block hover:bg-gray-100 p-2 rounded-md"
               *ngFor="let recommend of recommends"
+              [routerLink]="['/detail', recommend.id]"
+
             >
               <div class="flex items-center space-x-3">
                 <img

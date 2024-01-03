@@ -12,4 +12,8 @@ export class CategoryService {
   getCate(): Observable<any> {
     return this.http.get('/api/category/list/cates' );
   }
+
+  getListCourses(filter:any): Observable<any> {
+    return this.http.post('/api/category/list/courses',filter );
+  }
 }

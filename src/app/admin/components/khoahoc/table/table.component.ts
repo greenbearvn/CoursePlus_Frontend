@@ -39,7 +39,7 @@ export class TableCourseComponent {
   lists: any;
   p: number = 1;
 
-  deleteStatus: any;
+  status: any;
   token: any;
 
   searchData: any = '';
@@ -55,7 +55,7 @@ export class TableCourseComponent {
     ThoiLuongKhoaHoc: '',
     GiaCu: 0,
     GiamGia: 0,
-    TrangThai: false,
+    TrangThai: 0,
     MaCapDo: 0,
     MaGiangVien: 0,
     MaDanhMuc: 0,
@@ -104,6 +104,8 @@ export class TableCourseComponent {
     }
     this.getUserInSession();
   }
+
+  
   getUserInSession() {
     this.khoahocService.getUser().subscribe((data) => {
       this.token = data.data.Token;
@@ -133,7 +135,7 @@ export class TableCourseComponent {
         type: type,
         id: id,
         token: token,
-        MaNguoiDung:this.MaNguoiDung,
+        MaNguoiDung: this.MaNguoiDung,
       },
       maxHeight: '90vh',
       panelClass: 'my-outlined-dialog',
@@ -151,8 +153,8 @@ export class TableCourseComponent {
     this.khoahoc.id = id;
     this.khoahocService.delete(this.khoahoc, this.token).subscribe((data) => {
       this.lists = data.data;
-      this.deleteStatus = data.status;
-      if (this.deleteStatus) {
+      this.status = data.status;
+      if (this.status == true) {
         this._toastService.info('Da Xoa Thanh Cong');
       }
     });
@@ -176,19 +178,19 @@ export class TableCourseComponent {
 
     const result = this.listItems.filter((item: any) => item.id === khoahoc.id);
 
-    if (this.listDetails.length !== 0) {
+    if (this.listDetails !== undefined) {
       const existLDT = this.listDetails.filter(
         (item: any) => item.id === khoahoc.id
       );
       if (existLDT.length !== 0) {
-        console.log('da ton tai');
+        this._toastService.warn('Khóa học đã tổn tại !!!');
       } else {
         this.Tongtien = Number(this.Tongtien) + Number(cartItem.GiaMoi);
         this.listItems.push(cartItem);
       }
     } else {
       if (result.length !== 0) {
-        console.log('da ton tai');
+        this._toastService.warn('Khóa học đã tổn tại !!!');
       } else {
         this.Tongtien = Number(this.Tongtien) + Number(cartItem.GiaMoi);
         this.listItems.push(cartItem);
@@ -199,5 +201,27 @@ export class TableCourseComponent {
       listItems: this.listItems,
       Tongtien: this.Tongtien,
     });
+  }
+
+  changeStatus(khoahoc: KhoaHoc) {
+    if (khoahoc.TrangThai == 1) {
+      khoahoc.TrangThai = 0;
+      this.khoahocService.update(khoahoc, this.token).subscribe((data) => {
+        this.status = data.status;
+        if (this.status == true) {
+          this._toastService.info('Đã thay đổi trạng thái thành công !!!');
+        }
+      });
+      this.getLists();
+    } else {
+      khoahoc.TrangThai = 1;
+      this.khoahocService.update(khoahoc, this.token).subscribe((data) => {
+        this.status = data.status;
+        if (this.status == true) {
+          this._toastService.info('Đã thay đổi trạng thái thành công !!!');
+        }
+      });
+      this.getLists();
+    }
   }
 }

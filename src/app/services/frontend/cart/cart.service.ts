@@ -26,4 +26,8 @@ export class CartService {
   totalMoney(): Observable<any> {
     return this.http.get('/api/cart/product/totalmoney');
   }
+
+  checkBought(): Observable<any> {
+    return this.http.get('/api/cart/product/checkBought');
+  }
 }

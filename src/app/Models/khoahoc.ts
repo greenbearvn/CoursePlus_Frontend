@@ -8,7 +8,7 @@ export interface KhoaHoc {
     ThoiLuongKhoaHoc:string,
     GiaCu:number,
     GiamGia:number,
-    TrangThai:boolean,
+    TrangThai:number,
     MaCapDo:number,
     MaGiangVien:number,
     MaDanhMuc:number

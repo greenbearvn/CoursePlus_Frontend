@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { nguoidung } from 'src/app/Models/nguoidung';
+import { AccountService } from 'src/app/services/frontend/account/account.service';
 
 @Component({
   selector: 'app-adminsidebar',
@@ -16,4 +18,19 @@ import { Component } from '@angular/core';
     '../../../assets/polygon/concept/assets/vendor/fonts/flag-icon-css/flag-icon.min.css',
   ],
 })
-export class SidebarAdminComponent {}
+export class SidebarAdminComponent {
+  constructor(private accountService: AccountService) {}
+
+  user: any;
+
+  ngOnInit() {
+    this.getUser();
+  }
+
+  getUser() {
+    this.accountService.getUser().subscribe((data) => {
+      this.user = data.data;
+      console.log(this.user);
+    });
+  }
+}

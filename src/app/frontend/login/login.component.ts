@@ -47,11 +47,11 @@ export class LoginComponent {
         }
       });
     } else {
-      console.log('Nhap du thong tin');
+      this._toastService.warn('Vui lòng nhập đầy đủ thông tin');
     }
   }
 
   navigateToHome() {
-    window.location.href = '/home';
+    window.location.href = '/';
   }
 }

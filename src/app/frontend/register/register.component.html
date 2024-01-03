@@ -13,13 +13,14 @@
         <div
           class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm"
         >
-          <a href="courseplus/default/form-login.html" class="py-3 px-4"
-            >Login</a
+          <a [title]="'Đăng nhập'"
+          [routerLink]="['/account/login']" class="py-3 px-4"
+            >Đăng nhập</a
           >
           <a
             href="courseplus/default/index.html"
             class="bg-purple-500 purple-500 px-6 py-3 rounded-md shadow text-white"
-            >Register</a
+            >Đăng ký</a
           >
         </div>
       </div>

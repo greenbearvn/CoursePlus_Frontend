@@ -49,7 +49,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.TenNguoiDung }}</td>
                 <td>{{ item.TenBaiKT }}</td>
-                <td>{{ item.ThoiGianNop }}</td>
+                <td>{{ item.ThoiGianNop | date : "dd/MM/yyyy"}}</td>
                 <td>{{ item.ChinhXac }}</td>
                 <td class="d-flex flex-column">
                   <button

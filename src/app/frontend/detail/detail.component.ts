@@ -26,7 +26,7 @@ export class DetailComponent {
     private router: Router
   ) {}
 
-  id:any;
+  id: any;
 
   detail: any;
   isAddCart: any = false;
@@ -49,6 +49,7 @@ export class DetailComponent {
     this.getTests(this.id);
     this.getTeacher(this.id);
     this.getComments(this.id);
+    this.getRecommendCourse(this.id);
   }
 
   getDetailCourse(id: number) {
@@ -94,7 +95,7 @@ export class DetailComponent {
   }
 
   getRecommendCourse(id: number) {
-    this.detailService.getRecommendCourses(id).subscribe((data) => {
+    this.detailService.getSameCourses(id).subscribe((data) => {
       this.recommends = data.data;
       console.log(this.recommends);
     });
@@ -103,28 +104,47 @@ export class DetailComponent {
   addCart(cart: any) {
     this.cartService.addCart(cart).subscribe((data) => {
       this.isAddCart = data.data;
-      if (this.isAddCart) {
+      if (this.isAddCart == true) {
         this._toastService.info('Đã thêm vào giỏ hàng thành công !!!');
-        window.location.reload();
+        this.reloadPage();
       } else {
         this._toastService.warn('Đã tồn tại vào giỏ hàng !!!');
-        window.location.reload();
+       
       }
     });
   }
 
-  checkBought(id: any, mavideo: any) {
-    this.detailService.checkBought(id).subscribe((data) => {
-      this.bought = data.data;
-      if (this.bought == true) {
-        this.navigateToWatching(id, mavideo);
-      } else {
-        this._toastService.info('Vui lòng mua khóa học để kiểm tra!!!');
-      }
-    });
+  checkBought(id: any, mavideo: any, mabbkt: any) {
+    if (mavideo > 0) {
+      this.detailService.checkBought(id).subscribe((data) => {
+        this.bought = data.data;
+        if (this.bought == true) {
+          this.navigateToWatching(id, mavideo);
+        } else {
+          this._toastService.info('Vui lòng mua khóa học để xem video!!!');
+        }
+      });
+    } else {
+      this.detailService.checkBought(id).subscribe((data) => {
+        this.bought = data.data;
+        if (this.bought == true) {
+          this.navigateToTest(mabbkt);
+        } else {
+          this._toastService.info('Vui lòng mua khóa học để kiểm tra!!!');
+        }
+      });
+    }
   }
-  
+
+  reloadPage() {
+    this.router.navigateByUrl('/detail/' + this.id);
+  }
+
   navigateToWatching(id: any, mavideo: any) {
     this.router.navigateByUrl('/course/watching/detail/' + id + '/' + mavideo);
+  }
+
+  navigateToTest(id: any) {
+    this.router.navigateByUrl('/video/test/' + id);
   }
 }
