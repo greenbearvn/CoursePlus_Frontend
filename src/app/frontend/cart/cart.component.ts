@@ -38,12 +38,14 @@ export class CartComponent {
     });
   }
 
-  // Submit() {
-  //   this.SaveData();
-  //   this.AddCollection();
-  // }
+  Submit() {
+    this.SaveData();
+    this.AddCollection();
+    this.getListCart();
+  }
 
   checkCourseBought() {
+
     this.cartService.checkBought().subscribe((data) => {
       this.status = data.data;
       console.log(this.status);

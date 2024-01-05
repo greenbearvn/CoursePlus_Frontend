@@ -1,28 +1,60 @@
 <div id="reviews" class="tube-card p-5">
-  <h3 class="text-lg font-semibold mb-3">Reviews</h3>
-
-  <div class="space-y-4 my-5" *ngFor="let comment of list">
+  <h3 class="text-lg font-semibold mb-3">Đánh giá</h3>
+  <div class="w-full max-w-lg">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="message">
+          Bình luận
+        </label>
+        <textarea
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="message"
+          name="message"
+          rows="4"
+          placeholder="Nhập nội dung bình luận...."
+        ></textarea>
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="button"
+          (click)="create()"
+        >
+          Thêm bình luận
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    class="space-y-4 my-5"
+    *ngFor="
+      let comment of list | paginate : { itemsPerPage: 10, currentPage: p }
+    "
+  >
     <div class="bg-gray-50 border flex gap-x-4 p-4 relative rounded-md">
       <img
-        src="../../courseplus/assets/images/avatars/avatar-4.jpg"
+        [src]="comment.AnhDaiDien"
         alt=""
         class="rounded-full shadow w-12 h-12"
       />
 
       <div>
-        <h4 class="text-base m-0 font-semibold">{{comment.TenNguoiDung}}</h4>
-        <span class="text-gray-700 text-sm"> {{comment.ThoiGian}} </span>
+        <h4 class="text-base m-0 font-semibold">{{ comment.TenHoSo }}</h4>
+        <span class="text-gray-700 text-sm">
+          {{ comment.ThoiGian | date : "dd/MM/yyyy" }}
+        </span>
         <p class="mt-3 md:ml-0 -ml-16" [innerHTML]="comment.NoiDung"></p>
       </div>
-      <fa-icon [icon]="faCircleInfo" (click)="checkDelete(comment.MaBinhLuan)" ></fa-icon>
-      <fa-icon [icon]="faTrash" *ngIf="showDelete == true" (click)="delete(comment)"></fa-icon>
+      <fa-icon
+        [icon]="faCircleInfo"
+        (click)="checkDelete(comment.MaBinhLuan)"
+      ></fa-icon>
+      <fa-icon
+        [icon]="faTrash"
+        *ngIf="showDelete == true"
+        (click)="delete(comment)"
+      ></fa-icon>
     </div>
   </div>
-  <!-- <div class="flex justify-center mt-9">
-      <a
-        href="#"
-        class="bg-gray-50 border hover:bg-gray-100 px-4 py-1.5 rounded-full text-sm"
-        >More Comments ..</a
-      >
-    </div> -->
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

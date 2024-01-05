@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PaymentService } from 'src/app/services/frontend/payment/payment.service';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-payment',
@@ -12,7 +13,10 @@ import { PaymentService } from 'src/app/services/frontend/payment/payment.servic
   ],
 })
 export class PaymentComponent {
-  constructor(private paymentService: PaymentService) {}
+  constructor(
+    private paymentService: PaymentService,
+    private toast: ToastService
+  ) {}
 
   data: any;
   vnpayUrl: any;
@@ -45,6 +49,6 @@ export class PaymentComponent {
 
   getBankId(bank: any) {
     this.bankCode = bank.code;
-    console.log(this.bankCode);
+    this.toast.info('Đã chọn ngân hàng' + bank.code);
   }
 }

@@ -40,7 +40,11 @@ export class DetailService {
     return this.http.get('/api/product/detail/courses/same/' + id);
   }
 
-  checkBought(id:any): Observable<any> {
-    return this.http.get('/api/product/detail/check/bought/'+ id);
+  checkBought(id: any): Observable<any> {
+    return this.http.get('/api/product/detail/check/bought/' + id);
+  }
+
+  checkBoughtCourse(id: any): Observable<any> {
+    return this.http.get('/api/product/detail/check/bought/course/' + id);
   }
 }

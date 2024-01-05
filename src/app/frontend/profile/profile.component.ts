@@ -45,6 +45,7 @@ export class ProfileComponent {
   room: any = 0;
   userSession: any;
   type: any = 'create';
+  existed: any;
 
   ///
   listCategories: any;
@@ -66,6 +67,10 @@ export class ProfileComponent {
     this.profileService.getDetailProfile(id).subscribe((data) => {
       this.profile = data.data;
       this.userSession = data.user;
+
+      if (this.profile.TenHoSo != '') {
+        this.existed = true;
+      }
 
       console.log(this.profile);
       console.log(this.userSession);
@@ -158,8 +163,7 @@ export class ProfileComponent {
           }
         });
       }
-    }
-    else{
+    } else {
       this.toast.info('Vui lòng nhập đầy đủ thông tin các trường !!!');
     }
   }

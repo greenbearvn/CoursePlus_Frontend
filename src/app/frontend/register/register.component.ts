@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { nguoidung } from 'src/app/Models/nguoidung';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   ],
 })
 export class RegisterComponent {
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService,private toast:ToastService) {}
 
   isRegister: any;
   rePass: any;
@@ -36,7 +37,12 @@ export class RegisterComponent {
       if (this.user.MatKhau === this.rePass) {
         this.accountService.register(this.user).subscribe((data) => {
           this.isRegister = data.data;
-          console.log(this.isRegister);
+          if(this.isRegister == true){
+            this.toast.info("Đăng ký thành công !!!")
+          }
+          else{
+            this.toast.info("Đăng ký không thành công !!!")
+          }
         });
       }
       else{

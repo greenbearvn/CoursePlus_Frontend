@@ -13,7 +13,7 @@
           [routerLink]="['/detail', makhoahoc]"
           class="flex items-center text-blue-500"
         >
-          <span class="text-sm md:inline hidden" > back</span>
+          <span class="text-sm md:inline hidden" > Quay lại </span>
         </a>
       </div>
       <!-- title -->
@@ -112,9 +112,9 @@
         uk-sticky="cls-active:shadow-sm ; media: @s"
       >
         <ul uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
-          <li><a href="#" class="lg:px-2"> Overview </a></li>
-          <li><a href="#" class="lg:px-2"> Announcements </a></li>
-          <li><a href="#" class="lg:px-2"> Faq </a></li>
+          <li><a href="#" class="lg:px-2"> Tổng quan </a></li>
+          <li><a href="#" class="lg:px-2"> Giảng viên </a></li>
+          <li><a href="#" class="lg:px-2"> Bài kiểm tra </a></li>
         </ul>
       </nav>
       <div class="container">
@@ -126,7 +126,7 @@
             <hr class="my-5" />
             <div class="grid lg:grid-cols-3 mt-8 gap-8">
               <div>
-                <h3 class="text-lg font-semibold">Description</h3>
+                <h3 class="text-lg font-semibold">Mô tả</h3>
               </div>
               <div class="col-span-2">
                 <p>
@@ -137,45 +137,15 @@
                   quis nostrud exerci tation ullamcorper suscipit lobortis nisl
                   ut aliquip ex ea commodo consequat
                   <br />
-                  <a href="#" class="text-blue-500">Read more .</a>
+                  <a href="#" class="text-blue-500">Đọc thêm ...</a>
                 </p>
               </div>
               <div>
-                <h3 class="text-lg font-semibold">What You’ll Learn</h3>
+                <h3 class="text-lg font-semibold">Bạn sẽ được học :</h3>
               </div>
-              <div class="col-span-2">
-                <ul>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Setting up
-                    the environment
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Advanced
-                    HTML Practices
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Build a
-                    portfolio website
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Responsive
-                    Designs
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Understand
-                    HTML Programming
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Code HTML
-                  </li>
-                  <li>
-                    <i class="uil-check text-xl font-bold mr-2"></i>Start
-                    building beautiful websites
-                  </li>
-                </ul>
-              </div>
+             
               <div>
-                <h3 class="text-lg font-semibold">Requirements</h3>
+                <h3 class="text-lg font-semibold">Bắt buộc</h3>
               </div>
               <div class="col-span-2">
                 <ul class="list-disc ml-5 space-y-1">
@@ -197,14 +167,11 @@
               />
               <div>
                 <h4 class="-mb-1 text-base">{{ teacher.TenHoSo }}</h4>
-                <span class="text-sm">
-                  Instructor <span class="text-gray-500"> 1 year ago </span>
-                </span>
+                
               </div>
             </div>
             <h4 class="leading-8 text-xl">
-              Nam liber tempor cum soluta nobis eleifend option congue imperdiet
-              doming id quod mazim placerat facer possim assum.
+              {{ teacher.TenHoSo }}
             </h4>
             
           </div>

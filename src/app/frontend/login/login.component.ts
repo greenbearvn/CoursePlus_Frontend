@@ -52,6 +52,6 @@ export class LoginComponent {
   }
 
   navigateToHome() {
-    window.location.href = '/';
+    window.location.href = '/profile/' + this.userLoginData.MaNguoiDung;
   }
 }

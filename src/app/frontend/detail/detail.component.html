@@ -77,7 +77,7 @@
         <div class="tube-card p-6" id="Overview">
           <div class="space-y-7">
             <div>
-              <h3 class="text-lg font-semibold mb-3">Description</h3>
+              <h3 class="text-lg font-semibold mb-3">Mô tả</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
                 diam nonummy nibh euismod tincidunt ut laoreet dolore magna
@@ -88,7 +88,7 @@
               </p>
             </div>
             <div>
-              <h3 class="text-lg font-semibold mb-3">What You’ll Learn</h3>
+              <h3 class="text-lg font-semibold mb-3">Bạn sẽ được học:</h3>
               <ul class="grid md:grid-cols-2">
                 <li>
                   <i class="uil-check text-xl font-bold mr-2"></i>Setting up the
@@ -120,7 +120,7 @@
               </ul>
             </div>
             <div>
-              <h3 class="text-lg font-semibold mb-3">Requirements</h3>
+              <h3 class="text-lg font-semibold mb-3">Cần thiết</h3>
               <ul class="list-disc ml-5 space-y-1 mt-3">
                 <li>Any computer will work: Windows, macOS or Linux</li>
                 <li>Basic programming HTML and CSS.</li>
@@ -129,7 +129,7 @@
             </div>
             <div>
               <h3 class="font-medium text-lg mb-2">
-                Here is exactly what we cover in this course:
+                Đây chính xác là những gì chúng tôi đề cập trong khóa học này:
               </h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
@@ -271,7 +271,7 @@
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="help-circle-outline" class="text-2xl mr-2"></ion-icon> -->
-               Bài tập
+                Bài tập
               </div>
               <div class="flex items-center px-5 py-3">
                 <!-- <ion-icon name="medal-outline" class="text-2xl mr-2"></ion-icon> -->
@@ -284,8 +284,18 @@
             class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white"
             (click)="addCart(detail)"
             style="cursor: pointer"
+            *ngIf="existed == undefined"
           >
             <div class="" style="color: #fff">Mua Ngay</div>
+          </a>
+          <a
+            class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white"
+            (click)="addCart(detail)"
+            style="cursor: pointer"
+            *ngIf="existed != undefined"
+            [routerLink]="['/course/watching/detail', detail.id]"
+          >
+            <div class="" style="color: #fff">Bắt đầu học</div>
           </a>
         </div>
         <div class="tube-card p-5">
@@ -298,11 +308,11 @@
             </a>
           </div>
           <div class="p-1">
+            
             <a
               class="-mx-3 block hover:bg-gray-100 p-2 rounded-md"
               *ngFor="let recommend of recommends"
               [routerLink]="['/detail', recommend.id]"
-
             >
               <div class="flex items-center space-x-3">
                 <img

@@ -20,4 +20,8 @@ export class CommentService {
   delete(comment: comment): Observable<any> {
     return this.http.post('/api/comment/delete', comment);
   }
+  create(comment: comment): Observable<any> {
+    return this.http.post('/api/admin/comment/create', comment);
+  }
+
 }

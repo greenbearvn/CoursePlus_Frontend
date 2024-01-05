@@ -6,9 +6,9 @@
   <h2 [innerHTML]="detailTest.TenBaiKT"></h2>
   <div class="question-card mt-4">
     <div class="card">
-      <h4 class="card-header">Câu {{ currentQuestion + 1 }}</h4>
+      <h4 class="card-header">Câu {{ currentQuestion + 1 }} :</h4>
       <div class="card-body">
-        <h5 class="card-title">{{ questions[currentQuestion].MoTaCauHoi }}:</h5>
+        <h5 class="card-title" [innerHTML]="questions[currentQuestion].MoTaCauHoi"></h5>
 
         <div
           class="form-check"

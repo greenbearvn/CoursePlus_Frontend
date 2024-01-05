@@ -150,14 +150,22 @@ export class TableCourseComponent {
   }
 
   deleteItem(id: number) {
-    this.khoahoc.id = id;
-    this.khoahocService.delete(this.khoahoc, this.token).subscribe((data) => {
-      this.lists = data.data;
-      this.status = data.status;
-      if (this.status == true) {
-        this._toastService.info('Da Xoa Thanh Cong');
-      }
-    });
+
+    const cf = confirm("Bạn có muốn xóa khóa học này không?");
+    if(cf == true){
+      this.khoahoc.id = id;
+      this.khoahocService.delete(this.khoahoc, this.token).subscribe((data) => {
+        this.lists = data.data;
+        this.status = data.status;
+        if (this.status == true) {
+          this._toastService.info('Đã xóa khóa học thành công !!!');
+        }
+      });
+    }
+    else{
+      this._toastService.info('Đã hủy xóa khóa học thành công !!!');
+    }
+    
   }
 
   addCartItem(khoahoc: any) {

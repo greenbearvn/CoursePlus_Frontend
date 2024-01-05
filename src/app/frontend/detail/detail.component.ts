@@ -37,6 +37,7 @@ export class DetailComponent {
   comments: any;
   recommends: any;
   bought: any;
+  existed: any;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
@@ -50,6 +51,7 @@ export class DetailComponent {
     this.getTeacher(this.id);
     this.getComments(this.id);
     this.getRecommendCourse(this.id);
+    this.checkBoughtCourse(this.id);
   }
 
   getDetailCourse(id: number) {
@@ -106,11 +108,16 @@ export class DetailComponent {
       this.isAddCart = data.data;
       if (this.isAddCart == true) {
         this._toastService.info('Đã thêm vào giỏ hàng thành công !!!');
-        this.reloadPage();
       } else {
         this._toastService.warn('Đã tồn tại vào giỏ hàng !!!');
-       
       }
+    });
+  }
+
+  checkBoughtCourse(id: number) {
+    this.detailService.checkBoughtCourse(id).subscribe((data) => {
+      this.existed = data.data;
+      console.log(this.existed);
     });
   }
 
@@ -134,10 +141,6 @@ export class DetailComponent {
         }
       });
     }
-  }
-
-  reloadPage() {
-    this.router.navigateByUrl('/detail/' + this.id);
   }
 
   navigateToWatching(id: any, mavideo: any) {
