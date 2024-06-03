@@ -5,21 +5,21 @@
       <a
         *ngFor="let item of cates"
         [title]="'Danh muc'"
-        [routerLink]="['/courselist', 'dm', item.madm]"
+        [routerLink]="['/courselist', 'dm', item.categoryId]"
         class="rounded-md overflow-hidden relative w-full lg:h-48 h-40"
       >
         <div
           class="absolute w-full h-3/4 -bottom-12 bg-gradient-to-b from-transparent to-gray-800 z-10"
         ></div>
         <img
-          [src]="item.anhdm"
+          [src]="item.image"
           class="absolute w-full h-full object-cover"
           alt=""
         />
         <div
           class="absolute bottom-0 w-full p-3 text-white z-20 font-semibold text-lg"
         >
-          {{ item.tendm }}
+          {{ item.categoryName }}
         </div>
       </a>
     </div>
@@ -30,26 +30,19 @@
         <a
           *ngFor="let item of detailCates"
           [title]="'Chi tiet danh muc'"
-          [routerLink]="['/courselist', 'ctdm', item.MaCTDM]"
+          [routerLink]="['/courselist', 'ctdm', item.detailCateId]"
         >
           <div
             class="hover:bg-gray-100 flex items-start px-3 py-2 rounded-lg space-x-3"
           >
             <div>
-              <h3 class="font-semibold text-lg">{{ item.TenCTDM }}</h3>
+              <h3 class="font-semibold text-lg">{{ item.detailCateName }}</h3>
             </div>
           </div>
         </a>
       </div>
 
-      <div class="flex justify-center mt-9">
-        <a
-          href="#"
-          class="bg-gray-50 border hover:bg-gray-100 px-4 py-1.5 rounded-full text-sm"
-        >
-          More Topics ..</a
-        >
-      </div>
+      
     </div>
   </div>
   <!-- footer -->

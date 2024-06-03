@@ -11,7 +11,7 @@ export class ProfileService {
   constructor(private http: HttpClient) {}
 
   getDetailProfile(id: any): Observable<any> {
-    return this.http.get('/api/profile/person/' + id);
+    return this.http.get('/api/profile/detail/' + id);
   }
 
   getListCat(): Observable<any> {
@@ -21,16 +21,18 @@ export class ProfileService {
   createRoom(nguuoidung: nguoidung): Observable<any> {
     return this.http.post('/api/profile/create/convention', nguuoidung);
   }
-  create(profile: profile): Observable<any> {
+
+  //change
+  create(profile:any): Observable<any> {
     return this.http.post('/api/profile/create', profile);
   }
 
-  update(profile: profile): Observable<any> {
-    return this.http.post('/api/profile/update', profile);
+  update(id:any,profile:any): Observable<any> {
+    return this.http.post('/api/profile/update/'+id, profile);
   }
 
 
   upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/profile/upload', formData);
+    return this.http.post('/api/profile/uploadImage', formData);
   }
 }

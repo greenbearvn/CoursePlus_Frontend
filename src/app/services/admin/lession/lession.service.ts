@@ -9,12 +9,12 @@ import { lession } from 'src/app/Models/admin/lession';
 export class LessionService {
   constructor(private http: HttpClient) {}
 
-  list(makhoahoc: number): Observable<any> {
-    return this.http.get('/api/admin/lession/list/' + makhoahoc);
+  list(id: number): Observable<any> {
+    return this.http.get('/api/lessions/course/' + id);
   }
 
   detail(id: number): Observable<any> {
-    return this.http.get('/api/admin/lession/detail/' + id);
+    return this.http.get('/api/lessions/detail/' + id);
   }
 
   listCourses(): Observable<any> {
@@ -22,15 +22,15 @@ export class LessionService {
   }
 
   create(lession: any): Observable<any> {
-    return this.http.post('/api/admin/lession/create', lession);
+    return this.http.post('/api/lessions/create', lession);
   }
 
-  update(lession: any): Observable<any> {
-    return this.http.post('/api/admin/lession/detail/', lession);
+  update(id:any,lession: any): Observable<any> {
+    return this.http.put('/api/lessions/edit/' +id, lession);
   }
 
-  delete(lession: lession): Observable<any> {
-    return this.http.post('/api/admin/lession/delete', lession);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/admin/lession/delete/' + id);
   }
 
   

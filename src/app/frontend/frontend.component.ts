@@ -4,10 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-admin',
   templateUrl: './frontend.component.html',
   styleUrls: [
-    './frontend.component.css',
-    './css/icon.css',
-    './css/uikit.css',
-    './css/tailwin.css',
+    './frontend.component.css'
   ],
 })
 export class FrontendComponent {}

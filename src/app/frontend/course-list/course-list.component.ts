@@ -6,10 +6,7 @@ import { CategoryService } from 'src/app/services/frontend/category/category.ser
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: [
-    './course-list.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './course-list.component.css','../css/style.css'
   ],
 })
 export class CourseListComponent {

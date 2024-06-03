@@ -4,41 +4,13 @@
       <!-- title -->
       <div class="mb-2">
         <div class="text-xl font-semibold">
-          The world's largest selection of courses
+          Danh sách bộ sưu tập các khóa học của bạn
         </div>
-        <div class="text-sm mt-2">
-          Choose from 130,000 online video courses with new additions published
-          every month
-        </div>
+        
       </div>
       <!-- nav -->
       <nav class="cd-secondary-nav border-b md:m-0 -mx-4 nav-small">
-        <ul>
-          <li
-            *ngFor="let cate of cates"
-            (click)="filterCate(cate.madm)"
-            style="cursor: pointer"
-            [className]="
-              filter.findWith == 'dm' && filter.cateId == cate.madm
-                ? 'active'
-                : 'inactive'
-            "
-          >
-            <a class="lg:px-2"> {{ cate.tendm }} </a>
-          </li>
-          <li
-            *ngFor="let item of detailCates"
-            (click)="filterDetailCate(item.MaCTDM)"
-            style="cursor: pointer"
-            [className]="
-              filter.findWith == 'ctdm' && filter.cateId == item.MaCTDM
-                ? 'active'
-                : 'inactive'
-            "
-          >
-            <a class="lg:px-2"> {{ item.TenCTDM }} </a>
-          </li>
-        </ul>
+        <input type="text" class="form-control" placeholder="Nhập khóa học cần tìm kiếm..." [(ngModel)]="searchData">
       </nav>
       <!--  slider -->
       <div
@@ -46,25 +18,25 @@
         style="margin-top: 20px"
       >
         <a
-          [title]="item.TenKhoaHoc"
-          [routerLink]="['/detail', item.id]"
+          [title]="item.courseRes.courses.courseName"
+          [routerLink]="['/detail', item.courseRes.courses.courseId]"
         
-          class="uk-link-reset" *ngFor="let item of listCollections" >
+          class="uk-link-reset" *ngFor="let item of detailCollections |search : searchData" >
           <div class="card uk-transition-toggle">
             <div class="card-media h-40">
               <div class="card-media-overly"></div>
-              <img [src]="item.AnhKhoaHoc" alt="" class="" />
+              <img [src]="item.courseRes.courses.courseThumbnail" alt="" class="" />
               <span class="icon-play"></span>
             </div>
             <div class="card-body p-4">
               <div class="font-semibold line-clamp-2">
-                {{ item.TenKhoaHoc }}
+                {{ item.courseRes.courses.courseName }}
               </div>
               <div class="flex space-x-2 items-center text-sm pt-3">
-                <div>{{ item.ThoiLuongKhoaHoc }}</div>
+                <div>{{ item.courseRes.courses.courseDuration }}</div>
               </div>
               <div class="pt-1 flex items-center justify-between">
-                <div class="text-sm font-semibold">{{ item.TenHoSo }}</div>
+                <div class="text-sm font-semibold">{{ item.courseRes.profile.profileName }}</div>
               </div>
             </div>
           </div>

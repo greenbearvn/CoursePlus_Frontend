@@ -12,7 +12,7 @@
           >
             <div class="h-28 overflow-hidden relative rounded-md w-44">
               <img
-                [src]="item.AnhKhoaHoc"
+                [src]="item.courseThumbnail"
                 alt=""
                 class="absolute w-full h-full inset-0 object-cover"
               />
@@ -21,26 +21,27 @@
               <a
                 href="courseplus/default/course-intro-2.html"
                 class="md:text-lg font-semibold line-clamp-2 mb-2"
-                >{{ item.TenKhoaHoc }}
+                >{{ item.courseName }}
               </a>
               <a href="#" class="font-medium block text-sm">
-                {{ item.TenHoSo }}
+                {{ item.profileName }}
               </a>
               <div class="flex items-center mt-7 space-x-2 text-sm font-medium">
-                <div>{{ item.TenCapDo }}</div>
+                <div>{{ item.levelName }}</div>
                 <div class="md:block hidden">·</div>
-                <div class="flex items-center">{{ item.ThoiLuongKhoaHoc }}</div>
+                <div class="flex items-center">{{ item.courseDuration }}</div>
               </div>
             </div>
             <h4 class="font-semibold text-black text-xl">
-              {{ item.GiaCu | currency : "VND" }}
+              {{ item.oldPrice | currency : "VND" }}
             </h4>
             <h5 class="font-semibold text-black text-xl">
-              {{ item.GiaMoi | currency : "VND" }}
+              {{ item.newPrice | currency : "VND" }}
             </h5>
             <button
               class="absolute bottom-9 font-semibold right-4 text-blue text-blue-500"
-              (click)="deleteItem(item.id)"
+              (click)="deleteItem( 'id'+item.courseId)"
+              style="background-color: bisque; padding: 5px 10px 5px 10px; border-radius: 10px;"
             >
               Xóa
             </button>
@@ -67,6 +68,13 @@
             >
               Đi trang thanh toán
             </a>
+
+             <!-- <a
+              (click)="Submit()"
+              class="bg-blue-600 block py-3 rounded-md text-white text-center text-base font-semibold hover:text-white hover:bg-blue-700"
+            >
+              Thanh toán
+            </a> -->
             
             <div class="flex items-center justify-center mt-4 space-x-1.5">
               <p class="font-medium">Hoặc</p>

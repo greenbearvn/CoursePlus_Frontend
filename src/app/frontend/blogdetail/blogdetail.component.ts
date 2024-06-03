@@ -6,10 +6,7 @@ import { BlogService } from 'src/app/services/frontend/blog/blog.service';
   selector: 'app-blogdetail',
   templateUrl: './blogdetail.component.html',
   styleUrls: [
-    './blogdetail.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './blogdetail.component.css','../css/style.css'
   ],
 })
 export class BlogdetailComponent {
@@ -21,6 +18,10 @@ export class BlogdetailComponent {
   blogDetail: any;
   id: any;
 
+  recommendBlogs:any;
+
+  hotBlogs:any;
+
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.id = Number(routeParams.get('id'));
@@ -28,9 +29,24 @@ export class BlogdetailComponent {
   }
 
   getDetail() {
-    this.blogService.detail(this.id).subscribe((data) => {
-      this.blogDetail = data.data;
-      console.log(this.blogDetail);
+    this.blogService.getDetail(this.id).subscribe((data) => {
+      this.blogDetail = data;
+      this.getRecommendBlogs(this.blogDetail.cateid);
+      
+    });
+  }
+
+  getRecommendBlogs(categoryId:any){
+    this.blogService.getRecommendBlogs(categoryId).subscribe((data) => {
+      this.recommendBlogs = data;
+      console.log(this.recommendBlogs);
+    });
+  }
+
+  getHotBlogs(){
+    this.blogService.getList().subscribe((data) => {
+      this.hotBlogs = data;
+      console.log(this.hotBlogs);
     });
   }
 }

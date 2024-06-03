@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { KhoaHoc } from 'src/app/Models/khoahoc';
+import { Course } from 'src/app/Models/Course';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class ManagecourseService {
     return this.http.get('/api/admin/usmanage/lists/ctdanhmuc');
   }
 
-  create(khoahoc: KhoaHoc): Observable<any> {
+  create(khoahoc: Course): Observable<any> {
     return this.http.post('/api/admin/usmanage/create', khoahoc);
   }
 
@@ -37,11 +37,11 @@ export class ManagecourseService {
     return this.http.get('/api/admin/usmanage/detail/' + id);
   }
 
-  delete(khoahoc: KhoaHoc): Observable<any> {
+  delete(khoahoc: Course): Observable<any> {
     return this.http.post('/api/admin/usmanage/delete', khoahoc);
   }
 
-  update(khoahoc: KhoaHoc): Observable<any> {
+  update(khoahoc: Course): Observable<any> {
     return this.http.post('/api/admin/usmanage/update', khoahoc);
   }
 

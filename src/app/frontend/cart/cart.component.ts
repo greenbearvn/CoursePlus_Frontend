@@ -7,10 +7,7 @@ import { ToastService } from 'angular-toastify';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: [
-    './cart.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './cart.component.css','../css/style.css'
   ],
 })
 export class CartComponent {
@@ -33,7 +30,7 @@ export class CartComponent {
 
   getListCart() {
     this.cartService.getlistCart().subscribe((data) => {
-      this.cartList = data.data;
+      this.cartList = Object.values(data);
       console.log(this.cartList);
     });
   }
@@ -45,7 +42,6 @@ export class CartComponent {
   }
 
   checkCourseBought() {
-
     this.cartService.checkBought().subscribe((data) => {
       this.status = data.data;
       console.log(this.status);
@@ -79,8 +75,8 @@ export class CartComponent {
 
   deleteItem(id: any) {
     this.cartService.deleteItem(id).subscribe((data) => {
-      this.status = data.data;
-      if (this.status == true) {
+      this.status = data;
+      if (this.status == 1) {
         this.getListCart();
         this.getTotalMoney();
       }
@@ -89,7 +85,7 @@ export class CartComponent {
 
   getTotalMoney() {
     this.cartService.totalMoney().subscribe((data) => {
-      this.totalMoney = data.data;
+      this.totalMoney = data;
       this.countItem = data.count;
     });
   }

@@ -10,8 +10,9 @@ import { SuccessComponent } from './success/success.component';
 import { WatchingComponent } from './watching/watching.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { ChatComponent } from './chat/chat.component';
+
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { BlogComponent } from './blog/blog.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BlogdetailComponent } from './blogdetail/blogdetail.component';
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: 'detail/:id',
         component: DetailComponent,
+      },
+      {
+        path: 'course/watching/detail/:id',
+        component: WatchingComponent,
       },
       {
         path: 'course/watching/detail/:id/:mavideo',
@@ -59,17 +64,14 @@ const routes: Routes = [
         path: 'account/login',
         component: LoginComponent,
       },
+  
       {
-        path: 'chat',
-        component: ChatComponent,
-      },
-      {
-        path: 'chat/:id/:MaHoSo',
-        component: ChatComponent,
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'profile/:id',
-        component: ProfileComponent,
+        component: ProfileUpdateComponent,
       },
       {
         path: 'blog',
@@ -84,7 +86,7 @@ const routes: Routes = [
         component: BlogdetailComponent,
       },
       {
-        path: 'collection',
+        path: 'collection/:id',
         component: CollectionComponent,
       },
       {

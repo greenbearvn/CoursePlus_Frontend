@@ -1,5 +1,5 @@
-export interface category{
-    madm:number,
-    tendm:string,
-    anhdm:string
+export interface Category{
+    categoryId:any;
+    categoryName:any
+    image:any;
 }

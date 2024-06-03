@@ -16,15 +16,7 @@ import { lession } from 'src/app/Models/admin/lession';
   selector: 'app-lessionlist',
   templateUrl: './lessionlist.component.html',
   styleUrls: [
-    './lessionlist.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './lessionlist.component.css'
   ],
 })
 export class LessionlistComponent {
@@ -76,40 +68,41 @@ export class LessionlistComponent {
       maxHeight: '90vh',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getListVideos();
+
+      this.getListLessions();
     });
   }
 
   ngOnInit() {
     this.getListLessions();
-    this.getListVideos();
+    // this.getListVideos();
   }
 
   getListLessions() {
     this.lessService.list(this.id).subscribe((data) => {
-      this.lessions = data.data;
+      this.lessions = data;
       console.log(this.lessions);
     });
   }
 
-  getListVideos() {
-    this.videoService.list(this.id).subscribe((data) => {
-      this.videos = data.data;
-      console.log(this.videos);
-    });
-  }
+  // getListVideos() {
+  //   this.videoService.list(this.id).subscribe((data) => {
+  //     this.videos = data.data;
+  //     console.log(this.videos);
+  //   });
+  // }
 
   deleteLession(lession: lession) {
     this.lessService.delete(lession).subscribe((data) => {
       this.getListLessions();
-      this.getListVideos();
+      // this.getListVideos();
     });
   }
 
-  deleteVideo(video: video) {
-    this.videoService.delete(video).subscribe((data) => {
+  deleteVideo(id:any) {
+    this.videoService.delete(id).subscribe((data) => {
       this.getListLessions();
-      this.getListVideos();
+      // this.getListVideos();
     });
   }
 }

@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 export class DetailService {
   constructor(private http: HttpClient) {}
 
+ 
+
   getDetail(id: any): Observable<any> {
-    return this.http.get('/api/product/detail/' + id);
+    return this.http.get('/api/courses/detail/' + id);
   }
 
   getLessions(id: any): Observable<any> {
@@ -25,11 +27,12 @@ export class DetailService {
   }
 
   getTeachersOfCour(id: any): Observable<any> {
-    return this.http.get('/api/product/detail/teacher/' + id);
+    return this.http.get('/api/profile/detail/' + id);
   }
 
   getAllComments(id: any): Observable<any> {
-    return this.http.get('/api/product/comments/' + id);
+    // return this.http.get('/api/product/comments/' + id);
+    return this.http.get('https://jsonplaceholder.typicode.com/posts/1/comments');
   }
 
   getRecommendCourses(id: any): Observable<any> {

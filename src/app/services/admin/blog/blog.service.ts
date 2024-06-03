@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { blog } from 'src/app/Models/frontend/blog';
+import { Blog } from 'src/app/Models/admin/blog';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class BlogService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> {
-    return this.http.get('/api/admin/blog/list');
+    return this.http.get('/api/v1/blog/list');
   }
 
   listUser(): Observable<any> {
@@ -22,22 +22,23 @@ export class BlogService {
   }
 
   detail(id: any): Observable<any> {
-    return this.http.get('/api/admin/blog/detail/' + id);
+    return this.http.get('/api/v1/blog/detail/' + id);
   }
 
-  create(blog: blog): Observable<any> {
-    return this.http.post('/api/admin/blog/create', blog);
+  create(blog: Blog): Observable<any> {
+    return this.http.post('/api/v1/blog/create', blog);
   }
 
-  delete(blog: blog): Observable<any> {
-    return this.http.post('/api/admin/blog/delete', blog);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/v1/blog/delete/' +id);
   }
 
-  update(blog: blog): Observable<any> {
-    return this.http.post('/api/admin/blog/update', blog);
+  update(id:any,blog: Blog): Observable<any> {
+    return this.http.put('/api/v1/blog/edit/'+id, blog);
   }
 
   upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/admin/blog/upload', formData);
+   
+    return this.http.post('/api/v1/blog/uploadImage', formData);
   }
 }

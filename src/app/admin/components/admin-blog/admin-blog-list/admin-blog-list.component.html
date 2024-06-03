@@ -32,8 +32,8 @@
                 <th>Tên bài viết</th>
                 <th>Ảnh minh họa</th>
                 <th>Ngày đăng</th>
-                <th>Tên danh mục</th>
-                <th>Tên người dùng</th>
+                <!-- <th>Tên danh mục</th> -->
+                <!-- <th>Tên người dùng</th> -->
                 <th>Trạng thái</th>
                 <th></th>
               </tr>
@@ -48,28 +48,28 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenBaiViet }}</td>
+                <td>{{ item.blogName }}</td>
                 <td>
                   <img
-                    [src]="item.AnhMinhHoa"
+                    [src]="item.thumnail"
                     alt=""
                     width="150"
                     height="200"
                   />
                 </td>
 
-                <td>{{ item.NgayDang | date : "dd/MM/yyyy" }}</td>
-                <td>{{ item.tendm }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
+                <td>{{ item.datePublish | date : "dd/MM/yyyy" }}</td>
+                <!-- <td>{{ item.tendm }}</td> -->
+                <!-- <td>{{ item.TenNguoiDung }}</td> -->
                 <td>
-                  <input type="checkbox" *ngIf="item.TrangThai == 1"  checked (click)="changeStatus(item)"/>
-                  <input type="checkbox" *ngIf="item.TrangThai == 0"  (click)="changeStatus(item)"/>
+                  <input type="checkbox" *ngIf="item.status == 1"  checked (click)="changeStatus(item)"/>
+                  <input type="checkbox" *ngIf="item.status == 0"  (click)="changeStatus(item)"/>
                 </td>
-                <td class="d-flex flex-column">
+                <td class="d-flex ">
                   <button
                     class="btn btn-primary m-1"
                     mat-raised-button
-                    (click)="openDialog('edit', item.MaBaiViet)"
+                    (click)="openDialog('edit', item.blogId)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>

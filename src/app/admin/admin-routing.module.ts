@@ -76,6 +76,10 @@ const routes: Routes = [
             path: 'detail/:id',
             component: KhoahocdetailComponent,
           },
+          {
+            path: 'user/courses/:userid/:courseid',
+            component: KhoahocdetailComponent,
+          },
         ],
       },
       {

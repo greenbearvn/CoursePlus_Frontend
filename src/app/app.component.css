@@ -7390,7 +7390,7 @@ header.is_fixed {
 .dropdown_cart {
   width: 385px;
   padding: 0;
-  left: auto !important;
+  left: -200px;
 }
 
 .dropdown_cart .cart-headline {

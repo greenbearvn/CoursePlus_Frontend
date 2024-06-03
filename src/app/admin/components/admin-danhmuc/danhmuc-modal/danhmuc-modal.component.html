@@ -16,7 +16,7 @@
               value=""
               name=""
               required
-              [(ngModel)]="cate.tendm"
+              [(ngModel)]="cate.categoryName"
             />
           </div>
 
@@ -46,8 +46,8 @@
             </form>
             <img *ngIf="imageUrl" [src]="imageUrl" width="150" height="200" />
             <img
-              *ngIf="cate.anhdm !== ''"
-              [src]="cate.anhdm"
+              *ngIf="cate.image !== ''"
+              [src]="cate.image"
               src=""
               alt=""
               width="150"

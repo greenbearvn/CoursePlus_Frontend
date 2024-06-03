@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
+import { ManagecourseService } from 'src/app/services/frontend/managecourse/managecourse.service';
 
 @Component({
   selector: 'app-khoahocdetail',
@@ -10,11 +11,14 @@ import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 export class KhoahocdetailComponent {
   constructor(
     private khoahocService: KhoahocService,
+    private managerService: ManagecourseService,
     private route: ActivatedRoute
   ) {}
 
   id: any;
   token: any;
+
+  userid: any;
 
   detail: any;
 
@@ -32,8 +36,8 @@ export class KhoahocdetailComponent {
   }
 
   getDetail() {
-    this.khoahocService.detail(this.id, this.token).subscribe((data) => {
-      this.detail = data.data;
+    this.khoahocService.detail(this.id).subscribe((data) => {
+      this.detail = data;
     });
   }
 }

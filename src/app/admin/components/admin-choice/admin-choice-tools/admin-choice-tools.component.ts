@@ -14,15 +14,7 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
   selector: 'app-admin-choice-tools',
   templateUrl: './admin-choice-tools.component.html',
   styleUrls: [
-    './admin-choice-tools.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './admin-choice-tools.component.css'
   ],
 })
 export class AdminChoiceToolsComponent {
@@ -42,10 +34,10 @@ export class AdminChoiceToolsComponent {
   Editor = ClassicEditor;
 
   choice: any = {
-    MaLuaChon: 0,
-    MaCauHoi: 0,
-    NoiDung: '',
-    Dung: 0,
+    choiceId: 0,
+    questionId: 0,
+    choiceContent: '',
+    corrected: 0,
   };
 
   createRes: any;
@@ -67,7 +59,7 @@ export class AdminChoiceToolsComponent {
 
   getDetail(id: number) {
     if (id >= 0) {
-      this.choice = this.question.Choices[id];
+      this.choice = this.question.choices[id];
       console.log(this.choice);
     }
   }

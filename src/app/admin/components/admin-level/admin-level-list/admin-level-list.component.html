@@ -43,13 +43,13 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenCapDo }}</td>
+                <td>{{ item.nameLevel }}</td>
 
                 <td class="d-flex flex-column">
                   <button
                     class="btn btn-primary m-1"
                     mat-raised-button
-                    (click)="openDialog('update', item.MaCapDo)"
+                    (click)="openDialog('update', item.idLevels)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>

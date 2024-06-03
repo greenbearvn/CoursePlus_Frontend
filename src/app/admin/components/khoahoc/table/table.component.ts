@@ -4,7 +4,7 @@ import { ToastService } from 'angular-toastify';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCourseComponent } from '../create/create.component';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
-import { KhoaHoc } from 'src/app/Models/khoahoc';
+import { Course } from 'src/app/Models/Course';
 import { ActivatedRoute } from '@angular/router';
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
@@ -12,19 +12,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-course-table',
   templateUrl: './table.component.html',
   styleUrls: [
-    './table.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './table.component.css'
   ],
 })
 export class TableCourseComponent {
@@ -45,22 +39,21 @@ export class TableCourseComponent {
   searchData: any = '';
   MaNguoiDung: any;
 
-  khoahoc: KhoaHoc = {
-    id: 0,
-    TenKhoaHoc: '',
-    AnhKhoaHoc: '',
-    MoTaNgan: '',
-    MoTaDayDu: '',
-    ThoiGian: '',
-    ThoiLuongKhoaHoc: '',
-    GiaCu: 0,
-    GiamGia: 0,
-    TrangThai: 0,
-    MaCapDo: 0,
-    MaGiangVien: 0,
-    MaDanhMuc: 0,
+  khoahoc: Course = {
+    courseId: 0,
+    courseName: '',
+    courseThumbnail: '',
+    shortDes: '',
+    fullDes: '',
+    timePublished: new Date(),
+    courseDuration: '',
+    oldPrice: 0,
+    percentSale: 0,
+    idLevel: 0,
+    idDetailCate: 0,
+    profileId:0,
+    status:0
   };
-
   ///add cart
   listItems: any = [];
 
@@ -98,74 +91,58 @@ export class TableCourseComponent {
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.MaNguoiDung = Number(routeParams.get('id'));
-    console.log(this.MaNguoiDung);
-    if (this.MaNguoiDung > 0) {
-      this.getCourseOfUser();
-    }
-    this.getUserInSession();
-  }
-
-  
-  getUserInSession() {
-    this.khoahocService.getUser().subscribe((data) => {
-      this.token = data.data.Token;
-      if (this.MaNguoiDung == 0) {
-        this.getLists();
-      }
-    });
-  }
-
-  getCourseOfUser() {
-    this.khoahocService.listCourse(this.MaNguoiDung).subscribe((data) => {
-      this.lists = data.data;
-      console.log(this.lists);
-    });
+    
+    this.getLists();
   }
 
   getLists() {
-    this.khoahocService.lists(this.token).subscribe((data) => {
-      this.lists = data.data;
+    this.khoahocService.getProducts().subscribe((data) => {
+      this.lists = data;
       console.log(this.lists);
     });
   }
 
-  openDialog(type: string, id: number, token: string): void {
+  openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
-        id: id,
-        token: token,
-        MaNguoiDung: this.MaNguoiDung,
+        id: id
       },
       maxHeight: '90vh',
       panelClass: 'my-outlined-dialog',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (this.MaNguoiDung > 0) {
-        this.getCourseOfUser();
-      } else {
-        this.getLists();
-      }
+     this.getLists();
     });
   }
 
   deleteItem(id: number) {
-
-    const cf = confirm("Bạn có muốn xóa khóa học này không?");
-    if(cf == true){
-      this.khoahoc.id = id;
-      this.khoahocService.delete(this.khoahoc, this.token).subscribe((data) => {
-        this.lists = data.data;
-        this.status = data.status;
-        if (this.status == true) {
-          this._toastService.info('Đã xóa khóa học thành công !!!');
-        }
-      });
-    }
-    else{
-      this._toastService.info('Đã hủy xóa khóa học thành công !!!');
-    }
+    this.khoahocService.delete(id ).subscribe((data) => {
+      this.lists = data.data;
+      this.status = data.status;
+      if (this.status == true) {
+        this._toastService.info('Đã xóa khóa học thành công !!!');
+      }
+    });
     
+  }
+
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteItem(id);
+      }
+    });
   }
 
   addCartItem(khoahoc: any) {
@@ -211,25 +188,5 @@ export class TableCourseComponent {
     });
   }
 
-  changeStatus(khoahoc: KhoaHoc) {
-    if (khoahoc.TrangThai == 1) {
-      khoahoc.TrangThai = 0;
-      this.khoahocService.update(khoahoc, this.token).subscribe((data) => {
-        this.status = data.status;
-        if (this.status == true) {
-          this._toastService.info('Đã thay đổi trạng thái thành công !!!');
-        }
-      });
-      this.getLists();
-    } else {
-      khoahoc.TrangThai = 1;
-      this.khoahocService.update(khoahoc, this.token).subscribe((data) => {
-        this.status = data.status;
-        if (this.status == true) {
-          this._toastService.info('Đã thay đổi trạng thái thành công !!!');
-        }
-      });
-      this.getLists();
-    }
-  }
+  
 }

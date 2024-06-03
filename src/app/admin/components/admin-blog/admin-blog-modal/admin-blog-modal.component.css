@@ -1,0 +1,182 @@
+@charset "UTF-8";
+
+/* -------------------- 0.5.Container / Wrapper ----------------------- */
+
+/*----------------------- 
+Container / Wrapper
+-------------------------*/
+
+.dashboard-main-wrapper {
+  min-height: 100%;
+  padding-top: 60px;
+  position: relative;
+}
+
+.dashboard-wrapper {
+  position: relative;
+  left: 0;
+  margin-left: 264px;
+  min-height: 870px !important;
+}
+
+.dashboard-content {
+  padding: 30px 30px 60px 30px;
+}
+
+/*----------------------- 
+Splash Container / Wrapper
+-------------------------*/
+
+.splash-container {
+  width: 100%;
+  max-width: 375px;
+  padding: 15px;
+  margin: auto;
+}
+
+.splash-container .card-header {
+  padding: 20px;
+}
+
+.splash-description {
+  text-align: center;
+  display: block;
+  line-height: 20px;
+  font-size: 1rem;
+  margin-top: 5px;
+  padding-bottom: 10px;
+}
+
+.splash-title {
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.splash-container .card-footer-item {
+  padding: 12px 28px;
+}
+
+/* -------------------- 0.6.Pageheader ----------------------- */
+
+/*----------------------- 
+Pageheader
+-------------------------*/
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-breadcrumb {
+}
+
+.page-breadcrumb .breadcrumb {
+}
+
+.page-breadcrumb .breadcrumb-item {
+}
+
+.page-breadcrumb .breadcrumb-link {
+  color: #a6a6b7;
+}
+
+.page-breadcrumb .breadcrumb-link:hover {
+  color: #5969ff;
+}
+
+.page-breadcrumb .breadcrumb {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0px;
+  margin-bottom: 0px;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 0px;
+  border-top: 1px solid #e0e4ef;
+  padding-top: 10px;
+  font-size: 12px;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: #b1b1c0;
+  content: "\f105";
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 600;
+}
+
+.page-breadcrumb .breadcrumb-item.active {
+  color: #71728e;
+}
+
+.pageheader-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.pageheader-text {
+  margin-bottom: 14px;
+  display: none;
+}
+
+/* -------------------- 0.7.Footer ----------------------- */
+
+/*----------------------- 
+ Footer
+-------------------------*/
+
+.footer {
+  border-top: 1px solid rgba(152, 166, 173, 0.2);
+  padding: 14px 30px 14px;
+  color: #71748d;
+  background-color: #fff;
+  width: 100%;
+  /*position: absolute; bottom: 0;*/
+}
+
+.footer-links {
+}
+
+.footer .footer-links a {
+  color: #71748d;
+  margin-left: 1.5rem;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+/* ==========================================================================
+  1. Dashboard Index-sales
+   ========================================================================== */
+
+.chart-widget-list {
+  margin-top: 60px;
+}
+
+.chart-widget-list p {
+  border-bottom: 1px solid #e6e6f2;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.sell-ratio {
+  margin-bottom: 15px;
+}
+
+.sell-ratio .progress-bar {
+  background-color: #25d5f2;
+}
+
+/* ==========================================================================
+  2. Dashboard Index-Finance
+   ========================================================================== */
+
+.dashboard-finance {
+}
+
+.dashboard-finance .ct-label {
+  display: none;
+}
+

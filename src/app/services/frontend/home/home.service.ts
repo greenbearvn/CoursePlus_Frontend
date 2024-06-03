@@ -9,14 +9,14 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   getListNew(): Observable<any> {
-    return this.http.get('/api/home/list/new/courses');
+    return this.http.get('/api/courses/list/new');
   }
 
-  getTeachers(): Observable<any> {
-    return this.http.get('/api/home/list/new/teachers');
+    getTeachers(): Observable<any> {
+    return this.http.get('/api/profile/teachers');
   }
 
   getListBlog(): Observable<any> {
-    return this.http.get('/api/home/list/new/blogs');
+    return this.http.get('/api/v1/blog/list/new');
   }
 }

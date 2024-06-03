@@ -13,16 +13,8 @@ import { lession } from 'src/app/Models/admin/lession';
   selector: 'app-lessionmodal',
   templateUrl: './lessionmodal.component.html',
   styleUrls: [
-    './lessionmodal.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/chartist-bundle/chartist.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/morris-bundle/morris.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/c3charts/c3.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/flag-icon-css/flag-icon.min.css',
+    './lessionmodal.component.css'
+ 
   ],
 })
 export class LessionmodalComponent {
@@ -39,10 +31,10 @@ export class LessionmodalComponent {
   id: any;
 
   lession: lession = {
-    MaBaiHoc: 0,
-    MaKhoaHoc: 0,
-    TenBaiHoc: '',
-    ThoiGianHoanThanh: '',
+    lessionId: 0,
+    courseId: 0,
+    lessionName: '',
+    lessionDuration: '',
   };
 
   listCourses: any;
@@ -55,15 +47,14 @@ export class LessionmodalComponent {
     this.type = this.data.type;
     this.id = this.data.id;
 
-    this.lession.MaKhoaHoc = this.data.MaKhoaHoc;
+    this.lession.courseId = this.data.MaKhoaHoc;
 
     this.getDataForm();
-    // this.token = this.data.token;
-    this.getListLession();
+    
   }
 
   getDataForm() {
-    if (this.type === 'edit' && this.id !== 0) {
+    if (this.type === 'edit' ) {
       this.getDetailLession();
     }
   }
@@ -78,37 +69,28 @@ export class LessionmodalComponent {
 
   getDetailLession() {
     this.lessService.detail(this.id).subscribe((data) => {
-      this.lession = data.data;
+      this.lession = data;
       console.log(this.lession);
     });
   }
 
-  getListLession() {
-    this.lessService.listCourses().subscribe((data) => {
-      this.listCourses = data.data;
-      console.log(this.listCourses);
-    });
-  }
 
   create() {
-    console.log(this.lession);
     this.lessService.create(this.lession).subscribe((data) => {
-      this.statusCreate = data.data;
-      if (this.statusCreate == true) {
-        this._toastService.info('Đã thêm người dùng thành công');
+      if (data) {
+        this._toastService.info('Đã thêm bài học thành công');
       } else {
-        this._toastService.warn('Đã thêm người dùng không thành công');
+        this._toastService.warn('Đã thêm bài học không thành công');
       }
     });
   }
 
   update() {
-    this.lessService.update(this.lession).subscribe((data) => {
-      this.statusCreate = data.data;
-      if (this.statusEdit == true) {
-        this._toastService.info('Đã cập nhật người dùng thành công');
+    this.lessService.update(this.id,this.lession).subscribe((data) => {
+      if (data) {
+        this._toastService.info('Đã cập nhật bài học thành công');
       } else {
-        this._toastService.warn('Đã cập nhật người dùng không thành công');
+        this._toastService.warn('Đã cập nhật bài học không thành công');
       }
     });
   }

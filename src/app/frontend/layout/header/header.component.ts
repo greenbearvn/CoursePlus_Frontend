@@ -5,15 +5,13 @@ import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/frontend/cart/cart.service';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 import { Router } from '@angular/router';
+import { Profile } from 'src/app/Models/frontend/Profile';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: [
-    './header.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './header.component.css','../../css/style.css'
   ],
 })
 export class HeaderComponent {
@@ -28,7 +26,22 @@ export class HeaderComponent {
   totalMoney: any = 0;
   countItem: any = 0;
 
-  user: any;
+  user: any = {
+    userId : 0,
+    userName:"",
+    email:"",
+    role:''
+  };
+  profile:Profile ={
+    profileId:0,
+    profileName:"",
+    email:"",
+    phoneNumber:"",
+    avatar:"",
+    desciption:"",
+    cateId:0,
+    isTeacher:0
+  };
 
   statusLogin: any;
 
@@ -51,15 +64,15 @@ export class HeaderComponent {
 
   getListCart() {
     this.cartService.getlistCart().subscribe((data) => {
-      this.cartList = data.data;
+      this.cartList = Object.values(data) ;
       console.log(this.cartList);
     });
   }
 
   getTotalMoney() {
     this.cartService.totalMoney().subscribe((data) => {
-      this.totalMoney = data.data;
-      this.countItem = data.count;
+      this.totalMoney = data;
+      // this.countItem = data.count;
     });
   }
 
@@ -74,16 +87,36 @@ export class HeaderComponent {
     this.getTotalMoney();
   }
 
+  deleteAll() {
+    this.cartService.deleteAll().subscribe((data) => {
+      this.status = data;
+      if (this.status == 1) {
+       
+      }
+    });
+    
+  }
+
   getUser() {
     this.userSer.getUser().subscribe((data) => {
-      this.user = data.profile;
-      this.statusLogin = data.status;
-      console.log(this.user);
+      this.user = data.user_current;
+
+      console.log(this.user)
+      this.getProfile();
+    });
+  }
+
+  getProfile() {
+    this.userSer.getProfile(this.user.userId).subscribe((data) => {
+      this.profile = data;
+      console.log(this.profile);
     });
   }
 
   logout() {
-    this.userSer.logout().subscribe((data) => {
+
+    const data ="";
+    this.userSer.logout(data).subscribe((data) => {
       this.statusLogin = data.status;
       this.navigateToHome();
     });

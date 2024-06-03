@@ -1,4 +1,5 @@
 <div class="main_content mt-5 ml-5">
+  <lib-toastify-toast-container></lib-toastify-toast-container>
   <div class="container p-0" style="margin-left: 250px">
     <div class="container">
       <div class="main-body">
@@ -9,28 +10,25 @@
               type="button"
               class="btn btn-primary px-4"
               value="Quay về trang chủ"
-              *ngIf="existed == true"
+            
             />
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                   <img *ngIf="imageUrl" [src]="imageUrl" width="110" />
                   <img
-                    *ngIf="profile.AnhDaiDien !== ''"
-                    [src]="profile.AnhDaiDien"
+                    *ngIf="profile.avatar !== ''"
+                    [src]="profile.avatar"
                     alt=""
                     width="110"
                   />
                   <div
                     class="mt-3"
-                    *ngIf="
-                      userSession.MaNguoiDung == profile.MaHoSo ||
-                      profile.TenHoSo == ''
-                    "
+                    
                   >
                     <form
                       (ngSubmit)="onSubmit()"
-                      enctype="multipart/form-data"
+                   
                       class="d-flex"
                     >
                       <input
@@ -52,18 +50,18 @@
                     </form>
                   </div>
                   <div class="mt-3">
-                    <h4>{{ profile.TenHoSo }}</h4>
-                    <p class="text-secondary mb-1">{{ profile.TenHoSo }}</p>
+                    <h4>{{ profile.profileName }}</h4>
+                    <p class="text-secondary mb-1">{{ profile.email }}</p>
                     <!-- <p class="text-muted font-size-sm">
                       Bay Area, San Francisco, CA
                     </p> -->
 
-                    <button
+                    <!-- <button
                       class="btn btn-primary"
-                      (click)="createRoom(profile.MaHoSo)"
+                      (click)="createRoom(profile.profileId)"
                     >
                       Nhắn tin
-                    </button>
+                    </button> -->
 
                     <!-- <button class="btn btn-outline-primary" *ngIf="room > 0" (click)="createRoom(profile.MaNguoiDung)" [routerLink]="['/chat', room]">>Message</button> -->
                   </div>
@@ -75,10 +73,7 @@
             <div class="card">
               <div
                 class="card-body"
-                *ngIf="
-                  userSession.MaNguoiDung == profile.MaHoSo ||
-                  profile.TenHoSo == ''
-                "
+                
               >
                 <div class="row mb-3">
                   <div class="col-sm-3">
@@ -88,8 +83,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      [value]="profile.TenHoSo"
-                      [(ngModel)]="profile.TenHoSo"
+                      
+                      [(ngModel)]="profile.profileName"
                     />
                   </div>
                 </div>
@@ -101,8 +96,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      [value]="profile.Email"
-                      [(ngModel)]="profile.Email"
+                      
+                      [(ngModel)]="profile.email"
                     />
                   </div>
                 </div>
@@ -114,8 +109,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      [value]="profile.SoDienThoai"
-                      [(ngModel)]="profile.SoDienThoai"
+                      
+                      [(ngModel)]="profile.phoneNumber"
                     />
                   </div>
                 </div>
@@ -126,7 +121,7 @@
                   </div>
                   <div class="col-sm-9 text-secondary">
                     <ckeditor
-                      [(ngModel)]="profile.MoTa"
+                      [(ngModel)]="profile.desciption"
                       [editor]="Editor"
                       (change)="onChange($event)"
                     >
@@ -139,26 +134,26 @@
                   <div class="col-sm-9 text-secondary">
                     <select
                       class="form-control"
-                      [(ngModel)]="profile.MaDanhMuc"
+                      [(ngModel)]="profile.cateId"
                     >
                       <option
-                        *ngFor="let item of listCategories"
-                        [value]="item.madm"
+                        *ngFor="let item of detailCates"
+                        [value]="item.detailCateId"
                       >
-                        {{ item.tendm }}
+                        {{ item.detailCateName }}
                       </option>
                     </select>
                   </div>
                 </div>
-                <div class="row mt-3" *ngIf="profile.GiangVien == 0">
+                <div class="row mt-3" *ngIf="profile.isTeacher == 0">
                   <div class="col-sm-3">Bạn có muốn là giảng viên ?</div>
                   <div class="col-sm-9 text-secondary">
-                    <input
+                    <!-- <input
                       type="button"
                       class="btn btn-primary px-4"
                       value="Trở thành giảng viên"
                       (click)="becomeTeacher()"
-                    />
+                    /> -->
                   </div>
                 </div>
 
@@ -166,35 +161,26 @@
                   <div class="col-sm-3"></div>
                   <div class="col-sm-9 text-secondary">
                     <input
-                      *ngIf="type == 'create'"
+              
                       type="button"
                       class="btn btn-primary px-4"
                       value="Thêm"
-                      (click)="submit(type)"
+                      (click)="create()"
                     />
-                    <input
-                      *ngIf="type == 'update'"
-                      type="button"
-                      class="btn btn-primary px-4"
-                      value="Sửa"
-                      (click)="submit(type)"
-                    />
+                    
                   </div>
                 </div>
               </div>
               <div
                 class="card-body"
-                *ngIf="
-                  userSession.MaNguoiDung != profile.MaHoSo &&
-                  profile.TenHoSo != ''
-                "
+              
               >
                 <div class="row">
                   <div class="col-sm-3">
                     <p class="mb-0">Tên đầy đủ</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">{{ profile.TenHoSo }}</p>
+                    <p class="text-muted mb-0">{{ profile.profileName }}</p>
                   </div>
                 </div>
                 <hr />
@@ -203,7 +189,7 @@
                     <p class="mb-0">Email</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">{{ profile.Email }}</p>
+                    <p class="text-muted mb-0">{{ profile.email }}</p>
                   </div>
                 </div>
                 <hr />
@@ -212,7 +198,7 @@
                     <p class="mb-0">Số điện thoại</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">{{ profile.SoDienThoai }}</p>
+                    <p class="text-muted mb-0">{{ profile.phoneNumber }}</p>
                   </div>
                 </div>
 
@@ -222,10 +208,10 @@
                     <p class="mb-0">Giảng viên</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0" *ngIf="profile.GiangVien > 0">
+                    <p class="text-muted mb-0" *ngIf="profile.isTeacher > 0">
                       Đúng
                     </p>
-                    <p class="text-muted mb-0" *ngIf="profile.GiangVien == 0">
+                    <p class="text-muted mb-0" *ngIf="profile.isTeacher == 0">
                       Không phải
                     </p>
                   </div>
@@ -236,6 +222,5 @@
         </div>
       </div>
     </div>
-    <!-- footer -->
   </div>
 </div>

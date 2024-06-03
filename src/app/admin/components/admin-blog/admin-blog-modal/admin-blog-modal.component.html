@@ -15,7 +15,7 @@
               id="validationCustom01"
               name=""
               required
-              [(ngModel)]="blog.TenBaiViet"
+              [(ngModel)]="blog.blogName"
             />
           </div>
 
@@ -23,7 +23,7 @@
             <label for="validationCustom02">Ảnh hồ sơ</label>
             <form
               (ngSubmit)="onSubmit()"
-              enctype="multipart/form-data"
+            
               class="d-flex"
             >
               <input
@@ -45,8 +45,8 @@
             </form>
             <img *ngIf="imageUrl" [src]="imageUrl" width="150" height="200" />
             <img
-              *ngIf="blog.AnhMinhHoa !== ''"
-              [src]="blog.AnhMinhHoa"
+              *ngIf="blog.thumnail !== ''"
+              [src]="blog.thumnail"
               src=""
               alt=""
               width="150"
@@ -57,7 +57,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustom01">Nội dung </label>
             <ckeditor
-              [(ngModel)]="blog.NoiDung"
+              [(ngModel)]="blog.content"
               [editor]="Editor"
               (change)="onChange($event)"
             >
@@ -72,31 +72,33 @@
             id="validationCustom01"
             name=""
             required
-            [(ngModel)]="blog.NgayDang"
+            [(ngModel)]="blog.datePublish"
           />
         </div>
 
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
           <label for="validationCustom04">Người Dùng</label>
           <div class="d-flex">
-            <select class="form-control" [(ngModel)]="blog.MaNguoiDung">
-              <option *ngFor="let item of listUsers" [value]="item.MaNguoiDung">
+            <input type="text" class="form-control" [(ngModel)]="blog.userId">
+            <!-- <select class="form-control" [(ngModel)]="blog.userId">
+              <option *ngFor="let item of listUsers" [value]="item.userId">
                 {{ item.TenNguoiDung }}
               </option>
-            </select>
-            <button class="btn btn-success ml-5" (click)="openDialog('create')">
+            </select> -->
+            <!-- <button class="btn btn-success ml-5" (click)="openDialog('create')">
               Danh sách
-            </button>
+            </button> -->
           </div>
         </div>
 
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
           <label for="validationCustom04">Danh mục</label>
-          <select class="form-control" [(ngModel)]="blog.MaDanhMuc">
-            <option *ngFor="let item of listCategories" [value]="item.madm">
+          <input type="text" class="form-control" [(ngModel)]="blog.cateid">
+          <!-- <select class="form-control" [(ngModel)]="blog.cateid">
+            <option *ngFor="let item of listCategories" [value]="item.cateid">
               {{ item.tendm }}
             </option>
-          </select>
+          </select> -->
         </div>
 
         
@@ -104,11 +106,12 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
           <div class="input-group d-flex">
             <label class="be-checkbox custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                [(ngModel)]="blog.TrangThai"
-              />
+            
+
+              <select [(ngModel)]="blog.status">
+                <option [value]="1">Đăng bài</option>
+                <option  [value]="0">Không đăng</option>
+              </select>
               <span class="custom-control-label">Trạng thái</span>
             </label>
           </div>

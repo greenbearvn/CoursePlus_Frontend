@@ -13,7 +13,7 @@
                 type="text"
                 required=""
                 class="form-control"
-                [(ngModel)]="test.TenBaiKT"
+                [(ngModel)]="test.testName"
                 name="TenBaiKT"
               />
             </div>
@@ -43,7 +43,8 @@
               >Video:</label
             >
             <div class="col-12 col-sm-8 col-lg-6">
-              <select
+              <input type="text" class="form-control" [(ngModel)]="test.videoId" name="videoId">
+              <!-- <select
                 class="form-control"
                 [(ngModel)]="test.MaVideo"
                 name="MaVideo"
@@ -53,7 +54,7 @@
                 <option *ngFor="let item of listVideos" [value]="item.MaVideo">
                   {{ item.TenVideo }}
                 </option>
-              </select>
+              </select> -->
             </div>
             <button class="btn btn-success" (click)="openListVideo()">
               <fa-icon [icon]="faPlus"></fa-icon>
@@ -72,7 +73,7 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="test.Questions.length > 0">
+      <div class="row" *ngIf="test.questions.length > 0">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card">
             <div class="d-flex card-header justify-content-between">
@@ -94,15 +95,15 @@
                   <tbody>
                     <tr
                       *ngFor="
-                        let item of test.Questions
+                        let item of test.questions
                           | search : searchData
                           | paginate : { itemsPerPage: 10, currentPage: p };
                         let i = index
                       "
                     >
                       <td>{{ i + 1 }}</td>
-                      <td [innerHTML]="item.MoTaCauHoi"></td>
-                      <td [innerHTML]="item.GoiY"></td>
+                      <td [innerHTML]="item.questionDescription"></td>
+                      <td [innerHTML]="item.suggestion"></td>
 
                       <td class="d-flex flex-columx n">
                         <button

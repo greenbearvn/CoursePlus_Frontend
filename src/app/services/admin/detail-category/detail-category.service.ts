@@ -10,22 +10,22 @@ export class DetailCategoryService {
   constructor(private http: HttpClient) {}
 
   list(id: number): Observable<any> {
-    return this.http.get('/api/admin/detail-category/list/' + id);
+    return this.http.get('/api/detailcates/list/' + id);
   }
 
   detail(id: number): Observable<any> {
-    return this.http.get('/api/admin/detail-category/detail/' + id);
+    return this.http.get('/api/detailcates/detail/' + id);
   }
 
   create(dCate: detailcategory): Observable<any> {
-    return this.http.post('/api/admin/detail-category/create', dCate);
+    return this.http.post('/api/detailcates/create', dCate);
   }
 
-  update(dCate: detailcategory): Observable<any> {
-    return this.http.post('/api/admin/detail-category/update', dCate);
+  update(id:any,dCate: detailcategory): Observable<any> {
+    return this.http.post('/api/detailcates/update/'+id, dCate);
   }
 
-  delete(dCate: detailcategory): Observable<any> {
-    return this.http.post('/api/admin/detail-category/delete', dCate);
+  delete(dCate: any): Observable<any> {
+    return this.http.delete('/api/detailcates/delete/' + dCate );
   }
 }

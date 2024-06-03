@@ -22,7 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { WatchingComponent } from './frontend/watching/watching.component';
 import { RegisterComponent } from './frontend/register/register.component';
 import { LoginComponent } from './frontend/login/login.component';
-import { ChatComponent } from './frontend/chat/chat.component';
+
 import { ProfileComponent } from './frontend/profile/profile.component';
 import { BlogComponent } from './frontend/blog/blog.component';
 
@@ -99,6 +99,7 @@ import { AdminCollectionComponent } from './admin/components/admin-collection/ad
 import { AdminCollectionListComponent } from './admin/components/admin-collection/admin-collection-list/admin-collection-list.component';
 import { AdminCollectionModalComponent } from './admin/components/admin-collection/admin-collection-modal/admin-collection-modal.component';
 import { AdminCollectionListCoursesComponent } from './admin/components/admin-collection/admin-collection-list-courses/admin-collection-list-courses.component';
+import { ProfileUpdateComponent } from './frontend/profile-update/profile-update.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,7 @@ import { AdminCollectionListCoursesComponent } from './admin/components/admin-co
     RegisterComponent,
     LoginComponent,
     FrontendComponent,
-    ChatComponent,
+    
     ProfileComponent,
     CompletedComponent,
     CategoriesComponent,
@@ -192,6 +193,7 @@ import { AdminCollectionListCoursesComponent } from './admin/components/admin-co
     AdminCollectionListComponent,
     AdminCollectionModalComponent,
     AdminCollectionListCoursesComponent,
+    ProfileUpdateComponent,
   ],
   imports: [
     BrowserModule,

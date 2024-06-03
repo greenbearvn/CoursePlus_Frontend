@@ -11,20 +11,14 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { nguoidung } from 'src/app/Models/nguoidung';
 import { AdminProfileListUsersComponent } from '../../admin-profile/admin-profile-list-users/admin-profile-list-users.component';
+import { Blog } from 'src/app/Models/admin/blog';
 
 @Component({
   selector: 'app-admin-blog-modal',
   templateUrl: './admin-blog-modal.component.html',
   styleUrls: [
-    './admin-blog-modal.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './admin-blog-modal.component.css'
+   
   ],
 })
 export class AdminBlogModalComponent {
@@ -39,25 +33,21 @@ export class AdminBlogModalComponent {
   type: any;
   id: any;
 
-  nguoidung: nguoidung = {
-    MaNguoiDung: 0,
-    TenNguoiDung: '',
-    Email: '',
-    MatKhau: '',
-    Quyen: '',
-  };
-
-  blog: blog = {
-    MaBaiViet: 0,
-    TenBaiViet: '',
-    NoiDung: '',
-    AnhMinhHoa: '',
-    NgayDang: '',
-    MaDanhMuc: 0,
-    MaNguoiDung: 0,
-    TrangThai: 0,
-  };
-
+  // nguoidung: nguoidung = {
+  //   MaNguoiDung: 0,
+  //   TenNguoiDung: '',
+  //   Email: '',
+  //   MatKhau: '',
+  //   Quyen: '',
+  // };
+  blog: Blog = {
+    blogId: 0,
+    blogName: "",
+    thumnail: "",
+    cateid: 0,
+    userId: 0,
+    status: 0
+};
   ckeditorData: any;
   selectedFile: File | null = null;
   imageUrl: string | null = null;
@@ -75,8 +65,8 @@ export class AdminBlogModalComponent {
     this.type = this.data.type;
     this.id = this.data.id;
     this.getDataForm();
-    this.getListUsers();
-    this.getListCategories();
+    // this.getListUsers();
+    // this.getListCategories();
   }
 
   getDataForm() {
@@ -87,7 +77,7 @@ export class AdminBlogModalComponent {
 
   getDetail() {
     this.blogService.detail(this.id).subscribe((data) => {
-      this.blog = data.data;
+      this.blog = data;
       console.log(this.blog);
     });
   }
@@ -115,12 +105,13 @@ export class AdminBlogModalComponent {
   }
 
   create() {
-    console.log(this.blog);
+    
     if (this.imageUrl) {
-      this.blog.AnhMinhHoa = this.imageUrl;
+      console.log(this.blog);
+      this.blog.thumnail = this.imageUrl;
+      
       this.blogService.create(this.blog).subscribe((data) => {
-        this.statusCreate = data.data;
-        if (this.statusCreate == true) {
+        if (data) {
           this._toastService.info('Đã thêm  thành công');
         } else {
           this._toastService.warn('Đã thêm không thành công');
@@ -131,19 +122,17 @@ export class AdminBlogModalComponent {
 
   update() {
     if (this.selectedFile && this.imageUrl) {
-      this.blog.AnhMinhHoa = this.imageUrl;
-      this.blogService.update(this.blog).subscribe((data) => {
-        this.statusEdit = data.data;
-
-        if (this.statusEdit == true) {
+      this.blog.thumnail = this.imageUrl;
+      this.blogService.update(this.id,this.blog).subscribe((data) => {
+    
+        if (data) {
           this._toastService.info('Da Cap Nhat Thanh Cong');
         }
       });
     } else {
-      this.blogService.update(this.blog).subscribe((data) => {
-        this.statusEdit = data.status;
-
-        if (this.statusEdit == true) {
+      this.blogService.update(this.id,this.blog).subscribe((data) => {
+    
+        if (data) {
           this._toastService.info('Da Cap Nhat Thanh Cong');
         }
       });
@@ -159,8 +148,8 @@ export class AdminBlogModalComponent {
       console.log(formData.get('image'));
 
       this.blogService.upload(formData).subscribe((data) => {
-        this.imageUrl = data.fileurl;
-        console.log(this.imageUrl);
+        this.imageUrl = data.data;
+        
       });
     }
   }
@@ -188,9 +177,7 @@ export class AdminBlogModalComponent {
       maxHeight: '90vh',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.nguoidung = result;
-      this.blog.MaNguoiDung = this.nguoidung.MaNguoiDung;
-      console.log(this.nguoidung);
+      
     });
   }
 

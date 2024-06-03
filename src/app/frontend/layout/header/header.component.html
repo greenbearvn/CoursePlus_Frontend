@@ -35,16 +35,16 @@
           autocomplete="off"
         />
       </div>
-      <div style="display: flex; margin-right:20px" *ngIf="statusLogin" (click) ="reloadListCart()">
+      <div style="display: flex; margin-right:20px"  (click) ="reloadListCart()">
         <div style="margin-right: 20px;">
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
           <div
             uk-drop="mode: click"
             class="dropdown_cart"
-            style="margin-right: 50px"
+            style="right: 10px;"
           >
-            <div class="cart-headline">
+            <div class="cart-headline" >
               <a
                 class="header_widgets"
                 [title]="'Giỏ hàng'"
@@ -58,18 +58,26 @@
                 [routerLink]="['/payment']"
                 >Thanh toán</a
               >
+              <a
+                class="btn btn-danger"
+                [title]="'Xóa hết'"
+                style="background-color: aquamarine;border-radius: 5%;"
+                (click)="deleteAll()"
+                >Xóa hết</a
+              >
+              
             </div>
             <ul class="dropdown_cart_scrollbar" data-simplebar>
-              <li *ngFor="let item of cartList">
+              <li *ngFor="let item of cartList ">
                 <div class="cart_avatar">
-                  <img [src]="item.AnhKhoaHoc" alt="" />
+                  <img [src]="item.courseThumbnail" alt="" />
                 </div>
                 <div class="cart_text">
-                  <h4>{{ item.TenKhoaHoc }}</h4>
+                  <h4>{{ item.courseName }}</h4>
                 </div>
                 <div class="cart_price">
-                  <span> {{ item.GiaMoi | currency : "VND" }} </span>
-                  <button class="button" (click)="deleteItem(item.id)">
+                  <span> {{ item.newPrice | currency : "VND" }} </span>
+                  <button class="btn btn-success" (click)="deleteItem('id'+item.courseId)" style="background-color: bisque; padding: 5px 10px 5px 10px; border-radius: 10px;">
                     Xóa
                   </button>
                 </div>
@@ -84,7 +92,7 @@
           </div>
         </div>
 
-        <div style="margin-right: 20px">
+        <div style="margin-right: 20px" *ngIf="user.userId > 0">
           <a href="#">
             <fa-icon [icon]="faUser"></fa-icon>
           </a>
@@ -96,10 +104,10 @@
               <li>
                 <a href="#" class="user">
                   <div class="user_avatar">
-                    <img [src]="user.AnhDaiDien" alt="" />
+                    <img [src]="profile.avatar" alt="" />
                   </div>
                   <div class="user_name">
-                    <div>{{ user.TenNguoiDung }}</div>
+                    <div>{{ profile.profileName }}</div>
                     <span> </span>
                   </div>
                 </a>
@@ -118,14 +126,14 @@
               <li>
                 <a
                   [title]="'Hồ sơ'"
-                  [routerLink]="['/profile/' + user.MaNguoiDung]"
+                  [routerLink]="['/profile/' + user.userId]"
                 >
-                  <!-- <ion-icon name="person-circle-outline" class="is-icon"></ion-icon> -->
+                
                   Hồ sơ
                 </a>
               </li>
               <li>
-                <a [title]="'Bộ sưu tập'" [routerLink]="['/collection']">
+                <a [title]="'Bộ sưu tập'" [routerLink]="['/collection/' + user.userId]">
                   <!-- <ion-icon name="card-outline" class="is-icon"></ion-icon> -->
                   Bộ sưu tập
                 </a>
@@ -138,45 +146,45 @@
               </li>
 
               <li>
-                <a
+                <!-- <a
                   [title]="'Bộ sưu tập'"
                   [routerLink]="[
                     '/admin/khoahoc/list/courses/user/' + user.MaNguoiDung
                   ]"
                 >
-                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                
                   Quản lý khóa học của tôi
-                </a>
+                </a> -->
               </li>
               <li>
-                <a
+                <!-- <a
                   [title]="'Bài kiểm tra'"
                   [routerLink]="[
                     '/admin/test/manage/list/teacher/' + user.MaNguoiDung
                   ]"
                 >
-                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+      
                   Quản lý bài kiểm tra của tôi
-                </a>
+                </a> -->
               </li>
 
               <li>
-                <a
+                <!-- <a
                   [title]="'Bài kiểm tra'"
                   [routerLink]="[
                     '/admin/tested/list/teacher/' + user.MaNguoiDung
                   ]"
                 >
-                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+                  
                   Quản lý các bài học viên đã làm
-                </a>
+                </a> -->
               </li>
-              <li *ngIf="user.Quyen == 'admin'">
+              <!-- <li *ngIf="user.Quyen == 'admin'">
                 <a [title]="'Khóa học'" [routerLink]="['/admin/khoahoc/list']">
-                  <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
+              
                   Đến trang quản lý
                 </a>
-              </li>
+              </li> -->
 
               <li>
                 <hr />
@@ -204,19 +212,15 @@
             </ul>
           </div>
         </div>
-        <div>
-          <a [title]="'Hội thoại'" [routerLink]="['/chat']">
-            <fa-icon [icon]="faMessage"></fa-icon>
-          </a>
-        </div>
+       
       </div>
-      <div class="flex" *ngIf="statusLogin == false">
+      <div class="flex" *ngIf="user.userId == 0">
         <a [title]="'Đăng nhập'" [routerLink]="['account/login']">
           <button class="button mr-3" style="background-color: goldenrod">
             Đăng nhập
           </button>
         </a>
-        <a [title]="'Đăng ký'" [routerLink]="['account/register']">
+        <a [title]="'Đăng ký'" [routerLink]="['account/register']" style="margin-left: 10px;">
           <button class="button" style="background-color: cornflowerblue">
             Đăng ký
           </button>

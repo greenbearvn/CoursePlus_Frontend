@@ -4,21 +4,26 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { BlogService } from 'src/app/services/frontend/blog/blog.service';
 import { blog } from 'src/app/Models/frontend/blog';
 import { ToastService } from 'angular-toastify';
+import { AccountService } from 'src/app/services/frontend/account/account.service';
+import { nguoidung } from 'src/app/Models/nguoidung';
+import { Blog } from 'src/app/Models/admin/blog';
+import { CategoryService } from 'src/app/services/frontend/category/category.service';
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
   styleUrls: [
     './blog.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    '../css/style.css'
   ],
 })
 export class BlogComponent {
+  statusLogin: any;
   constructor(
     private blogService: BlogService,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private userSer: AccountService,
+    private cateSer: CategoryService
   ) {}
 
   filter: any = {
@@ -30,8 +35,10 @@ export class BlogComponent {
   cates: any;
   detailCates: any;
 
-  listBlog: any;
+  blogs: any;
   relateBlogs: any;
+
+  user:any;
 
   //forms
   Editor = ClassicEditor;
@@ -45,42 +52,43 @@ export class BlogComponent {
 
 
   /// blog
-
-  blog: blog = {
-    MaBaiViet: 0,
-    TenBaiViet: '',
-    NoiDung: '',
-    AnhMinhHoa: '',
-    NgayDang: '',
-    MaDanhMuc: 0,
-    MaNguoiDung: 0,
-    TrangThai: 0,
-  };
+  blog: Blog = {
+    blogId: 0,
+    blogName: "",
+    thumnail: "",
+    content: "",
+    datePublish:new Date(),
+    cateid: 0,
+    userId: 1,
+    status: 0
+};
 
   ngOnInit() {
     this.getList();
     this.getListCate();
+    this.getListDetailCate();
     this.recommendBlogs();
+    this.getUser();
   }
+
+  
 
   getList() {
-    this.blogService.getList(this.filter).subscribe((data) => {
-      this.listBlog = data.data;
-      console.log(this.listBlog);
+    this.blogService.getLastNews().subscribe((data) => {
+      this.blogs = data;
+      console.log(this.blogs);
     });
   }
 
-  getMore() {
-    this.filter.records += 10;
-    this.getList();
-  }
-
-  getListCate() {
-    this.blogService.getCate().subscribe((data) => {
-      this.cates = data.cates;
-      this.detailCates = data.detailCates;
+  getUser() {
+    this.userSer.getUser().subscribe((data) => {
+      this.user = data.profile;
+      this.statusLogin = data.status;
+      console.log(this.user);
     });
   }
+
+ 
 
   filterCate(id: number) {
     this.filter.findWith = 'dm';
@@ -97,9 +105,8 @@ export class BlogComponent {
   }
 
   recommendBlogs() {
-    this.filter.records = 5;
-    this.blogService.getList(this.filter).subscribe((data) => {
-      this.relateBlogs = data.data;
+    this.blogService.getList().subscribe((data) => {
+      this.relateBlogs = data;
       console.log(this.relateBlogs);
     });
   }
@@ -116,7 +123,7 @@ export class BlogComponent {
       console.log(formData.get('image'));
 
       this.blogService.upload(formData).subscribe((data) => {
-        this.imageUrl = data.fileurl;
+        this.imageUrl = data.data;
         console.log(this.imageUrl);
       });
     }
@@ -132,12 +139,14 @@ export class BlogComponent {
 
   createPost() {
     if (this.imageUrl && this.ckeditorData) {
-      this.blog.AnhMinhHoa = this.imageUrl;
-      this.blog.NoiDung = this.ckeditorData;
+      this.blog.thumnail = this.imageUrl;
+      this.blog.content = this.ckeditorData;
+      this.blog.userId = 1;
+      this.blog.status = 0;
 
       this.blogService.create(this.blog).subscribe((data) => {
-        this.alertCreated = data.data;
-        if(this.alertCreated ){
+        
+        if(data){
           this._toastService.info("Đăng bài viết thành công");
           this._toastService.info("Bài viết đang được xét duyệt");
         }
@@ -150,4 +159,19 @@ export class BlogComponent {
       this._toastService.info('Da Ta Nhat Thanh Cong');
     }
   }
+  
+  getListCate() {
+    this.cateSer.getCate().subscribe((data) => {
+      this.cates = data;
+      console.table(this.cates);
+    });
+  }
+
+  getListDetailCate() {
+    this.cateSer.getDetailCate().subscribe((data) => {
+      this.detailCates = data;
+      console.table(this.detailCates);
+    });
+  }
+
 }

@@ -1,9 +1,9 @@
 <div class="main_content">
   <div class="container">
-    <div class="text-2xl font-semibold">Articles</div>
+    <div class="text-2xl font-semibold">Bài viết</div>
     <div class="flex flex-col">
       <div class="w-full max-w-sm">
-        <div class="flex items-center border-b border-teal-500 py-2">
+        <div class="flex items-center border-b border-teal-500 py-2" >
           <a
             class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
             href="#modal-overflow"
@@ -36,7 +36,7 @@
                       id="email"
                       class="shadow-none with-border"
                       name="TenBaiViet"
-                      [(ngModel)]="blog.TenBaiViet"
+                      [(ngModel)]="blog.blogName"
                       style="border: gray 1px solid"
                     />
                   </div>
@@ -52,7 +52,7 @@
                   <div class="col-span-2 flex py-2 space-x-5">
                     <form
                       (ngSubmit)="onSubmit()"
-                      enctype="multipart/form-data"
+             
                       class="d-flex"
                     >
                       <input
@@ -83,24 +83,24 @@
                   </div>
               
                   <div class="col-span-2">
-                    <label> Mã chi tiết danh mục</label>
+                    <label> Chi tiết danh mục</label>
                     <select
-                      [(ngModel)]="blog.MaDanhMuc"
+                      [(ngModel)]="blog.cateid"
                       style="border: gray 1px solid"
                     >
                       <option selected>Chọn tên chi tiết danh mục...</option>
                       <option
                         *ngFor="let item of detailCates"
-                        [value]="item.MaCTDM"
+                        [value]="item.detailCateId"
                       >
-                        {{ item.TenCTDM }}
+                        {{ item.detailCateName }}
                       </option>
                     </select>
                   </div>
                 </div>
                 <div class="uk-modal-footer text-right">
                   <button class="button gray uk-modal-close" type="button">
-                    Cancel
+                    Hủy
                   </button>
                   <button class="button" type="button" (click)="createPost()">
                     Tạo
@@ -111,43 +111,15 @@
           </div>
         </div>
       </div>
-      <nav class="cd-secondary-nav border-b md:m-0 nav-small">
-        <ul>
-          <!-- <li class="active"><a  class="lg:px-2"> Suggestions </a></li> -->
-          <li
-            *ngFor="let cate of cates"
-            (click)="filterCate(cate.madm)"
-            style="cursor: pointer"
-            [className]="
-              filter.findWith == 'dm' && filter.cateId == cate.madm
-                ? 'active'
-                : 'inactive'
-            "
-          >
-            <a class="lg:px-2"> {{ cate.tendm }} </a>
-          </li>
-          <li
-            *ngFor="let item of detailCates"
-            (click)="filterDetailCate(item.MaCTDM)"
-            style="cursor: pointer"
-            [className]="
-              filter.findWith == 'ctdm' && filter.cateId == item.MaCTDM
-                ? 'active'
-                : 'inactive'
-            "
-          >
-            <a class="lg:px-2"> {{ item.TenCTDM }} </a>
-          </li>
-        </ul>
-      </nav>
+      
       <div class="lg:flex lg:space-x-4 lg:-mx-4 mt-6">
         <div class="lg:w-10/12">
           <div class="divide-y tube-card px-6 md:m-0 -mx-5 py-2">
-            <div *ngFor="let item of listBlog">
-              <div class="md:flex md:space-x-6 py-5" *ngIf="item.TrangThai > 0">
+            <div *ngFor="let item of blogs">
+              <div class="md:flex md:space-x-6 py-5" *ngIf="item.status > 0">
                 <a
-                  [title]="item.TenBaiViet"
-                  [routerLink]="['/blog/detail', item.MaBaiViet]"
+                  [title]="item.blogName"
+                  [routerLink]="['/blog/detail', item.blogId]"
                   class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
                 >
                   <div
@@ -155,40 +127,33 @@
                   >
                     <img
                       src="../../courseplus/assets/images/blog/img-4.jpg"
-                      [src]="item.AnhMinhHoa"
+                      [src]="item.thumnail"
                       alt=""
                       class="w-full h-full absolute inset-0 object-cover"
                     />
-                    <div
+                    <!-- <div
                       class="absolute bg-blue-100 font-semibold px-2.5 py-1 rounded-full text-blue-500 text-xs top-2.5 left-2.5"
                     >
                       {{ item.TenCTDM }}
-                    </div>
+                    </div> -->
                   </div>
                 </a>
                 <div class="flex-1 md:pt-0 pt-4">
                   <a
-                    [title]="item.TenBaiViet"
-                    [routerLink]="['/blog/detail', item.MaBaiViet]"
+                    [title]="item.blogName"
+                    [routerLink]="['/blog/detail', item.blogId]"
                     class="text-lg font-semibold line-clamp-2 leading-8"
                   >
-                    {{ item.TenBaiViet }}
+                    {{ item.blogName }}
                   </a>
-                  <p class="line-clamp-2">
-                    {{ item.NoiDung }}
+                  <p class="line-clamp-2" [innerHTML]="item.content" style="width: 200px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                    
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex justify-center mt-5">
-            <button
-              class="bg-white text-white px-4 py-2 rounded text-sm"
-              (click)="getMore()"
-            >
-              Load More
-            </button>
-          </div>
+         
         </div>
         <!--  Sidebar  -->
         <div class="lg:w-80 w-full">
@@ -202,24 +167,23 @@
                   <h4 class="text-lg -mb-0.5 font-semibold">Gợi ý bài viết</h4>
                 </div>
                 <a href="#" class="text-blue-600">
-                  <!-- <ion-icon name="refresh" class="-mt-0.5 -mr-2 hover:bg-gray-100 p-1.5 rounded-full text-lg md hydrated" role="img" aria-label="refresh"></ion-icon>  -->
                 </a>
               </div>
               <ul>
                 <li *ngFor="let item of relateBlogs">
                   <a
-                    [title]="item.TenBaiViet"
-                    [routerLink]="['/blog/detail', item.MaBaiViet]"
+                    [title]="item.blogId"
+                    [routerLink]="['/blog/detail', item.blogName]"
                     class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
-                    *ngIf="item.TrangThai > 0"
+                    *ngIf="item.status > 0"
                   >
                     <h3 class="font-medium line-clamp-2">
-                      {{ item.TenBaiViet }}
+                      {{ item.blogName }}
                     </h3>
                     <div
                       class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
                     >
-                      <div>{{ item.NgayDang | date : "dd/MM/yyyy" }}</div>
+                      <div>{{ item.datePublish | date : "dd/MM/yyyy" }}</div>
                     </div>
                   </a>
                 </li>
@@ -231,10 +195,10 @@
                 <a
                   class="bg-white px-3.5 py-1.5 rounded shadow text-sm"
                   *ngFor="let cate of cates"
-                  (click)="filterCate(cate.madm)"
+                 
                   style="cursor: pointer"
                 >
-                  {{ cate.tendm }}
+                  {{ cate.categoryName }}
                 </a>
 
                 <a
@@ -243,7 +207,7 @@
                   (click)="filterDetailCate(item.MaCTDM)"
                   style="cursor: pointer"
                 >
-                  {{ item.TenCTDM }}
+                  {{ item.detailCateName }}
                 </a>
               </div>
             </div>

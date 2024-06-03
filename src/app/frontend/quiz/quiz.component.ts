@@ -5,6 +5,7 @@ import { QuizService } from 'src/app/services/frontend/quiz/quiz.service';
 import { assignment } from 'src/app/Models/frontend/assignment';
 import { CompletedComponent } from './completed/completed.component';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
+import { Test } from 'src/app/Models/frontend/Test';
 
 @Component({
   selector: 'app-quiz',
@@ -12,9 +13,17 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent {
-  questions: any;
+  
 
-  detailTest: any;
+  test: Test = {
+    questions: [],
+    testId: 0,
+    testName: "",
+    teacherId: 0,
+    videoId: 0
+};
+  
+  questions: any;
 
   MaBaiKT: any;
   choices: any;
@@ -58,16 +67,18 @@ export class QuizComponent {
     this.getDetailTest();
     this.getUser();
 
-    this.quizService.getAllData(this.MaBaiKT).subscribe((data) => {
-      this.questions = data.data;
-      console.log(this.questions);
-    });
+    // this.quizService.getAllData(this.MaBaiKT).subscribe((data) => {
+    //   this.questions = data.data;
+    //   console.log(this.questions);
+    // });
   }
 
   getDetailTest() {
     this.quizService.getTestDetail(this.MaBaiKT).subscribe((data) => {
-      this.detailTest = data.data;
-      console.log(this.detailTest);
+      this.test = data;
+      console.log(this.test);
+
+      this.questions = this.test.questions;
     });
   }
 
@@ -79,14 +90,18 @@ export class QuizComponent {
   }
 
   checkAnswer(choice: any) {
+   
     console.log(choice);
     this.quizService.checkAnswer(choice).subscribe((data) => {
       this.checkData = data;
 
-      this.mlc = choice.MaLuaChon;
-      this.mach = choice.MaCauHoi;
+      this.mlc = choice.questionId;
+      this.mach = choice.choiceId;
 
-      if (this.checkData.Dung > 0) {
+      console.log(this.mlc)
+      console.log(this.mach)
+
+      if (this.checkData==true) {
         this.isCorrected = true;
         this.correctedChoices += 1;
       }

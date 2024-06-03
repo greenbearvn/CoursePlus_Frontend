@@ -1,79 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { KhoaHoc } from 'src/app/Models/khoahoc';
+import { Course } from 'src/app/Models/Course';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KhoahocService {
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient) { }
 
-  getUser(): Observable<any> {
-    return this.http.get('/api/account/getUser');
-  }
-  lists(token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<any[]>('/api/admin/khoahoc/lists', { headers });
+  getProducts(): Observable<any> {
+
+    return this.http.get<any>('/api/courses/list') ;
   }
 
-  listLevels(token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get('/api/admin/khoahoc/lists/capdo', { headers });
+  detail(id:any): Observable<any> {
+
+    return this.http.get<any>('/api/courses/detail/' + id) ;
   }
 
-  listTeachers(token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get('/api/admin/khoahoc/lists/giangvien', { headers });
+  upload(formData: FormData): Observable<any> {
+   
+    return this.http.post('/api/courses/uploadImage', formData);
   }
 
-  listDetailCate(token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get('/api/admin/khoahoc/lists/ctdanhmuc', { headers });
+  create(course: Course): Observable<any> {
+
+    return this.http.post('/api/courses/create', course);
   }
 
-  create(khoahoc: KhoaHoc, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.post('/api/admin/khoahoc/create', khoahoc, { headers });
+  edit(id:any,course: Course): Observable<any> {
+
+    return this.http.put('/api/courses/edit/'+id, course);
   }
 
-  upload(formData: FormData, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.post('/api/admin/khoahoc/upload', formData, { headers });
-  }
+  delete(id:any): Observable<any> {
 
-  detail(id: any, token: any): Observable<any> {
-    return this.http.get('/api/admin/khoahoc/detail/' + id);
-  }
-
-  delete(khoahoc: KhoaHoc, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.post('/api/admin/khoahoc/delete', khoahoc, { headers });
-  }
-
-  update(khoahoc: KhoaHoc, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.post('/api/admin/khoahoc/update', khoahoc, { headers });
-  }
-
-  listCourse(MaNguoiDung: any): Observable<any> {
-    
-    return this.http.get('/api/admin/usmanage//list/courses/user/'+  MaNguoiDung);
+    return this.http.delete('/api/courses/delete/'+id);
   }
 }

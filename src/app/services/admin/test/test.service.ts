@@ -11,7 +11,7 @@ export class TestService {
   constructor(private http: HttpClient) {}
 
   list(id:number): Observable<any> {
-    return this.http.get('/api/admin/test/list/'+id);
+    return this.http.get('/api/test/list/teacher/'+id);
   }
   listTeachers(): Observable<any> {
     return this.http.get('/api/admin/test/list/teachers');
@@ -21,11 +21,11 @@ export class TestService {
   }
 
   detail(id: number): Observable<any> {
-    return this.http.get('/api/admin/test/detail/' + id);
+    return this.http.get('/api/test/detail/' + id);
   }
 
   create(test: any): Observable<any> {
-    return this.http.post('/api/admin/test/create', test);
+    return this.http.post('/api/test/create', test);
   }
 
   update(test: any): Observable<any> {

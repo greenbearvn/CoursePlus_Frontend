@@ -1,7 +1,6 @@
 export interface test {
-    MaBaiKT :number,
-    TenBaiKT:string,
-    MoTaBaiKT:string,
-    MaGiangVien :number,
-    MaVideo :number
+    testId :number,
+    testName:string,
+    teacherId:number,
+    videoId :number
 }

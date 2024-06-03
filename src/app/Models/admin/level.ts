@@ -1,4 +1,4 @@
 export interface level{
-    MaCapDo:number,
-    TenCapDo:string
+    idLevels:number,
+    nameLevel:string
 }

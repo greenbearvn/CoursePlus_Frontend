@@ -10,21 +10,25 @@ export class CartService {
   constructor(private http: HttpClient) {}
 
   getlistCart(): Observable<any> {
-    return this.http.get('/api/cart/product/list');
+    return this.http.get('/api/cart/list');
   }
 
   addCart(cart: Cart): Observable<any> {
-    return this.http.post('/api/cart/product/addCart', {
-      cart,
-    });
+    return this.http.post('/api/cart/addCart', cart);
   }
 
   deleteItem(id: any): Observable<any> {
-    return this.http.post('/api/cart/product/delete/', { id });
+    return this.http.delete('/api/cart/delete/redis/'+ id);
   }
 
+  deleteAll(): Observable<any> {
+    return this.http.delete('/api/cart/removeAll');
+  }
+
+
+
   totalMoney(): Observable<any> {
-    return this.http.get('/api/cart/product/totalmoney');
+    return this.http.get('/api/cart/moneyTotal');
   }
 
   checkBought(): Observable<any> {

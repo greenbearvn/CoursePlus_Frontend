@@ -11,22 +11,22 @@ export class LevelService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> {
-    return this.http.get('/api/admin/level/list');
+    return this.http.get('/api/v1/levels/list');
   }
 
   detail(id: any): Observable<any> {
-    return this.http.get('/api/admin/level/detail/' + id);
+    return this.http.get('/api/v1/levels/detail/' + id);
   }
 
   create(level: level): Observable<any> {
-    return this.http.post('/api/admin/level/create', level);
+    return this.http.post('/api/v1/levels/create', level);
   }
 
-  delete(level: level): Observable<any> {
-    return this.http.post('/api/admin/level/delete', level);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/v1/levels/delete/' +id);
   }
 
-  update(level: level): Observable<any> {
-    return this.http.post('/api/admin/level/update', level);
+  update(id:any,level: level): Observable<any> {
+    return this.http.put('/api/v1/levels/update/' +id, level);
   }
 }

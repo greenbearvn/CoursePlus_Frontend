@@ -6,20 +6,13 @@ import { DanhmucModalComponent } from '../danhmuc-modal/danhmuc-modal.component'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-danhmuc-list',
   templateUrl: './danhmuc-list.component.html',
   styleUrls: [
-    './danhmuc-list.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './danhmuc-list.component.css'
   ],
 })
 export class DanhmucListComponent {
@@ -44,31 +37,45 @@ export class DanhmucListComponent {
       maxHeight: '90vh',
       panelClass: 'my-outlined-dialog',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getLists();
+    });
   }
 
   ngOnInit() {
-    this.getUserInSession();
+  
     this.getLists();
   }
 
-  getUserInSession() {
-    // this.khoahocService.getUser().subscribe((data) => {
-    //   this.token = data.data.Token;
-    //   this.getLists();
-    // });
-  }
 
   getLists() {
-    this.catSer.list().subscribe((data) => {
-      this.list = data.data;
+    this.catSer.getAll().subscribe((data) => {
+      this.list = data;
       console.log(this.list);
     });
   }
 
-  deleteItem(item: any) {
-    this.catSer.delete(item).subscribe((data) => {
+  deleteItem(id: any) {
+    this.catSer.delete(id).subscribe((data) => {
       this.getLists();
+    });
+  }
+
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteItem(id);
+      }
     });
   }
 }

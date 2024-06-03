@@ -19,15 +19,7 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
   selector: 'app-admin-question-tools',
   templateUrl: './admin-question-tools.component.html',
   styleUrls: [
-    './admin-question-tools.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './admin-question-tools.component.css'
   ],
 })
 export class AdminQuestionToolsComponent {
@@ -49,11 +41,10 @@ export class AdminQuestionToolsComponent {
   faPenToSquare: any = faPenToSquare;
 
   question: any = {
-    MaCauHoi: 0,
-    MaBaiKT: 0,
-    MoTaCauHoi: '',
-    GoiY: '',
-    Choices: [],
+ 
+    questionDescription: '',
+    suggestion: '',
+    choices: [],
   };
 
   //ckeditor
@@ -77,7 +68,7 @@ export class AdminQuestionToolsComponent {
 
   getDetail(type: string, id: number) {
     if (id >= 0) {
-      this.question = this.test.Questions[id];
+      this.question = this.test.questions[id];
     }
   }
 
@@ -92,8 +83,8 @@ export class AdminQuestionToolsComponent {
     });
     dialogRef.afterClosed().subscribe((choice) => {
       if (choice !== undefined) {
-        this.question.Choices.push(choice);
-        console.log(this.question.Choices);
+        this.question.choices.push(choice);
+        console.log(this.question.choices);
       }
     });
   }
@@ -122,11 +113,11 @@ export class AdminQuestionToolsComponent {
   }
 
   deleteChoice(index: number) {
-    this.question.Choices.splice(index, 1);
+    this.question.choices.splice(index, 1);
   }
 
   deleteChoiceUpdate(index: number, choice: any) {
-    this.question.Choices.splice(index, 1);
+    this.question.choices.splice(index, 1);
 
     this.testService.deleteChoice(choice).subscribe((data) => {
       this.deleteChoiceRes = data.data;

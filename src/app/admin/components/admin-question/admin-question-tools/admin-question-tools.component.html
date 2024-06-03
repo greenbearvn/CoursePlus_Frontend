@@ -10,7 +10,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="validationCustom01">Mô tả câu hỏi</label>
             <ckeditor
-              [(ngModel)]="question.MoTaCauHoi"
+              [(ngModel)]="question.questionDescription"
               [editor]="Editor"
               (change)="onChangeQuesDes($event)"
             >
@@ -20,7 +20,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="validationCustom01">Gợi ý (*không bắt buộc)</label>
             <ckeditor
-              [(ngModel)]="question.GoiY"
+              [(ngModel)]="question.suggestion"
               [editor]="Editor"
               (change)="onChangeSuggest($event)"
             >
@@ -45,7 +45,7 @@
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="question.Choices.length > 0">
+  <div class="row" *ngIf="question.choices.length > 0">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="card">
         <div class="d-flex card-header justify-content-between">
@@ -67,17 +67,17 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let item of question.Choices
+                    let item of question.choices
                       | search : searchData
                       | paginate : { itemsPerPage: 10, currentPage: p };
                     let i = index
                   "
                 >
                   <td>{{ i + 1 }}</td>
-                  <td [innerHTML]="item.NoiDung"></td>
+                  <td [innerHTML]="item.choiceContent"></td>
                   <td>
                     <input
-                      *ngIf="item.Dung == 1"
+                      *ngIf="item.corrected == 1"
                       class="form-check-input"
                       type="checkbox"
                       value=""
@@ -85,7 +85,7 @@
                       checked
                     />
                     <input
-                      *ngIf="item.Dung == 0"
+                      *ngIf="item.corrected == 0"
                       class="form-check-input"
                       type="checkbox"
                       value=""

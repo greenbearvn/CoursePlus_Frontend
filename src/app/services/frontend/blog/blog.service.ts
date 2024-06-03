@@ -10,20 +10,33 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getList(filter:any): Observable<any> {
-    return this.http.post('/api/blog/list/blogs' , filter);
+  getLastNews(): Observable<any> {
+    return this.http.get('/api/v1/blog/list/new' );
   }
+
+  getList(): Observable<any> {
+    return this.http.get('/api/v1/blog/list' );
+  }
+
+  getDetail(id:any): Observable<any> {
+    return this.http.get('/api/v1/blog/detail/' + id);
+  }
+
+  getRecommendBlogs(id:any): Observable<any> {
+    return this.http.get('/api/v1/blog//list/categoryId/' + id);
+  }
+
 
   getCate(): Observable<any> {
     return this.http.get('/api/blog/list/categories' );
   }
 
   upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/blog/upload', formData);
+    return this.http.post('/api/v1/blog/uploadImage', formData);
   }
 
-  create(blog: blog): Observable<any> {
-    return this.http.post('/api/blog/create', blog);
+  create(blog: any): Observable<any> {
+    return this.http.post('/api/v1/blog/create', blog);
   }
 
   detail(id: number): Observable<any> {

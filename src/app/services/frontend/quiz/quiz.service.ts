@@ -10,7 +10,7 @@ export class QuizService {
   constructor(private http: HttpClient) {}
 
   getTestDetail(id: number): Observable<any> {
-    return this.http.get('/api/lession/test/detail/' + id);
+    return this.http.get('/api/test/detail/' + id);
   }
 
   getAllData(id:number): Observable<any> {
@@ -22,7 +22,7 @@ export class QuizService {
   }
 
   checkAnswer(choice: any): Observable<any> {
-    return this.http.post('/api/lession/quiz/checkanswer', choice);
+    return this.http.post('/api/v1/choice/check', choice);
   }
 
   saveData(assignment: assignment): Observable<any> {

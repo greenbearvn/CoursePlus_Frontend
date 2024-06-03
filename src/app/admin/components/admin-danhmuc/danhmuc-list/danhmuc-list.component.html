@@ -1,8 +1,8 @@
-<div class="row" style="margin-left: 300px">
+<div class="row" style="margin-left: 300px;margin-top: 50px;">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
       <div class="d-flex card-header justify-content-between">
-        <h5 class="">Danh Sách Người Dùng</h5>
+        <h5 class="">Danh Sách thể loại</h5>
         <div class="d-flex">
           <div class="form-inline my-2 my-lg-0">
             <input
@@ -30,6 +30,7 @@
               <tr>
                 <th>STT</th>
                 <th>Tên danh mục</th>
+            
                 <th>Ảnh danh mục</th>
 
                 <th></th>
@@ -45,22 +46,22 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.tendm }}</td>
+                <td>{{ item.categoryName }}</td>
                 <td>
-                  <img [src]="item.anhdm" alt="" width="150" height="200" />
+                  <img [src]="item.image" alt="" width="150" height="200" />
                 </td>
 
-                <td class="d-flex flex-column">
+                <td class="d-flex ">
                   <button
                     class="btn btn-primary m-1"
                     mat-raised-button
-                    (click)="openDialog('edit', item.madm)"
+                    (click)="openDialog('edit', item.categoryId)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
                     class="btn btn-secondary m-1"
-                    (click)="deleteItem(item)"
+                    (click)="deleteButton(item)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
@@ -68,7 +69,7 @@
                   <button class="btn btn-success m-1">
                     <a
                       [title]="' detail'"
-                      [routerLink]="['/admin/category/detail', item.madm]"
+                      [routerLink]="['/admin/category/detail', item.categoryId]"
                       >
                       <fa-icon [icon]="faEye"></fa-icon>
                     </a>

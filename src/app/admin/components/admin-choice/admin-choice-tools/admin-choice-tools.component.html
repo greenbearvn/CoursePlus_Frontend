@@ -10,7 +10,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="validationCustom01">Nội dung</label>
             <ckeditor
-              [(ngModel)]="choice.NoiDung"
+              [(ngModel)]="choice.choiceContent"
               [editor]="Editor"
               (change)="onChangeDes($event)"
             >
@@ -21,7 +21,7 @@
             <label for="validationCustom05">Quyền</label>
             <select
               class="form-control"
-              [(ngModel)]="choice.Dung"
+              [(ngModel)]="choice.corrected"
               name="quyen"
               id="quyen"
             >

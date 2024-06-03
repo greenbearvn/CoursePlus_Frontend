@@ -17,15 +17,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-admin-test-video-list',
   templateUrl: './admin-test-video-list.component.html',
   styleUrls: [
-    './admin-test-video-list.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './admin-test-video-list.component.css'
   ],
 })
 export class AdminTestVideoListComponent {
@@ -39,14 +31,14 @@ export class AdminTestVideoListComponent {
 
   list: any;
   p: number = 1;
-  video: video = {
-    MaVideo: 0,
-    MaBaiHoc: 0,
-    TenVideo: '',
-    LinkVideo: '',
-    ThoiLuongVideo: '',
-    NoiDungVideo: '',
-  };
+  // video: video = {
+  //   MaVideo: 0,
+  //   MaBaiHoc: 0,
+  //   TenVideo: '',
+  //   LinkVideo: '',
+  //   ThoiLuongVideo: '',
+  //   NoiDungVideo: '',
+  // };
   type: any;
   MaGiangVien: any;
 
@@ -78,20 +70,20 @@ export class AdminTestVideoListComponent {
   }
 
   Add(object: any) {
-    this.video = {
-      MaVideo: object.MaVideo,
-      MaBaiHoc: object.MaBaiHoc,
-      TenVideo: object.TenVideo,
-      LinkVideo: object.LinkVideo,
-      ThoiLuongVideo: object.ThoiLuongVideo,
-      NoiDungVideo: object.NoiDungVideo,
-    };
-    if (this.video) {
-      this._toastService.info('Chọn video thành công!!!');
-    }
-    console.log(this.video);
+    // this.video = {
+    //   MaVideo: object.MaVideo,
+    //   MaBaiHoc: object.MaBaiHoc,
+    //   TenVideo: object.TenVideo,
+    //   LinkVideo: object.LinkVideo,
+    //   ThoiLuongVideo: object.ThoiLuongVideo,
+    //   NoiDungVideo: object.NoiDungVideo,
+    // };
+    // if (this.video) {
+    //   this._toastService.info('Chọn video thành công!!!');
+    // }
+    // console.log(this.video);
   }
   closeModal(): void {
-    this.dialogRef.close(this.video);
+    // this.dialogRef.close(this.video);
   }
 }

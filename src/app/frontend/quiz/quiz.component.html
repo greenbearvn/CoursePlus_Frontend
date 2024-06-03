@@ -3,12 +3,12 @@
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 />
 <div class="container" style="margin-left: 300px; margin-top: 70px">
-  <h2 [innerHTML]="detailTest.TenBaiKT"></h2>
+  <h2 [innerHTML]="test.testName"></h2>
   <div class="question-card mt-4">
     <div class="card">
       <h4 class="card-header">Câu {{ currentQuestion + 1 }} :</h4>
       <div class="card-body">
-        <h5 class="card-title" [innerHTML]="questions[currentQuestion].MoTaCauHoi"></h5>
+        <h5 class="card-title" [innerHTML]="questions[currentQuestion].questionDescription"></h5>
 
         <div
           class="form-check"
@@ -17,12 +17,12 @@
           <div
             (click)="checkAnswer(choice)"
             [className]="
-              mach == choice.MaCauHoi && mlc == choice.MaLuaChon
+              mach == choice.quesionId && mlc == choice.choiceId 
                 ? 'btn btn-success  mt-3'
                 : 'btn btn-outline-success  mt-3'
             "
             class="btn btn-outline-success mt-3"
-            [innerHTML]="choice.NoiDung"
+            [innerHTML]="choice.choiceContent"
           ></div>
         </div>
       </div>

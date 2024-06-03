@@ -11,10 +11,7 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: [
-    './comment.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './comment.component.css','../css/style.css'
   ],
 })
 export class CommentComponent {

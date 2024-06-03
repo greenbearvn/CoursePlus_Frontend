@@ -18,7 +18,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav flex-column" *ngIf="user.Quyen == 'admin'">
+          <ul class="navbar-nav flex-column">
             <li class="nav-divider">Menu</li>
             <li class="nav-item">
               <a
@@ -118,14 +118,14 @@
               >
             </li>
           </ul>
-          <ul class="navbar-nav flex-column" *ngIf="user.Quyen != 'admin'">
+          <!-- <ul class="navbar-nav flex-column" >
             <li class="nav-divider">Menu</li>
             <li class="nav-item">
               <a
                 class="nav-link active"
                 [title]="'Bộ sưu tập'"
                 [routerLink]="[
-                  '/admin/khoahoc/list/courses/user/' + user.MaNguoiDung
+                  '/admin/khoahoc/list/courses/user/'
                 ]"
                 >Quản lý khóa học
               </a>
@@ -134,7 +134,7 @@
               <a
                 [title]="'Bài kiểm tra'"
                 [routerLink]="[
-                  '/admin/test/manage/list/teacher/' + user.MaNguoiDung
+                  '/admin/test/manage/list/teacher/'
                 ]"
                 class="nav-link active"
                 >Quản lý bài kiểm tra</a
@@ -144,14 +144,14 @@
               <a
                 [title]="'Bài kiểm tra'"
                 [routerLink]="[
-                  '/admin/tested/list/teacher/' + user.MaNguoiDung
+                  '/admin/tested/list/teacher/' 
                 ]"
                 class="nav-link active"
               >
                 Quản lý bài đã kiểm tra</a
               >
             </li>
-          </ul>
+          </ul> -->
         </div>
       </nav>
     </div>

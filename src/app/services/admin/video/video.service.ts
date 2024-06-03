@@ -10,23 +10,23 @@ export class VideoService {
   constructor(private http: HttpClient) {}
 
   list(makhoahoc: number): Observable<any> {
-    return this.http.get('/api/admin/video/list/' + makhoahoc);
+    return this.http.get('/api/v1/videos/list/' + makhoahoc);
   }
 
   detail(id: number): Observable<any> {
-    return this.http.get('/api/admin/video/detail/' + id);
+    return this.http.get('/api/v1/videos/detail/' + id);
   }
 
   create(video: any): Observable<any> {
-    return this.http.post('/api/admin/video/create', video);
+    return this.http.post('/api/v1/videos/create', video);
   }
 
-  update(video: any): Observable<any> {
-    return this.http.post('/api/admin/video/update', video);
+  update(id:any,video: any): Observable<any> {
+    return this.http.put('/api/v1/videos/edit/'+id, video);
   }
 
-  delete(video: video): Observable<any> {
-    return this.http.post('/api/admin/video/delete', video);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/v1/videos/delete/'+id);
   }
 
   listLessions(): Observable<any> {

@@ -10,19 +10,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-admin-level-list',
   templateUrl: './admin-level-list.component.html',
   styleUrls: [
-    './admin-level-list.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/dataTables.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/buttons.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/select.bootstrap4.css',
-    '../../../assets/polygon/concept/assets/vendor/datatables/css/fixedHeader.bootstrap4.css',
+    './admin-level-list.component.css'
   ],
 })
 export class AdminLevelListComponent {
@@ -38,8 +32,6 @@ export class AdminLevelListComponent {
   token: any;
   searchData: any = '';
 
-  /// STATUS
-  deleteStatus: any;
 
   //Fontawesome
   faPenToSquare: any = faPenToSquare;
@@ -48,20 +40,13 @@ export class AdminLevelListComponent {
   faPlus: any = faPlus;
 
   ngOnInit() {
-    this.getUserInSession();
     this.getLists();
   }
 
-  getUserInSession() {
-    // this.khoahocService.getUser().subscribe((data) => {
-    //   this.token = data.data.Token;
-    //   this.getLists();
-    // });
-  }
 
   getLists() {
     this.levelService.list().subscribe((data) => {
-      this.lists = data.data;
+      this.lists = data;
       console.log(this.lists);
     });
   }
@@ -79,13 +64,31 @@ export class AdminLevelListComponent {
     });
   }
 
-  delete(level: level) {
-    this.levelService.delete(level).subscribe((data) => {
-      this.deleteStatus = data.status;
-      if (this.deleteStatus == true) {
+  delete(id:any) {
+    this.levelService.delete(id).subscribe((data) => {
+      if (data == true) {
         this._toastService.info('Đã xóa thành công');
         this.getLists();
       }
     });
   }
+
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(id);
+      }
+    });
+  }
+
 }

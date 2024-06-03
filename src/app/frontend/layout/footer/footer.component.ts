@@ -4,10 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: [
-    './footer.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './footer.component.css', '../../css/style.css'
   ],
 })
 export class FooterComponent {}

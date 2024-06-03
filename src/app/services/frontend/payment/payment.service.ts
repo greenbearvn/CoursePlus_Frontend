@@ -12,8 +12,8 @@ export class PaymentService {
     return this.http.post('/api/payment/savedata',{});
   }
 
-  transation(bankCode:any,content:any): Observable<any> {
-    return this.http.post('/api/payment/onlinepay',{bankCode,content});
+  transation(amount:any,bankCode:any): Observable<any> {
+    return this.http.get("/api/v1/order/payment?amount=" + amount + "&bankCode="+bankCode);
   }
   returndata(): Observable<any> {
     return this.http.get('/api/payment/returndata');

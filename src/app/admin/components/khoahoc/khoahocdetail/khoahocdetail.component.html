@@ -18,40 +18,34 @@
                 <th>Giảm giá</th>
                 <th>Giá mới</th>
                 <th>Trạng thái</th>
-                <th>Tên cấp độ</th>
-                <th>Tên giảng viên</th>
-                <th>Tên chi tiết danh mục</th>
-                <th></th>
+  
               </tr>
             </thead>
             <tbody>
-              <tr></tr>
-              <tr>
-                <td>{{ detail.TenKhoaHoc }}</td>
-                <td>
-                  <img
-                    [src]="detail.AnhKhoaHoc"
-                    width="200"
-                    height="150"
-                    alt=""
-                    srcset=""
-                  />
-                </td>
-                <td>{{ detail.ThoiGian | date : "dd/MM/yyyy" }}</td>
-                <td>{{ detail.GiaCu | currency : "VND" }}</td>
+              <tr
+             
+              
+            >
+            
+            <td>{{ detail.courseName }}</td>
+            <td>
+              <img
+                [src]="detail.courseThumbnail"
+                width="200"
+                height="150"
+        
+              />
+            </td>
+            <td>{{ detail.timePublished | date : "dd/MM/yyyy" }}</td>
+            <td>{{ detail.oldPrice | currency : "VND" }}</td>
 
-                <td>{{ detail.GiamGia }}</td>
-                <td>{{ detail.GiaMoi | currency : "VND" }}</td>
-                <td>
-                  <input type="checkbox" *ngIf="detail.TrangThai" checked />
-                  <input type="checkbox" *ngIf="detail.TrangThai === 0" />
-                </td>
+            <td>{{ detail.percentSale }}</td>
+            <td>{{ detail.newPrice | currency : "VND" }}</td>
+            <td>{{ detail.newPrice | currency : "VND" }} </td>
 
-                <td>{{ detail.TenCapDo }}</td>
-
-                <td>{{ detail.TenHoSo }}</td>
-                <td>{{ detail.TenCTDM }}</td>
-              </tr>
+            <input type="checkbox" name="" *ngIf="detail.status == 1" class="form-control" id="" checked >
+            <input type="checkbox" name="" *ngIf="detail.status != 1" class="form-control" id="" >
+            </tr>
             </tbody>
           </table>
         </div>

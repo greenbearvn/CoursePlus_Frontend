@@ -1,5 +1,5 @@
 export interface detailcategory{
-    MaCTDM:number,
-    TenCTDM:string,
-    madm:number
+    detailCateId:number,
+    detailCateName:string,
+    cateId:number
 }

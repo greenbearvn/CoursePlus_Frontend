@@ -5,8 +5,8 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ToastService } from 'angular-toastify';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { ProfileService } from 'src/app/services/admin/profile/profile.service';
 import { nguoidung } from 'src/app/Models/nguoidung';
 import { profile } from 'src/app/Models/admin/profile';
@@ -16,16 +16,8 @@ import { AdminProfileListUsersComponent } from '../admin-profile-list-users/admi
   selector: 'app-admin-profile-modal',
   templateUrl: './admin-profile-modal.component.html',
   styleUrls: [
-    './admin-profile-modal.component.css',
-    '../../../assets/polygon/concept/assets/vendor/bootstrap/css/bootstrap.min.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/circular-std/style.css',
-    '../../../assets/polygon/concept/assets/libs/css/style.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/fontawesome/css/fontawesome-all.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/chartist-bundle/chartist.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/morris-bundle/morris.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css',
-    '../../../assets/polygon/concept/assets/vendor/charts/c3charts/c3.css',
-    '../../../assets/polygon/concept/assets/vendor/fonts/flag-icon-css/flag-icon.min.css',
+    './admin-profile-modal.component.css'
+  
   ],
 })
 export class AdminProfileModalComponent {
@@ -62,7 +54,7 @@ export class AdminProfileModalComponent {
 
   selectedFile: File | null = null;
   imageUrl: string | null = null;
-  Editor = ClassicEditor;
+  // Editor = ClassicEditor;
 
   ///
   listUsers: any;
@@ -176,8 +168,8 @@ export class AdminProfileModalComponent {
     this.dialogRef.close();
   }
 
-  public onChange({ editor }: ChangeEvent) {
-    this.ckeditorData = editor.data.get();
-    console.log(this.ckeditorData);
-  }
+  // public onChange({ editor }: ChangeEvent) {
+  //   this.ckeditorData = editor.data.get();
+  //   console.log(this.ckeditorData);
+  // }
 }

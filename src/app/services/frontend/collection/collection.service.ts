@@ -8,12 +8,14 @@ import { HttpClient } from '@angular/common/http';
 export class CollectionService {
   constructor(private http: HttpClient) {}
 
-  getListCollection(filter: any): Observable<any> {
-    return this.http.post('/api/collection/list/collections', filter);
+  getCollectionId(userId:any){
+    return this.http.get('/api/v1/collections/user/'+ userId);
   }
 
-  getUser():Observable<any> {
-    return this.http.get('/api/account/getUser');
+  getListCollection(collectionId:any): Observable<any> {
+    return this.http.get('/api/v1/detailcollection/colllection/'+collectionId);
   }
+
+
 
 }

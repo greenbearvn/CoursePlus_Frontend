@@ -9,7 +9,7 @@ export class WatchingService {
   constructor(private http: HttpClient) {}
 
   getDetailVideo(mavideo: any): Observable<any> {
-    return this.http.get('/api/watching/video/detail/' + mavideo);
+    return this.http.get('/api/v1/videos/detail/' + mavideo);
   }
 
   getQuestionOfVideo(mavideo: any): Observable<any> {

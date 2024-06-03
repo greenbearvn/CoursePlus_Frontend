@@ -5,10 +5,7 @@ import { CategoryService } from 'src/app/services/frontend/category/category.ser
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: [
-    './categories.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './categories.component.css','../css/style.css'
   ],
 })
 export class CategoriesComponent {
@@ -18,13 +15,21 @@ export class CategoriesComponent {
   detailCates: any;
 
   ngOnInit() {
-    this.getList();
+    this.getListCate();
+    this.getListDetailCate();
   }
 
-  getList() {
+  getListCate() {
     this.cateSer.getCate().subscribe((data) => {
-      this.cates = data.cates;
-      this.detailCates = data.detailCates;
+      this.cates = data;
+      console.table(this.cates);
+    });
+  }
+
+  getListDetailCate() {
+    this.cateSer.getDetailCate().subscribe((data) => {
+      this.detailCates = data;
+      console.table(this.detailCates);
     });
   }
 }

@@ -6,10 +6,7 @@ import { ToastService } from 'angular-toastify';
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: [
-    './payment.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './payment.component.css','../css/style.css'
   ],
 })
 export class PaymentComponent {
@@ -24,6 +21,8 @@ export class PaymentComponent {
   bankCode: any;
   content: any = 'Thanh toán khóa học';
 
+  amount:any;
+
   ngOnInit() {
     this.getListBanks();
   }
@@ -31,9 +30,9 @@ export class PaymentComponent {
   AddTransaction() {
     if (this.bankCode) {
       this.paymentService
-        .transation(this.bankCode, this.content)
+        .transation(this.amount, this.bankCode)
         .subscribe((data) => {
-          this.vnpayUrl = data.data;
+          this.vnpayUrl = data.data.paymentUrl;
           console.log(this.vnpayUrl);
           window.location.href = this.vnpayUrl;
         });
@@ -48,7 +47,10 @@ export class PaymentComponent {
   }
 
   getBankId(bank: any) {
+    this.toast.info('Đã chọn ngân hàng');
     this.bankCode = bank.code;
-    this.toast.info('Đã chọn ngân hàng' + bank.code);
+    
   }
+
+
 }

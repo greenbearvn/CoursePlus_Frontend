@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { category } from 'src/app/Models/admin/category';
+import { Category } from 'src/app/Models/admin/category';
 
 @Injectable({
   providedIn: 'root',
@@ -9,27 +9,31 @@ import { category } from 'src/app/Models/admin/category';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  list(): Observable<any> {
-    return this.http.get('/api/admin/category/list');
+  getAll(){
+    return this.http.get<any>('/api/categories/list') ;
   }
 
-  detail(id: number): Observable<any> {
-    return this.http.get('/api/admin/category/detail/' + id);
-  }
+  create(object: Category): Observable<any> {
 
-  create(category: category): Observable<any> {
-    return this.http.post('/api/admin/category/create', category);
-  }
-
-  update(category: category): Observable<any> {
-    return this.http.post('/api/admin/category/update/', category);
-  }
-
-  delete(category: category): Observable<any> {
-    return this.http.post('/api/admin/category/delete', category);
+    return this.http.post('/api/categories/create', object);
   }
 
   upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/admin/category/upload', formData);
+
+    return this.http.post('/api/categories/uploadImage', formData);
+  }
+
+  edit(id:any,object: Category): Observable<any> {
+
+    return this.http.put('/api/categories/edit/'+id, object);
+  }
+
+  detail(id:any): Observable<any> {
+
+    return this.http.get<any>('/api/categories/detail/' + id) ;
+  }
+  delete(id:any): Observable<any> {
+
+    return this.http.get<any>('/api/categories/delete/' + id) ;
   }
 }

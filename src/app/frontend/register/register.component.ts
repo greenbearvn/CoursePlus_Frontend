@@ -1,44 +1,45 @@
 import { Component } from '@angular/core';
-import { nguoidung } from 'src/app/Models/nguoidung';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 import { ToastService } from 'angular-toastify';
+import { User } from 'src/app/Models/frontend/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: [
-    './register.component.css',
-    '../css/icon.css',
-    '../css/uikit.css',
-    '../css/tailwin.css',
+    './register.component.css','../css/style.css'
   ],
 })
 export class RegisterComponent {
-  constructor(private accountService: AccountService,private toast:ToastService) {}
+  constructor(private accountService: AccountService
+    ,private toast:ToastService,
+    private router: Router) {}
 
   isRegister: any;
   rePass: any;
 
-  user: nguoidung = {
-    MaNguoiDung: 0,
-    TenNguoiDung: '',
-    Email: '',
-    MatKhau: '',
-    Quyen: '',
+  user: User = {
+    userId: 0,
+    userName: '',
+    email: '',
+    password: '',
+    role: '',
   };
 
   register() {
     if (
-      this.user.TenNguoiDung !== '' &&
-      this.user.Email !== '' &&
-      this.user.MatKhau !== ''
+      this.user.userName !== '' &&
+      this.user.email !== '' &&
+      this.user.password !== ''
       && this.rePass !== ''
     ) {
-      if (this.user.MatKhau === this.rePass) {
+      if (this.user.password === this.rePass) {
         this.accountService.register(this.user).subscribe((data) => {
-          this.isRegister = data.data;
-          if(this.isRegister == true){
+    
+          if(data){
             this.toast.info("Đăng ký thành công !!!")
+            this.router.navigate(['/account/login']);
           }
           else{
             this.toast.info("Đăng ký không thành công !!!")
@@ -46,12 +47,11 @@ export class RegisterComponent {
         });
       }
       else{
-        console.log("Nhap lai mat khau")
+        this.toast.info("Mật khẩu nhập lại không trùng với mật khẩu !!!")
       }
     }
     else{
-      console.log("Nhap du thong tin")
+      this.toast.warn("Các trường bắt buộc phải nhập dư liệu !!!")
     }
-    console.log(this.user);
   }
 }

@@ -37,7 +37,7 @@
         <div>
           <label class="mb-0" for="username"> Tên người dùng </label>
           <input
-            [(ngModel)]="user.TenNguoiDung"
+            [(ngModel)]="user.userName"
             name="TenNguoiDung"
             type="text"
             placeholder="Username"
@@ -53,7 +53,7 @@
             placeholder="Info@example.com"
             id="email"
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
-            [(ngModel)]="user.Email"
+            [(ngModel)]="user.email"
             name="Email"
             style="border: 1px grey solid;"
           />
@@ -65,7 +65,7 @@
             placeholder="******"
             id="password"
             class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
-            [(ngModel)]="user.MatKhau"
+            [(ngModel)]="user.password"
             name="MatKhau"
             style="border: 1px grey solid;"
           />
@@ -84,19 +84,7 @@
           />
         </div>
 
-        <div class="checkbox">
-          <input type="checkbox" id="chekcbox1" checked="" />
-          <label for="chekcbox1"
-            ><span class="checkbox-icon"></span> Tôi chấp nhận với các
-            <a
-              href="courseplus/default/pages-terms.html"
-              target="_blank"
-              class="uk-text-bold uk-text-small uk-link-reset"
-            >
-              Điều khoản và điều kiện
-            </a>
-          </label>
-        </div>
+        
         <div>
           <button
             type="button"

@@ -7,34 +7,34 @@
     >
       <div class="lg:w-9/12 relative z-10">
         <div class="uppercase text-gray-200 mb-2 font-semibold text-sm">
-          {{ detail.TenCTDM }}
+          {{ course.detailCate.detailCateName }}
         </div>
         <h1
           class="lg:leading-10 lg:text-3xl text-white text-2xl leading-8 font-semibold"
         >
-          {{ detail.TenKhoaHoc }}
+          {{ course.courses.courseName }}
         </h1>
         <p class="lg:text-lg hidden">
-          {{ detail.MoTaNgan }}
+          {{ course.courses.shortDes }}
         </p>
         <ul class="flex text-gray-200 gap-4 mt-4 mb-2">
           <li>
             <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
 
-            <s>{{ detail.GiaCu | currency : "VND" }} </s>
+            <s>{{ course.courses.oldPrice | currency : "VND" }} </s>
           </li>
           <li class="flex items-center">
             <span
               class="avg bg-red-500 mr-2 px-2 rounded text-white font-semiold"
             >
-              {{ detail.GiamGia }} %
+              {{ course.courses.percentSale }} %
             </span>
           </li>
 
           <li>
             <!-- <ion-icon name="people-circle-outline"></ion-icon>  -->
 
-            {{ detail.GiaMoi | currency : "VND" }}
+            {{ course.courses.newPrice | currency : "VND" }}
           </li>
         </ul>
         <ul class="lg:flex items-center text-gray-200">
@@ -44,11 +44,11 @@
               href="#"
               class="text-white fond-bold hover:underline hover:text-white"
             >
-              {{ detail.TenHoSo }}
+              {{ course.profile.profileName }}
             </a>
           </li>
           <li><span class="lg:block hidden mx-3 text-2xl">·</span></li>
-          <li>{{ detail.ThoiGian | date : "dd/MM/yyyy" }}</li>
+          <li>{{ course.courses.timePublished | date : "dd/MM/yyyy" }}</li>
         </ul>
       </div>
       <img
@@ -155,43 +155,65 @@
             class="tube-card p-4 divide-y space-y-3"
           >
             <li
-              [className]="isFirst ? 'uk-open' : 'pt-2'"
-              *ngFor="let lession of lessions; index as i; first as isFirst"
+            [className]="isFirst ? 'uk-open' : 'pt-2'"
+            *ngFor="let lesson of lessions; index as i; first as isFirst"
             >
               <a class="uk-accordion-title text-md mx-2 font-semibold" href="#">
                 <div class="mb-1 text-sm font-medium">Bài {{ i + 1 }}</div>
-                {{ lession.TenBaiHoc }}</a
+                {{ lesson.lessionName }}</a
               >
               <div class="uk-accordion-content mt-3 text-base">
                 <ul class="course-curriculum-list font-medium">
-                  <li
+                  <ng-container *ngFor="let video of videos">
+                    <li
                     class="hover:bg-gray-200 p-2 flex rounded"
-                    *ngFor="let video of videos"
+                    
+                    *ngIf="video.lessionId === lesson.lessionId"
                   >
                     <div
-                      *ngIf="video.MaBaiHoc === lession.MaBaiHoc"
-                      (click)="checkBought(detail.id, video.MaVideo, 0)"
+                      *ngIf="video.lessionId === lesson.lessionId"
+                      (click)="checkBought(course.courses.courseId, video.videoId, 0)"
                     >
-                      {{ video.TenVideo }}
+                      {{ video.videoName }}
 
                       <span class="text-sm ml-auto">
-                        {{ video.ThoiLuongVideo }}
+                        {{ video.videoDuration }}
                       </span>
                     </div>
                   </li>
+                  </ng-container>
+                  
                 </ul>
               </div>
             </li>
           </ul>
+          <!-- <ul>
+            <li *ngFor="let lession of lessions; index as i; first as isFirst">
+                <a>
+                  {{ lession[0].lessionName }}
+                </a>
+                <div>
+                    <ul>
+                      <li *ngFor="let video of videos">
+                          <a *ngIf="video.lessionId === lession.lessionId">
+                            <div>
+                              {{ video[0].videoName }}
+                            </div>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+            </li>
+          </ul> -->
         </div>
         <div id="tets">
           <h3 class="mb-4 text-xl font-semibold">Các bài kiểm tra thực hành</h3>
           <div class="tube-card p-4 divide-y space-y-3">
             <a
               *ngFor="let test of tests"
-              (click)="checkBought(detail.id, 0, test.MaBaiKT)"
+              
             >
-              <div class="flex items-center px-5 py-3">{{ test.TenBaiKT }}</div>
+              <div class="flex items-center px-5 py-3">{{ test.testName }}</div>
             </a>
           </div>
         </div>
@@ -200,22 +222,24 @@
         <!-- course Announcement -->
         <div id="announcement" class="tube-card p-5">
           <h3 class="text-base font-semibold mb-3">Giảng Viên</h3>
-          <div class="flex items-center gap-x-4 mb-5">
-            <img
-              [src]="teacher.AnhDaiDien"
-              alt=""
-              class="rounded-full shadow w-12 h-12"
-            />
-            <div>
-              <h4 class="-mb-1 text-base">{{ teacher.TenHoSo }}</h4>
-              <span class="text-sm">
-                <span class="text-gray-500"> {{ teacher.tendm }} </span>
-              </span>
+          <a [routerLink]="['/profile',teacher.profileId]">
+            <div class="flex items-center gap-x-4 mb-5">
+              <img
+                [src]="teacher.profileName"
+                alt=""
+                class="rounded-full shadow w-12 h-12"
+              />
+              <div>
+                <h4 class="-mb-1 text-base">{{ teacher.profileName }}</h4>
+                <span class="text-sm">
+                  <span class="text-gray-500"> {{ teacher.profileName }} </span>
+                </span>
+              </div>
             </div>
-          </div>
-
+          </a>
+          
           <p>
-            {{ teacher.MoTa }}
+            {{ teacher.desciption }}
           </p>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
@@ -282,21 +306,21 @@
 
           <a
             class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white"
-            (click)="addCart(detail)"
+            (click)="addCart()"
             style="cursor: pointer"
-            *ngIf="existed == undefined"
+            
           >
-            <div class="" style="color: #fff">Mua Ngay</div>
+            <div class="" style="color: #1877f2">Mua Ngay</div>
           </a>
-          <a
+          <!-- <a
             class="flex items-center justify-center h-20 px-6 rounded-md bg-red-600 text-white"
-            (click)="addCart(detail)"
+          
             style="cursor: pointer"
             *ngIf="existed != undefined"
-            [routerLink]="['/course/watching/detail', detail.id]"
+            [routerLink]="['/course/watching/detail',course.courses.courseId]"
           >
             <div class="" style="color: #fff">Bắt đầu học</div>
-          </a>
+          </a> -->
         </div>
         <div class="tube-card p-5">
           <div class="flex items-start justify-between">

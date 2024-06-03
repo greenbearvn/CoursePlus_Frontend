@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-serve": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve"
+    "build-serve": "node --max_old_space_size=6080 ./node_modules/@angular/cli/bin/ng serve"
   },
   "private": true,
   "dependencies": {
@@ -22,17 +22,20 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ckeditor/ckeditor5-angular": "^7.0.1",
-    "@ckeditor/ckeditor5-build-classic": "^40.1.0",
+    "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@fortawesome/angular-fontawesome": "^0.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "angular-toastify": "^1.0.6",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.7.2",
+    "sweetalert2": "^11.11.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

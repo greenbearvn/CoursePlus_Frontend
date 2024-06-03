@@ -10,7 +10,11 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   getCate(): Observable<any> {
-    return this.http.get('/api/category/list/cates' );
+    return this.http.get('/api/categories/list' );
+  }
+
+  getDetailCate(): Observable<any> {
+    return this.http.get('/api/detailcates/list' );
   }
 
   getListCourses(filter:any): Observable<any> {

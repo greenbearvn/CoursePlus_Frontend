@@ -16,7 +16,7 @@
               value="Mark"
               name=""
               required
-              [(ngModel)]="video.TenVideo"
+              [(ngModel)]="video.videoName"
             />
           </div>
 
@@ -29,7 +29,7 @@
               value="Mark"
               name=""
               required
-              [(ngModel)]="video.LinkVideo"
+              [(ngModel)]="video.videoLink"
             />
           </div>
 
@@ -42,14 +42,14 @@
               value="Mark"
               name=""
               required
-              [(ngModel)]="video.ThoiLuongVideo"
+              [(ngModel)]="video.videoDuration"
             />
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="validationCustom01">Nội dung video</label>
             <ckeditor
-              [(ngModel)]="video.NoiDungVideo"
+              [(ngModel)]="video.videoContent"
               [editor]="Editor"
               (change)="onChange($event)"
             >

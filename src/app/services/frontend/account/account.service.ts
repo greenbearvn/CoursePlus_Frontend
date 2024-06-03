@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { nguoidung } from 'src/app/Models/nguoidung';
+import { User } from 'src/app/Models/frontend/User';
 
 @Injectable({
   providedIn: 'root',
@@ -9,19 +9,24 @@ import { nguoidung } from 'src/app/Models/nguoidung';
 export class AccountService {
   constructor(private http: HttpClient) {}
 
-  register(user: nguoidung): Observable<any> {
-    return this.http.post('/api/account/register', { user });
+  register(user: User): Observable<any> {
+    return this.http.post('/api/user/create',  user );
   }
 
-  login(user: nguoidung): Observable<any> {
-    return this.http.post('/api/account/authen', user );
+  login(loginData:any): Observable<any> {
+    return this.http.post('/api/user/login', loginData );
   }
   getUser():Observable<any> {
-    return this.http.get('/api/account/getUser');
+    return this.http.get('/api/user/getuser');
   }
 
-  logout():Observable<any> {
-    return this.http.post('/api/account/logout' , {});
+  getProfile(profileId:any):Observable<any> {
+    return this.http.get('/api/profile/detail/'+profileId);
   }
+
+  logout(data:any): Observable<any> {
+    return this.http.post('/api/user/logut',data);
+}
+
 } 
   

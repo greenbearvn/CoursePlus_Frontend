@@ -16,7 +16,7 @@
           <button
             class="btn btn-primary"
             mat-raised-button
-            (click)="openDialog('create', 0, token)"
+            (click)="openDialog('create', 0)"
           >
             Tạo
           </button>
@@ -35,10 +35,6 @@
                 <th>Giá cũ</th>
                 <th>Giảm giá</th>
                 <th>Giá mới</th>
-                <th *ngIf="MaNguoiDung <= 0">Trạng thái</th>
-                <th>Tên cấp độ</th>
-                <th *ngIf="MaNguoiDung <= 0">Tên giảng viên</th>
-                <th>Tên chi tiết danh mục</th>
                 <th></th>
               </tr>
             </thead>
@@ -46,75 +42,51 @@
               <tr
                 *ngFor="
                   let item of lists
-                    | search : searchData
+                
                     | paginate : { itemsPerPage: 10, currentPage: p };
                   let i = index
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenKhoaHoc }}</td>
+                <td>{{ item.courseName }}</td>
                 <td>
                   <img
-                    [src]="item.AnhKhoaHoc"
+                    [src]="item.courseThumbnail"
                     width="200"
                     height="150"
-                    alt=""
-                    srcset=""
+            
                   />
                 </td>
-                <td>{{ item.ThoiGian | date : "dd/MM/yyyy" }}</td>
-                <td>{{ item.GiaCu | currency : "VND" }}</td>
+                <td>{{ item.timePublished | date : "dd/MM/yyyy" }}</td>
+                <td>{{ item.oldPrice | currency : "VND" }}</td>
 
-                <td>{{ item.GiamGia }}</td>
-                <td>{{ item.GiaMoi | currency : "VND" }}</td>
-                <td *ngIf="MaNguoiDung <= 0">
-                  <input
-                    type="checkbox"
-                    *ngIf="item.TrangThai == 1"
-                    (click)="changeStatus(item)"
-                    checked
-                  />
-                  <input
-                    type="checkbox"
-                    *ngIf="item.TrangThai == 0"
-                    (click)="changeStatus(item)"
-                  />
-                </td>
-
-                <td>{{ item.TenCapDo }}</td>
-
-                <td *ngIf="MaNguoiDung <= 0">{{ item.TenHoSo }}</td>
-                <td>{{ item.TenCTDM }}</td>
-                <td class="d-flex flex-column">
+                <td>{{ item.percentSale }}</td>
+                <td>{{ item.newPrice | currency : "VND" }}</td>
+                <td>
                   <button
-                    class="btn btn-primary m-1"
+                    class="btn btn-primary"
                     mat-raised-button
-                    (click)="openDialog('edit', item.id, token)"
+                    (click)="openDialog('edit',item.courseId)"
                   >
-                    <fa-icon [icon]="faPenToSquare"></fa-icon>
+                  <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
-                    class="btn btn-secondary m-1"
-                    (click)="deleteItem(item.id)"
+                    class="btn btn-danger"
+                    mat-raised-button
+                    (click)="deleteItem(item.courseId)"
                   >
-                    <fa-icon [icon]="faTrash"></fa-icon>
+                  <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
-                  <a
-                    [title]="item.TenKhoaHoc"
-                    [routerLink]="['/admin/khoahoc/detail', item.id]"
-                  >
-                    <button class="btn btn-success m-1">
-                      <fa-icon [icon]="faEye"></fa-icon>
-                    </button>
-                  </a>
 
                   <button
-                    class="btn btn-danger m-1"
-                    (click)="addCartItem(item)"
-                  >
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </button>
+                  class="btn btn-primary"
+                  mat-raised-button
+                  [routerLink]="['/admin/khoahoc/detail/'+ item.courseId]"
+                >
+                <fa-icon [icon]="faEye"></fa-icon>
+                </button>
                 </td>
+                
               </tr>
             </tbody>
           </table>

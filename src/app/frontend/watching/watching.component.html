@@ -8,69 +8,87 @@
         uk-toggle="target: #wrapper ; cls: is-active"
       ></span>
       <!-- back to home link -->
-      <div class="flex justify-between lg:-ml-1 mt-1 mr-2" >
+      <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
         <a
           [routerLink]="['/detail', makhoahoc]"
           class="flex items-center text-blue-500"
         >
-          <span class="text-sm md:inline hidden" > Quay lại </span>
+          <span
+            class="text-sm md:inline hidden"
+            style="
+              background-color: bisque;
+              padding: 5px 10px 5px 10px;
+              border-radius: 10px;
+            "
+          >
+            Quay lại
+          </span>
         </a>
       </div>
       <!-- title -->
       <h1 class="lg:text-2xl text-lg font-bold mt-2 line-clamp-2">
-        {{ detail.TenKhoaHoc }}
+        {{ course.courses.courseName }}
       </h1>
       <!-- sidebar list -->
       <div class="sidebar_inner is-watch-2" data-simplebar>
         <div id="curriculum">
-          <div uk-accordion="multiple: true" class="divide-y space-y-3">
-            <div
-              [className]="
-                detailVideo.MaBaiHoc === lession.MaBaiHoc ? 'uk-open' : 'pt-2'
-              "
-              *ngFor="let lession of lessions; index as i; first as isFirst"
+          <h3 class="mb-4 text-xl font-semibold">Danh sách bài học</h3>
+          <ul
+            uk-accordion="multiple: true"
+            class="tube-card p-4 divide-y space-y-3"
+          >
+            <li
+              [className]="isFirst ? 'uk-open' : 'pt-2'"
+              *ngFor="let lesson of lessions; index as i; first as isFirst"
             >
               <a class="uk-accordion-title text-md mx-2 font-semibold" href="#">
-                <div class="mb-1 text-sm font-medium">Section {{ i }}</div>
-                {{ lession.TenBaiHoc }}
-              </a>
-              <div class="uk-accordion-content mt-3">
-                <ul
-                  class="course-curriculum-list"
-                  uk-switcher="connect: #video_tabs; animation: animation: uk-animation-slide-right-small, uk-animation-slide-left-medium"
-                >
-                  <!-- <a [attr.href]="'/course/watching/detail/' + lession.MaKhoaHoc + '/' + video.MaVideo" *ngFor="let video of videos">
-                  <li *ngIf="video.MaBaiHoc === lession.MaBaiHoc">
-                    {{ video.TenVideo }}
-                    <span class="hidden">{{ video.ThoiLuongVideo }}</span>
-                  </li>
-                </a> -->
-                  <li *ngFor="let video of videos">
-                    <a
-                      (click)="changeVideo(lession.MaKhoaHoc, video.MaVideo)"
-                      *ngIf="video.MaBaiHoc === lession.MaBaiHoc"
-                      [className]="
-                        detailVideo.MaVideo === video.MaVideo
-                          ? 'bg-success'
-                          : ''
-                      "
-                    >
-                      {{ video.TenVideo }}
-                      <span class="hidden"> {{ video.ThoiLuongVideo }} </span>
-                    </a>
+                {{ lesson.lessionName }}</a
+              >
+              <div class="uk-accordion-content mt-3 text-base">
+                <ul class="course-curriculum-list font-medium">
+                  <li
+                    *ngFor="let video of videos"
+                    class="hover:bg-gray-200 p-2 flex rounded"
+                  >
+                    <div *ngIf="video.lessionId === lesson.lessionId">
+                      {{ video.videoName }}
+
+                      <span class="text-sm ml-auto">
+                        {{ video.videoDuration }}
+                      </span>
+                    </div>
                   </li>
                 </ul>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
+          <!-- <ul>
+            <li *ngFor="let lession of lessions; index as i; first as isFirst">
+                <a>
+                  {{ lession[0].lessionName }}
+                </a>
+                <div>
+                    <ul>
+                      <li *ngFor="let video of videos">
+                          <a *ngIf="video.lessionId === lession.lessionId">
+                            <div>
+                              {{ video[0].videoName }}
+                            </div>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+            </li>
+          </ul> -->
         </div>
         <div class="mt-5">
-          <h3 class="mb-4 text-lg font-semibold">Các bài kiểm tra của khóa học</h3>
+          <h3 class="mb-4 text-lg font-semibold">
+            Các bài kiểm tra của khóa học
+          </h3>
           <ul>
-            <li *ngFor="let item of listTests">
-              <a [routerLink]="['/video/test', item.MaBaiKT]">
-               
-                {{ item.TenBaiKT }}
+            <li *ngFor="let item of tests">
+              <a [routerLink]="['/video/test', item.testId]">
+                {{ item.testName }}
               </a>
             </li>
           </ul>
@@ -92,11 +110,13 @@
               <iframe
                 [src]="
                   sanitizer.bypassSecurityTrustResourceUrl(
-                    detailVideo.LinkVideo
+                    detailVideo.videoLink
                   )
                 "
                 frameborder="0"
                 uk-video="automute: true"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
                 uk-responsive
               ></iframe>
@@ -119,10 +139,9 @@
       </nav>
       <div class="container">
         <div class="max-w-2xl lg:py-6 mx-auto uk-switcher" id="course-tabs">
-          <!--  Overview -->
           <div>
-            <h4 class="text-2xl font-semibold">{{ detailVideo.TenVideo }}</h4>
-            <p>{{ detailVideo.NoiDungVideo }}</p>
+            <h4 class="text-2xl font-semibold">{{ detailVideo.videoName }}</h4>
+            <p>{{ detailVideo.videoContent }}</p>
             <hr class="my-5" />
             <div class="grid lg:grid-cols-3 mt-8 gap-8">
               <div>
@@ -143,7 +162,7 @@
               <div>
                 <h3 class="text-lg font-semibold">Bạn sẽ được học :</h3>
               </div>
-             
+
               <div>
                 <h3 class="text-lg font-semibold">Bắt buộc</h3>
               </div>
@@ -156,8 +175,8 @@
               </div>
             </div>
           </div>
-          <!--  Announcements -->
-          <div>
+
+          <!-- <div>
             <h3 class="text-xl font-semibold mb-3">Giảng viên</h3>
             <div class="flex items-center gap-x-4 mb-5">
               <img
@@ -166,17 +185,17 @@
                 class="rounded-full shadow w-12 h-12"
               />
               <div>
-                <h4 class="-mb-1 text-base">{{ teacher.TenHoSo }}</h4>
+                <h4 class="-mb-1 text-base">{{ teacher.profileName }}</h4>
                 
               </div>
             </div>
             <h4 class="leading-8 text-xl">
-              {{ teacher.TenHoSo }}
+              {{ teacher.profileName }}
             </h4>
             
-          </div>
-          <!-- faq -->
-          <div>
+          </div> -->
+
+          <!-- <div>
             <h3 class="text-xl font-semibold mb-3">Các bài kiểm tra của video</h3>
             <ul
               uk-accordion="multiple: true"
@@ -195,11 +214,11 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <!-- This is the modal -->
+
     <div id="modal-example" class="lg:ml-80" uk-modal>
       <div class="uk-modal-dialog uk-modal-body rounded-md shadow-xl">
         <button
