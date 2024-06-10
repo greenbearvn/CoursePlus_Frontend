@@ -51,6 +51,8 @@ import { AdminCollectionComponent } from './components/admin-collection/admin-co
 import { AdminCollectionModalComponent } from './components/admin-collection/admin-collection-modal/admin-collection-modal.component';
 import { AdminCollectionListComponent } from './components/admin-collection/admin-collection-list/admin-collection-list.component';
 
+import { AdminCollectionListCoursesComponent } from './components/admin-collection/admin-collection-list-courses/admin-collection-list-courses.component';
+
 const routes: Routes = [
   {
     path: 'admin',
@@ -69,7 +71,7 @@ const routes: Routes = [
             component: TableCourseComponent,
           },
           {
-            path: 'list/courses/user/:id',
+            path: 'list/user/:id',
             component: TableCourseComponent,
           },
           {
@@ -213,6 +215,12 @@ const routes: Routes = [
           {
             path: 'list',
             component: AdminBlogListComponent,
+            
+          },
+          {
+            path: 'list/:id',
+            component: AdminBlogListComponent,
+            
           },
         ],
       },
@@ -257,6 +265,10 @@ const routes: Routes = [
           {
             path: 'list',
             component: AdminCollectionListComponent,
+          },
+          {
+            path: 'detail/:id',
+            component: AdminCollectionListCoursesComponent,
           },
         ],
       },

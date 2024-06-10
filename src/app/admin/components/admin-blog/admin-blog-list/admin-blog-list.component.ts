@@ -9,19 +9,22 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
+
+import Swal from 'sweetalert2';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-admin-blog-list',
   templateUrl: './admin-blog-list.component.html',
-  styleUrls: [
-    './admin-blog-list.component.css'
-  ],
+  styleUrls: ['./admin-blog-list.component.css'],
 })
 export class AdminBlogListComponent {
   constructor(
     public dialog: MatDialog,
     private blogService: BlogService,
-    private toast: ToastService
+    private toast: ToastService,
+    private route: ActivatedRoute
   ) {}
 
   list: any;
@@ -30,21 +33,27 @@ export class AdminBlogListComponent {
   type: any;
   searchData: any;
   status: any;
+  userId: any;
 
   blog: Blog = {
     blogId: 0,
-    blogName: "",
-    thumnail: "",
+    blogName: '',
+    thumnail: '',
     cateid: 0,
     userId: 0,
-    status: 0
-};
+    status: 0,
+  };
 
   faPenToSquare: any = faPenToSquare;
   faPlus: any = faPlus;
   faTrash: any = faTrash;
 
+  faEye: any = faEye;
+
   ngOnInit() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.userId = Number(routeParams.get('id'));
+
     this.getLists();
   }
 
@@ -53,6 +62,8 @@ export class AdminBlogListComponent {
       data: {
         type: type,
         id: id,
+        userId:this.userId
+        
         // token: token,
       },
       maxHeight: '90vh',
@@ -63,43 +74,54 @@ export class AdminBlogListComponent {
   }
 
   getLists() {
-    this.blogService.list().subscribe((data) => {
-      this.list = data;
-      console.log(this.list);
+    if (this.userId > 0) {
+      this.blogService.getAllBlogByUserId(this.userId).subscribe((data) => {
+        this.list = data;
+        console.log(this.list);
+      });
+    } else {
+      this.blogService.list().subscribe((data) => {
+        this.list = data;
+        console.log(this.list);
+      });
+    }
+  }
+
+  deleteButton(id: any) {
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteBlog(id);
+      }
     });
   }
 
   deleteBlog(id: any) {
     this.blogService.delete(id).subscribe((data) => {
-      this.getLists();
+      if (data == true) {
+        this.toast.success('Xóa bài viết thành công');
+        this.getLists();
+      } else {
+        this.toast.warn('Xóa bài viết không thành công');
+      }
     });
   }
 
-  changeStatus(blog: Blog) {
-    // if(blog.TrangThai == 1){
-    //   blog.TrangThai = 0 ;
-    //   this.blogService.update(blog).subscribe((data) => {
-    //     this.status = data.data;
-    //     if (this.status == true) {
-    //       this.toast.info('Cập nhật trạng thái bài viết thành công !!!');
-    //     }
-    //     else{
-    //       this.toast.info('Cập nhật trạng thái bài viết không thành công !!!');
-    //     }
-    //   });
-    // }
-    // else{
-    //   blog.TrangThai = 1 ;
-    //   this.blogService.update(blog).subscribe((data) => {
-    //     this.status = data.data;
-    //     if (this.status == true) {
-    //       this.toast.info('Cập nhật trạng thái bài viết thành công !!!');
-    //     }
-    //     else{
-    //       this.toast.info('Cập nhật trạng thái bài viết không thành công !!!');
-    //     }
-    //   });
-    // }
-    
+  updateStatus(id: any, blog: any) {
+    this.blogService.update(id, blog).subscribe((data) => {
+      if (data) {
+        this.toast.success('Cập nhật trạng thái bài viết thành công');
+      } else {
+        this.toast.success('Cập nhật trạng thái bài viết không thành công');
+      }
+    });
   }
 }

@@ -30,7 +30,7 @@
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Tên người dùng</th>
+                <th>Tên học viên</th>
                 <th>Tên bài kiểm tra</th>
                 <th>Thời gian nộp</th>
                 <th>Chính xác</th>
@@ -47,20 +47,14 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
-                <td>{{ item.TenBaiKT }}</td>
-                <td>{{ item.ThoiGianNop | date : "dd/MM/yyyy"}}</td>
-                <td>{{ item.ChinhXac }}</td>
+                <td>{{ item.profile.profileName }}</td>
+                <td>{{ item.test.testName }}</td>
+                <td>{{ item.tested.dateFinish | date : "dd/MM/yyyy"}}</td>
+                <td>{{ item.tested.corrected }}</td>
                 <td class="d-flex flex-column">
+               
                   <button
-                    class="btn btn-success m-1"
-                    (click)="openDialog('update',item.MaBaiLam)"
-                  >
-                    <fa-icon [icon]="faPenToSquare"></fa-icon>
-                  </button>
-
-                  <button
-                    class="btn btn-secondary m-1"
+                    class="btn btn-danger m-1"
                     (click)="deleteItem(item)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>

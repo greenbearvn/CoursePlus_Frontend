@@ -33,7 +33,7 @@
             
                 <th>Ảnh danh mục</th>
 
-                <th></th>
+                <th style="width: 150px;"></th>
               </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                   <img [src]="item.image" alt="" width="150" height="200" />
                 </td>
 
-                <td class="d-flex ">
+                <td class="d-flex flex-column">
                   <button
                     class="btn btn-primary m-1"
                     mat-raised-button
@@ -60,8 +60,8 @@
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
-                    class="btn btn-secondary m-1"
-                    (click)="deleteButton(item)"
+                    class="btn btn-danger m-1"
+                    (click)="deleteButton(item.categoryId)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>

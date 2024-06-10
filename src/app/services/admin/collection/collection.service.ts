@@ -10,7 +10,7 @@ export class CollectionService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> {
-    return this.http.get('/api/admin/collection/list');
+    return this.http.get('/api/v1/collections/list');
   }
 
   detail(id: number): Observable<any> {
@@ -18,6 +18,6 @@ export class CollectionService {
   }
 
   listCourse(id: number): Observable<any> {
-    return this.http.get('/api/admin/collection/list/course/' + id);
+    return this.http.get('/api/v1/detailcollection/colllection/' + id);
   }
 }

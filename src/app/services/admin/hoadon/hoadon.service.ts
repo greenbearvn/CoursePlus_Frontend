@@ -9,8 +9,17 @@ export class HoadonService {
   constructor(private http: HttpClient) {}
 
   getLists(): Observable<any> {
-    return this.http.get('/api/admin/hoadon/list');
+    return this.http.get('/api/v1/order/list');
+    
   }
+
+
+  update(id:any,order:any): Observable<any>{
+    return this.http.put('/api/v1/order/update/'+id, order);
+  }
+
+
+  /////////// OLD CODE //////////////////////////////////
 
   getListUsers(): Observable<any> {
     return this.http.get('/api/admin/hoadon/list/users');
@@ -51,11 +60,11 @@ export class HoadonService {
   }
 
   getListdetailItems(id: any): Observable<any> {
-    return this.http.get('/api/admin/hoadon/list/details/' + id);
+    return this.http.get('/api/v1/detail-order/list/order/' + id);
   }
 
   getDetailBill(id: any): Observable<any> {
-    return this.http.get('/api/admin/hoadon/detail/' + id);
+    return this.http.get('/api/v1/order/detail/' + id);
   }
 
   deleteBill(donhang: any): Observable<any> {

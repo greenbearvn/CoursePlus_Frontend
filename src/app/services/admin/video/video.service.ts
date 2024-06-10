@@ -32,4 +32,9 @@ export class VideoService {
   listLessions(): Observable<any> {
     return this.http.get('/api/admin/video/lessions');
   }
+  
+
+  uploadVideo(formData:FormData){
+    return this.http.post('/api/v1/videos/upload/video', formData);
+  }
 }

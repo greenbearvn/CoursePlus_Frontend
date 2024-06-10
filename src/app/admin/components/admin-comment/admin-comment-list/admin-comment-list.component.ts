@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ToastService } from 'angular-toastify';
+
 import { MatDialog } from '@angular/material/dialog';
 import { AdminCommentModalComponent } from '../admin-comment-modal/admin-comment-modal.component';
 import { CommentService } from 'src/app/services/admin/comment/comment.service';
@@ -8,6 +8,9 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastService } from 'angular-toastify';
+import * as e from 'cors';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-comment-list',
@@ -19,7 +22,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class AdminCommentListComponent {
   constructor(
     public dialog: MatDialog,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private toast: ToastService
   ) {}
 
   list: any;
@@ -57,20 +61,47 @@ export class AdminCommentListComponent {
   getLists() {
     if (this.makhoahoc == undefined) {
       this.commentService.list().subscribe((data) => {
-        this.list = data.data;
+        this.list = data;
         console.log(this.list);
       });
     } else {
       this.commentService.commentsOfCourse(this.makhoahoc).subscribe((data) => {
-        this.list = data.data;
+        this.list = data;
         console.log(this.list);
       });
     }
   }
 
-  delete(item: any) {
-    this.commentService.delete(item).subscribe((data) => {
-      this.getLists();
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(id);
+      }
+    });
+  }
+
+
+  delete(id: any) {
+    this.commentService.delete(id).subscribe((data) => {
+
+      if(data == true){
+        this.toast.success("Đã xóa bình luận thành công!!!")
+        this.getLists();
+      }
+      else{
+        this.toast.warn("Đã xóa bình luận không thành công!!!")
+      }
+
     });
   }
 }

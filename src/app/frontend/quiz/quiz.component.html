@@ -2,13 +2,48 @@
   rel="stylesheet"
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 />
-<div class="container" style="margin-left: 300px; margin-top: 70px">
+
+<style>
+  .btn{
+    padding: 0.5rem;
+  }
+  .btn-success{
+    padding: 0.5rem;
+    text-align: center;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+</style>
+<div class="container" style="margin-left: 300px;">
+  <div class="flex justify-between lg:-ml-1 mt-1 mr-2">
+    <a
+      [routerLink]="['/']"
+      class="flex items-center text-blue-500"
+    >
+      <span
+        class="text-sm md:inline hidden"
+        style="
+          background-color: rgb(41, 49, 156);
+          padding: 5px 10px 5px 10px;
+          border-radius: 5px;
+          margin-bottom: 10px;
+          color: white;
+        "
+      >
+        Quay lại
+      </span>
+    </a>
+  </div>
   <h2 [innerHTML]="test.testName"></h2>
   <div class="question-card mt-4">
     <div class="card">
       <h4 class="card-header">Câu {{ currentQuestion + 1 }} :</h4>
       <div class="card-body">
-        <h5 class="card-title" [innerHTML]="questions[currentQuestion].questionDescription"></h5>
+        <h5
+          class="card-title"
+          [innerHTML]="questions[currentQuestion].questionDescription"
+          style="margin-left: 15px"
+        ></h5>
 
         <div
           class="form-check"
@@ -16,12 +51,13 @@
         >
           <div
             (click)="checkAnswer(choice)"
-            [className]="
-              mach == choice.quesionId && mlc == choice.choiceId 
-                ? 'btn btn-success  mt-3'
-                : 'btn btn-outline-success  mt-3'
-            "
-            class="btn btn-outline-success mt-3"
+            [ngClass]="{
+              'btn btn-success mt-3':
+                mach === choice.questionId && mlc === choice.choiceId,
+              'btn btn-outline-success mt-3':
+                mach !== choice.questionId || mlc !== choice.choiceId
+            }"
+            style="width: 100%; cursor: pointer"
             [innerHTML]="choice.choiceContent"
           ></div>
         </div>
@@ -31,15 +67,16 @@
         *ngIf="currentQuestion + 1 < questions.length"
         (click)="next()"
         class="btn btn-primary"
+        style="margin: 1rem; padding: 1rem"
       >
-        Next
+        Tiếp theo
       </button>
       <button
         *ngIf="currentQuestion + 1 == questions.length"
         (click)="openDialog(correctedChoices)"
         class="btn btn-primary mt-3 p-3"
       >
-        Check
+        Xem kêt quả
       </button>
     </div>
   </div>

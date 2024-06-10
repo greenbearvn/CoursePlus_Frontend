@@ -1,3 +1,5 @@
+
+<lib-toastify-toast-container></lib-toastify-toast-container>
 <div
   class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
   style="width: 1000px"
@@ -21,11 +23,7 @@
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustom02">Ảnh hồ sơ</label>
-            <form
-              (ngSubmit)="onSubmit()"
-            
-              class="d-flex"
-            >
+            <form (ngSubmit)="onSubmit()" class="d-flex">
               <input
                 type="file"
                 class="form-control"
@@ -76,44 +74,43 @@
           />
         </div>
 
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
-          <label for="validationCustom04">Người Dùng</label>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngIf="userId <= 0">
+          <label for="validationCustom04">Người Dùng</label> 
           <div class="d-flex">
-            <input type="text" class="form-control" [(ngModel)]="blog.userId">
-            <!-- <select class="form-control" [(ngModel)]="blog.userId">
+            <select class="form-control" [(ngModel)]="blog.userId">
               <option *ngFor="let item of listUsers" [value]="item.userId">
-                {{ item.TenNguoiDung }}
+                {{ item.userName }}
               </option>
-            </select> -->
+            </select>
             <!-- <button class="btn btn-success ml-5" (click)="openDialog('create')">
               Danh sách
             </button> -->
           </div>
         </div>
 
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
           <label for="validationCustom04">Danh mục</label>
-          <input type="text" class="form-control" [(ngModel)]="blog.cateid">
-          <!-- <select class="form-control" [(ngModel)]="blog.cateid">
-            <option *ngFor="let item of listCategories" [value]="item.cateid">
-              {{ item.tendm }}
+
+          <select class="form-control" [(ngModel)]="blog.cateid">
+            <option
+              *ngFor="let item of listCategories"
+              [value]="item.detailCateId"
+            >
+              {{ item.detailCateName }}
             </option>
-          </select> -->
+          </select>
         </div>
 
-        
-
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
-          <div class="input-group d-flex">
-            <label class="be-checkbox custom-control custom-checkbox">
-            
-
-              <select [(ngModel)]="blog.status">
-                <option [value]="1">Đăng bài</option>
-                <option  [value]="0">Không đăng</option>
-              </select>
-              <span class="custom-control-label">Trạng thái</span>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " *ngIf="userId <= 0">
+          <div class="input-group">
+            <label >
+              Trạng thái
             </label>
+            <select [(ngModel)]="blog.status" class="form-control">
+              <option [value]="1">Đăng bài</option>
+              <option [value]="0">Không đăng</option>
+            </select>
+         
           </div>
         </div>
 

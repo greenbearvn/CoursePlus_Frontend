@@ -33,6 +33,7 @@ export class AdminCollectionListComponent {
   faPenToSquare: any = faPenToSquare;
   faPlus: any = faPlus;
   faTrash: any = faTrash;
+  faEye: any = faEye;
 
   ngOnInit() {
     this.getLists();
@@ -54,8 +55,10 @@ export class AdminCollectionListComponent {
 
   getLists() {
     this.collectionServices.list().subscribe((data) => {
-      this.list = data.data;
+      this.list = data;
       console.log(this.list);
     });
   }
+
+
 }

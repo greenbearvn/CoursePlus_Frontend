@@ -34,12 +34,18 @@
               "src/app/frontend/css/uikit.css"
             ],
             "scripts": [
-              "src/assets/jquery-3.6.0.min.js",
+             
               "src/assets/js/uikit.js",
               "src/assets/js/custom.js",
               "src/assets/js/bootstrap-select.min.js",
               "src/assets/js/simplebar.js",
-              "src/assets/js/tippy.all.min.js"
+              "src/assets/js/tippy.all.min.js",
+              
+              
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/gasparesganga-jquery-loading-overlay/dist/loadingoverlay.js",
+              "node_modules/jquery/dist/jquery.min.js"
+
             ]
           },
           "configurations": {

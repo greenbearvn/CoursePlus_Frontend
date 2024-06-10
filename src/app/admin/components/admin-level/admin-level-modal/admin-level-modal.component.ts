@@ -7,6 +7,7 @@ import {
 import { ToastService } from 'angular-toastify';
 import { LevelService } from 'src/app/services/admin/level/level.service';
 import { level } from 'src/app/Models/admin/level';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-admin-level-modal',
@@ -74,7 +75,10 @@ export class AdminLevelModalComponent {
   update() {
     this.levelService.update(this.id,this.level).subscribe((data) => {
       if (data) {
-        this._toastService.info('Cập nhật thành công!!!');
+        this._toastService.success('Cập nhật thành công!!!');
+      }
+      else{
+        this._toastService.warn('Cập nhật không thành công!!!');
       }
     });
   }

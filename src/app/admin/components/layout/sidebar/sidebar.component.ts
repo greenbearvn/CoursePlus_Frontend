@@ -12,16 +12,21 @@ import { AccountService } from 'src/app/services/frontend/account/account.servic
 export class SidebarAdminComponent {
   constructor(private accountService: AccountService) {}
 
-  user: any;
-
+  user: any = {
+    userId : 0,
+    userName:"",
+    email:"",
+    role:''
+  };
   ngOnInit() {
     this.getUser();
   }
 
   getUser() {
     this.accountService.getUser().subscribe((data) => {
-      this.user = data.data;
+      this.user = data.user_current;
       console.log(this.user);
+      console.log(this.user.role)
     });
   }
 }

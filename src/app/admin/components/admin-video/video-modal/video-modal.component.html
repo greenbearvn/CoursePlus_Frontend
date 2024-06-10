@@ -22,7 +22,7 @@
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="validationCustom01">Link Video</label>
-            <input
+            <!-- <input
               type="text"
               class="form-control"
               id="validationCustom01"
@@ -30,7 +30,30 @@
               name=""
               required
               [(ngModel)]="video.videoLink"
-            />
+            /> -->
+
+            <form
+              (ngSubmit)="onSubmit()"
+              enctype="multipart/form-data"
+              class="d-flex"
+            >
+              <input
+                type="file"
+                class="form-control"
+                id="inputGroupFile04"
+                aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload"
+                name="video"
+                (change)="onFileSelected($event)"
+              />
+              <button
+                class="btn btn-success"
+                type="submit"
+                id="inputGroupFileAddon04"
+              >
+                Tải Lên
+              </button>
+            </form>
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

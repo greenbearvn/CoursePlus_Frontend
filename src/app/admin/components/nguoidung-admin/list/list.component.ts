@@ -13,6 +13,7 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nguoidung-admin-list',
@@ -30,18 +31,27 @@ export class NguoiDungAdminListComponent {
 
   list: any;
   p: number = 1;
-  user: any;
+  // user: any;
   type: any;
   status: any;
   // token: any;
 
-  nguoidung: nguoidung = {
-    MaNguoiDung: 0,
-    TenNguoiDung: '',
-    Email: '',
-    MatKhau: '',
-    Quyen: '',
-  };
+  // nguoidung: nguoidung = {
+  //   MaNguoiDung: 0,
+  //   TenNguoiDung: '',
+  //   Email: '',
+  //   MatKhau: '',
+  //   Quyen: '',
+  // };
+
+
+  user:any={
+    userId:'',
+    userName:'',
+    email:'',
+    password:'',
+    role:''
+  }
 
   searchData: any;
 
@@ -87,28 +97,50 @@ export class NguoiDungAdminListComponent {
 
   getLists() {
     this.nguoidungService.list().subscribe((data) => {
-      this.list = data.data;
+      this.list = data;
       console.log(this.list);
     });
   }
 
-  changeRole(user: nguoidung) {
-    this.nguoidungService.update(user).subscribe((data) => {
-      this.status = data.data;
-      if (this.status == true) {
-        this.toast.info('Cập nhật quyền thành công');
+  changeRole(id:any,user: any) {
+    this.nguoidungService.update(id,user).subscribe((data) => {
+      
+      if (data == true) {
+        this.toast.success('Cập nhật quyền thành công');
+      }
+      else{
+        this.toast.warn('Cập nhật quyền thất bại thành công');
       }
     });
   }
 
-  delete(user: nguoidung) {
-    this.nguoidungService.delete(user).subscribe((data) => {
-      this.status = data.data;
-      if (this.status == true) {
-        this.toast.info('Xóa người dùng thành công !!!');
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(id);
+      }
+    });
+  }
+
+  delete(id:any) {
+    this.nguoidungService.delete(id).subscribe((data) => {
+  
+      if (data == true) {
+        this.toast.success('Xóa người dùng thành công !!!');
+        this.getLists();
       }
       else{
-        this.toast.info('Xóa người dùng không thành công !!!');
+        this.toast.warn('Xóa người dùng không thành công !!!');
       }
     });
   }

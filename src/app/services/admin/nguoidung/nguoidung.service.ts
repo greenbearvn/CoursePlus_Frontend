@@ -10,7 +10,7 @@ export class NguoidungService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> { 
-    return this.http.get('/api/admin/nguoidung/list');
+    return this.http.get('/api/user/list');
   }
 
   detail(id:any): Observable<any> {
@@ -21,11 +21,11 @@ export class NguoidungService {
     return this.http.post('/api/admin/nguoidung/create',nguoidung);
   }
 
-  delete(nguoidung:nguoidung): Observable<any> {
-    return this.http.post('/api/admin/nguoidung/delete',nguoidung);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/user/delete/'+ id);
   }
 
-  update(nguoidung:nguoidung): Observable<any> {
-    return this.http.post('/api/admin/nguoidung/edit',nguoidung);
+  update(id:any,user:any): Observable<any> {
+    return this.http.put('/api/user/update/'+id,user);
   }
 }

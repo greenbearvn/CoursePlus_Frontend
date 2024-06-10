@@ -7,6 +7,7 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-danhmuc-list',
@@ -16,7 +17,7 @@ import Swal from 'sweetalert2';
   ],
 })
 export class DanhmucListComponent {
-  constructor(public dialog: MatDialog, private catSer: CategoryService) {}
+  constructor(public dialog: MatDialog, private catSer: CategoryService,private toast:ToastService) {}
 
   searchData: any;
 
@@ -57,7 +58,11 @@ export class DanhmucListComponent {
 
   deleteItem(id: any) {
     this.catSer.delete(id).subscribe((data) => {
+      if(data == true){
+        this.toast.success("Đã xóa danh mục thành công")
       this.getLists();
+
+      }
     });
   }
 

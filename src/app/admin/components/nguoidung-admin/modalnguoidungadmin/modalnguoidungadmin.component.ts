@@ -67,7 +67,7 @@ export class ModalnguoidungadminComponent {
     if (type === 'create') {
       this.create();
     } else {
-      this.update();
+      // this.update();
     }
   }
 
@@ -81,16 +81,16 @@ export class ModalnguoidungadminComponent {
       }
     });
   }
-  update() {
-    this.usService.update(this.nguoidung).subscribe((data) => {
-      this.statusCreate = data.data;
-      if (this.statusEdit) {
-        this._toastService.info('Đã cập nhật người dùng thành công');
-      } else {
-        this._toastService.warn('Đã cập nhật người dùng không thành công');
-      }
-    });
-  }
+  // update() {
+  //   this.usService.update(this.nguoidung).subscribe((data) => {
+  //     this.statusCreate = data.data;
+  //     if (this.statusEdit) {
+  //       this._toastService.info('Đã cập nhật người dùng thành công');
+  //     } else {
+  //       this._toastService.warn('Đã cập nhật người dùng không thành công');
+  //     }
+  //   });
+  // }
 
   closeModal(): void {
     this.dialogRef.close();

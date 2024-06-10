@@ -5,6 +5,14 @@
         <h5 class="">Danh Sách Khóa Học</h5>
         <div class="d-flex">
           <div class="form-inline my-2 my-lg-0">
+            <button
+              class="btn btn-primary"
+              mat-raised-button
+              (click)="openDialog('create', 0)"
+              style="width: 200px; margin-bottom: 10px"
+            >
+              Thêm khóa học
+            </button>
             <input
               class="form-control mr-sm-2"
               type="search"
@@ -13,13 +21,6 @@
               [(ngModel)]="searchData"
             />
           </div>
-          <button
-            class="btn btn-primary"
-            mat-raised-button
-            (click)="openDialog('create', 0)"
-          >
-            Tạo
-          </button>
         </div>
       </div>
 
@@ -35,6 +36,7 @@
                 <th>Giá cũ</th>
                 <th>Giảm giá</th>
                 <th>Giá mới</th>
+                <th *ngIf="MaNguoiDung <=0" >Trạng thái</th>
                 <th></th>
               </tr>
             </thead>
@@ -42,51 +44,64 @@
               <tr
                 *ngFor="
                   let item of lists
-                
+                    | search : searchData
                     | paginate : { itemsPerPage: 10, currentPage: p };
                   let i = index
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.courseName }}</td>
+                <td>{{ item.courses.courseName }}</td>
                 <td>
                   <img
-                    [src]="item.courseThumbnail"
+                    [src]="item.courses.courseThumbnail"
                     width="200"
                     height="150"
-            
                   />
                 </td>
-                <td>{{ item.timePublished | date : "dd/MM/yyyy" }}</td>
-                <td>{{ item.oldPrice | currency : "VND" }}</td>
+                <td>{{ item.courses.timePublished | date : "dd/MM/yyyy" }}</td>
+                <td>{{ item.courses.oldPrice | currency : "VND" }}</td>
 
-                <td>{{ item.percentSale }}</td>
-                <td>{{ item.newPrice | currency : "VND" }}</td>
-                <td>
-                  <button
-                    class="btn btn-primary"
-                    mat-raised-button
-                    (click)="openDialog('edit',item.courseId)"
+                <td>{{ item.courses.percentSale }}</td>
+                <td>{{ item.courses.newPrice | currency : "VND" }}</td>
+                <td *ngIf="MaNguoiDung <=0">
+                  <select
+                    [(ngModel)]="item.courses.status"
+                    class="form-control"
+                    (change)="changeStatus(item.courses.courseId,item.courses)"
                   >
-                  <fa-icon [icon]="faPenToSquare"></fa-icon>
+                    <option [value]="1">Được đăng tải</option>
+                    <option [value]="0">Không đăng tải</option>
+                  </select>
+                </td>
+                <td style="display: flex;flex-direction: column;">
+                  <button
+                    class="btn btn-success"
+                    mat-raised-button
+                    (click)="openDialog('edit', item.courses.courseId)"
+                    style="margin-top: 10px;"
+                  >
+                    <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
                     class="btn btn-danger"
                     mat-raised-button
-                    (click)="deleteItem(item.courseId)"
+                    (click)="deleteButton(item.courses.courseId)"
+                    style="margin-top: 10px;"
                   >
-                  <fa-icon [icon]="faTrash"></fa-icon>
+                    <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
 
                   <button
-                  class="btn btn-primary"
-                  mat-raised-button
-                  [routerLink]="['/admin/khoahoc/detail/'+ item.courseId]"
-                >
-                <fa-icon [icon]="faEye"></fa-icon>
-                </button>
+                    class="btn btn-primary"
+                    mat-raised-button
+                    [routerLink]="[
+                      '/admin/khoahoc/detail/' + item.courses.courseId
+                    ]"
+                    style="margin-top: 10px;"
+                  >
+                    <fa-icon [icon]="faEye"></fa-icon>
+                  </button>
                 </td>
-                
               </tr>
             </tbody>
           </table>

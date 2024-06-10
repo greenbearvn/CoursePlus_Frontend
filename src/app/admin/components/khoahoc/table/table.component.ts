@@ -17,9 +17,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-course-table',
   templateUrl: './table.component.html',
-  styleUrls: [
-    './table.component.css'
-  ],
+  styleUrls: ['./table.component.css'],
 })
 export class TableCourseComponent {
   constructor(
@@ -37,7 +35,7 @@ export class TableCourseComponent {
   token: any;
 
   searchData: any = '';
-  MaNguoiDung: any;
+  MaNguoiDung: any = 0;
 
   khoahoc: Course = {
     courseId: 0,
@@ -51,8 +49,8 @@ export class TableCourseComponent {
     percentSale: 0,
     idLevel: 0,
     idDetailCate: 0,
-    profileId:0,
-    status:0
+    profileId: 0,
+    status: 0,
   };
   ///add cart
   listItems: any = [];
@@ -91,8 +89,12 @@ export class TableCourseComponent {
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.MaNguoiDung = Number(routeParams.get('id'));
-    
-    this.getLists();
+
+    if (this.MaNguoiDung > 0) {
+      this.getListOfProfile();
+    } else {
+      this.getLists();
+    }
   }
 
   getLists() {
@@ -102,33 +104,58 @@ export class TableCourseComponent {
     });
   }
 
+  getListOfProfile() {
+    this.khoahocService
+      .getAllByProfileId(this.MaNguoiDung)
+      .subscribe((data) => {
+        this.lists = data;
+        console.log(this.lists);
+      });
+  }
+
   openDialog(type: string, id: number): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       data: {
         type: type,
-        id: id
+        id: id,
+        userId: this.MaNguoiDung,
       },
       maxHeight: '90vh',
       panelClass: 'my-outlined-dialog',
     });
     dialogRef.afterClosed().subscribe((result) => {
-     this.getLists();
+      if (this.MaNguoiDung > 0) {
+        this.getListOfProfile();
+      } else {
+        this.getLists();
+      }
     });
   }
 
   deleteItem(id: number) {
-    this.khoahocService.delete(id ).subscribe((data) => {
-      this.lists = data.data;
-      this.status = data.status;
-      if (this.status == true) {
+    this.khoahocService.delete(id).subscribe((data) => {
+      if (data == true) {
+        if (this.MaNguoiDung > 0) {
+          this.getListOfProfile();
+        } else {
+          this.getLists();
+        }
         this._toastService.info('Đã xóa khóa học thành công !!!');
       }
     });
-    
   }
 
-  deleteButton(id:any){
+  changeStatus(id: any, course: any) {
+    console.log(id, course);
+    this.khoahocService.edit(id, course).subscribe((data) => {
+      console.log(data);
+      if (data) {
+        this._toastService.success('Cập nhật trạng thái thành công !!!');
+      }
+    });
+  }
 
+  deleteButton(id: any) {
     Swal.fire({
       title: 'Bạn có chắc không?',
       text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
@@ -187,6 +214,4 @@ export class TableCourseComponent {
       Tongtien: this.Tongtien,
     });
   }
-
-  
 }

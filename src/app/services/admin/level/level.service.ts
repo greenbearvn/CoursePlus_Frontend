@@ -27,6 +27,6 @@ export class LevelService {
   }
 
   update(id:any,level: level): Observable<any> {
-    return this.http.put('/api/v1/levels/update/' +id, level);
+    return this.http.put('/api/v1/levels/edit/' +id, level);
   }
 }

@@ -1,6 +1,7 @@
-export interface HoaDon{
-    MaDonHang:number,
-    MaNguoiDung:number,
-    NgayLap:string,
-    Tongtien:number
+export interface Order{
+    orderId:any,
+    userId:number,
+    status:string,
+    createAt:any,
+    moneyTotal:number
 }

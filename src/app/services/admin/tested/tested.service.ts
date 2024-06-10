@@ -9,8 +9,12 @@ import { tested } from 'src/app/Models/admin/tested';
 export class TestedService {
   constructor(private http: HttpClient) {}
 
-  list(id: number): Observable<any> {
-    return this.http.get('/api/admin/tested/list/' + id);
+  getbyTeacher(id: number): Observable<any> {
+    return this.http.get('/api/tested/list/teacher/' + id);
+  }
+
+  list(): Observable<any> {
+    return this.http.get('/api/tested/list');
   }
   listTests(id:number): Observable<any> {
     return this.http.get('/api/admin/tested/list/tests/'+id);

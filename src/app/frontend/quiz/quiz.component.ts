@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { QuizService } from 'src/app/services/frontend/quiz/quiz.service';
-import { assignment } from 'src/app/Models/frontend/assignment';
 import { CompletedComponent } from './completed/completed.component';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 import { Test } from 'src/app/Models/frontend/Test';
+import { Tested } from 'src/app/Models/frontend/assignment';
 
 @Component({
   selector: 'app-quiz',
@@ -41,12 +41,12 @@ export class QuizComponent {
 
   /// save assignment
 
-  assignment: assignment = {
-    MaBaiLam: 0,
-    MaNguoiDung: 0,
-    MaBaiKT: 0,
-    ThoiGianNop: new Date(),
-    ChinhXac: 0,
+  assignment: Tested = {
+    testedId: 0,
+    userId: 0,
+    testId: 0,
+    dateFinish: new Date(),
+    corrected: 0,
   };
 
   user: any;
@@ -67,10 +67,7 @@ export class QuizComponent {
     this.getDetailTest();
     this.getUser();
 
-    // this.quizService.getAllData(this.MaBaiKT).subscribe((data) => {
-    //   this.questions = data.data;
-    //   console.log(this.questions);
-    // });
+  
   }
 
   getDetailTest() {
@@ -84,22 +81,21 @@ export class QuizComponent {
 
   getUser() {
     this.accountService.getUser().subscribe((data) => {
-      this.user = data.data;
+      this.user = data.user_current;
       console.log(this.user);
     });
   }
 
   checkAnswer(choice: any) {
+
+    this.mlc = choice.choiceId;
+    this.mach = choice.questionId ;
+
+    console.log("choice: " + this.mlc)
+    console.log("question: " + this.mach)
    
-    console.log(choice);
     this.quizService.checkAnswer(choice).subscribe((data) => {
       this.checkData = data;
-
-      this.mlc = choice.questionId;
-      this.mach = choice.choiceId;
-
-      console.log(this.mlc)
-      console.log(this.mach)
 
       if (this.checkData==true) {
         this.isCorrected = true;
@@ -115,26 +111,26 @@ export class QuizComponent {
   }
 
   openDialog(correctedChoices: number): void {
+   
+    this.assignment = {
+      testedId: 0,
+      userId: this.user.userId,
+      testId: this.MaBaiKT,
+      dateFinish: new Date(),
+      corrected: correctedChoices,
+    };
+
     const dialogRef = this.dialog.open(CompletedComponent, {
       data: {
         correctedChoices: correctedChoices,
         totalQues: this.questions.length,
+        tested : this.assignment
       },
       maxHeight: '90vh',
     });
     dialogRef.afterClosed().subscribe((result) => {});
 
-    this.assignment = {
-      MaBaiLam: 0,
-      MaNguoiDung: this.user.MaNguoiDung,
-      MaBaiKT: this.MaBaiKT,
-      ThoiGianNop: new Date(),
-      ChinhXac: correctedChoices,
-    };
+   
 
-    this.quizService.saveData(this.assignment).subscribe((data) => {
-      this.resSave = data.alert;
-      console.log(this.resSave);
-    });
   }
 }

@@ -10,6 +10,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-admin-profile-list',
   templateUrl: './admin-profile-list.component.html',
@@ -40,7 +42,7 @@ export class AdminProfileListComponent {
   faPlus: any = faPlus;
 
   ngOnInit() {
-    this.getUserInSession();
+    // this.getUserInSession();
     this.getLists();
   }
 
@@ -53,7 +55,7 @@ export class AdminProfileListComponent {
 
   getLists() {
     this.profileService.list().subscribe((data) => {
-      this.lists = data.data;
+      this.lists = data;
       console.log(this.lists);
     });
   }
@@ -71,8 +73,26 @@ export class AdminProfileListComponent {
     });
   }
 
-  deleteProfile(profile: profile) {
-    this.profileService.delete(profile).subscribe((data) => {
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteProfile(id);
+      }
+    });
+  }
+
+  deleteProfile(id:any) {
+    this.profileService.delete(id).subscribe((data) => {
       this.deleteStatus = data.status;
       if (this.deleteStatus == true) {
         this._toastService.info('Đã xóa thành công');

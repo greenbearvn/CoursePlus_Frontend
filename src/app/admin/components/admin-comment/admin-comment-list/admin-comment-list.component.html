@@ -29,7 +29,7 @@
             <thead>
               <tr>  
                 <th>STT</th>  
-                <th>Tên khóa học</th>
+                <!-- <th>Tên khóa học</th> -->
                 <th>Tên người dùng</th>
                 <th>Nội dung</th>
                 <th>Thời gian</th>
@@ -47,20 +47,14 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenKhoaHoc }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
-                <td>{{ item.NoiDung }}</td>
-                <td>{{ item.ThoiGian | date : "dd/MM/yyyy" }}</td>
+                <!-- <td>{{ item.comment }}</td> -->
+                <td>{{ item.userRes.profile.profileName }}</td>
+                <td>{{ item.comment.content }}</td>
+                <td>{{ item.comment.timePublish | date : "dd/MM/yyyy" }}</td>
 
                 <td class="d-flex flex-column">
-                  <button
-                    class="btn btn-primary m-1"
-                    mat-raised-button
-                    (click)="openDialog('edit', item.MaBinhLuan)"
-                  >
-                    <fa-icon [icon]="faPenToSquare"></fa-icon>
-                  </button>
-                  <button class="btn btn-secondary m-1" (click)="delete(item)">
+                 
+                  <button class="btn btn-danger m-1" (click)="deleteButton(item.comment.commentId)">
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
                   <!-- <a

@@ -10,7 +10,7 @@ export class ProfileService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> {
-    return this.http.get('/api/admin/profile/list');
+    return this.http.get('/api/profile/list');
   }
 
   listUser(): Observable<any> {
@@ -25,19 +25,43 @@ export class ProfileService {
     return this.http.get('/api/admin/profile/detail/' + id);
   }
 
-  create(profile: profile): Observable<any> {
-    return this.http.post('/api/admin/profile/create', profile);
+  // create(profile: profile): Observable<any> {
+  //   return this.http.post('/api/admin/profile/create', profile);
+  // }
+
+  // delete(id:any): Observable<any> {
+  //   return this.http.delete('/api/profile/delete/' + id);
+  // }
+
+  // update(profile: profile): Observable<any> {
+  //   return this.http.post('/api/admin/video/updateProfile', profile);
+  // }
+
+  // upload(formData: FormData): Observable<any> {
+  //   return this.http.post('/api/admin/profile/upload', formData);
+  // }
+
+  /////////////////////new////////////////
+
+  getDetailProfile(id: any): Observable<any> {
+    return this.http.get('/api/profile/detail/' + id);
+  }
+  create(profile:any): Observable<any> {
+    return this.http.post('/api/profile/create', profile);
   }
 
-  delete(profile: profile): Observable<any> {
-    return this.http.post('/api/admin/profile/delete', profile);
+  update(id:any,profile:any): Observable<any> {
+    return this.http.post('/api/profile/update/'+id, profile);
   }
 
-  update(profile: profile): Observable<any> {
-    return this.http.post('/api/admin/video/updateProfile', profile);
+  delete(id:any): Observable<any> {
+    return this.http.delete('/api/profile/delete/'+id);
   }
+
 
   upload(formData: FormData): Observable<any> {
-    return this.http.post('/api/admin/profile/upload', formData);
+    return this.http.post('/api/profile/uploadImage', formData);
   }
+ 
+
 }

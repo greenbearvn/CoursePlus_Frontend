@@ -6,6 +6,8 @@ import { AdminDanhmucDetailModalComponent } from '../admin-danhmuc-detail-modal/
 
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-admin-danhmuc-detail-list',
@@ -17,7 +19,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 export class AdminDanhmucDetailListComponent {
   constructor(
     private detailCateService: DetailCategoryService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _toastService: ToastService
   ) {}
 
   @Input()
@@ -45,7 +48,9 @@ export class AdminDanhmucDetailListComponent {
       },
       maxHeight: '90vh',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getListDetailCate();
+    });
   }
 
   ngOnInit() {
@@ -54,15 +59,36 @@ export class AdminDanhmucDetailListComponent {
 
   getListDetailCate() {
     this.detailCateService.list(this.id).subscribe((data) => {
-      this.list = data.data;
+      this.list = data;
       console.log(this.detailCates);
     });
   }
 
-  deleteDetailCate(detailcategory: detailcategory) {
-    this.detailCateService.delete(detailcategory).subscribe((data) => {
-      this.detailCates = data.data;
-      console.log(this.detailCates);
+  deleteDetailCate(id:any) {
+    this.detailCateService.delete(id).subscribe((data) => {
+      if(data == true){
+        this._toastService.success("Xóa chi tiết thể loại thành công")
+        this.getListDetailCate();
+      }
+    
+    });
+  }
+
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteDetailCate(id);
+      }
     });
   }
 }

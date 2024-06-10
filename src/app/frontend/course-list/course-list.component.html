@@ -70,20 +70,22 @@
         </a>
       </div>
     </div>
+    <input type="text" class="form-control" placeholder="Tìm kiếm thông tin khóa học...." style="border: 1px solid black;" [(ngModel)]="searchData">
     <!--   Courselist  -->
     <div class="tube-card mt-3 lg:mx-0 -mx-5">
       <h4 class="py-3 px-5 border-b font-semibold text-grey-700">
-        Featured today
+        Danh sách các khóa học mới
       </h4>
       <div class="divide-y">
-        <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative" *ngFor="let item of courses | paginate : { itemsPerPage: 10, currentPage: p };">
+        <div class="flex md:space-x-6 space-x-3 md:p-5 p-2 relative" *ngFor="let item of courses | paginate : { itemsPerPage: 10, currentPage: p } | search:searchData;">
           <a
-          [routerLink]="['/detail',item.id]"
+          [routerLink]="['/detail',item.courses.courseId]"
             class="md:w-60 md:h-36 w-28 h-20 overflow-hidden rounded-lg relative shadow-sm"
           >
             <img
              
-              [src] = "item.AnhKhoaHoc"
+              [src] = "item.courses.courseThumbnail"
+
               alt=""
               class="w-full h-full absolute inset-0 object-cover"
             />
@@ -91,20 +93,20 @@
           </a>
           <div class="flex-1 md:space-y-2 space-y-1">
             <a
-              [routerLink]="['/detail',item.id]"
+              [routerLink]="['/detail',item.courses.courseId]"
               class="md:text-xl font-semibold line-clamp-2"
             >
-             {{item.TenKhoaHoc}}  
+             {{item.courses.courseName }}  
             </a>
             <p class="leading-6 pr-4 line-clamp-2 md:block hidden">
-              {{item.MoTaNgan}}
+              {{ item.courses.courseDuration}}
             </p>
-            <a href="#" class="md:font-semibold block text-sm"> {{item.TenGiangVien}}</a>
+            <a href="#" class="md:font-semibold block text-sm">  {{ item.profile.profileName }}</a>
             <div class="flex items-center justify-between">
               <div class="flex space-x-2 items-center text-sm">
                 <div>{{item.TenCapDo}}</div>
-                <div class="md:block hidden">·</div>
-                <div class="flex items-center">{{item.ThoiLuongKhoaHoc}}</div>
+               
+                <div class="flex items-center"> {{ item.courses.courseDuration}}</div>
               </div>
               
             </div>
@@ -140,7 +142,7 @@
     <div
       class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
     >
-      <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
+      <p class="capitalize font-medium">© copyright Courseplus</p>
       <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
         <a href="#"> About</a>
         <a href="#"> Help</a>

@@ -30,7 +30,7 @@ export class LessionService {
   }
 
   delete(id:any): Observable<any> {
-    return this.http.delete('/api/admin/lession/delete/' + id);
+    return this.http.delete('/api/lessions/delete/' + id);
   }
 
   

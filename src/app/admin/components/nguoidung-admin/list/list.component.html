@@ -1,3 +1,5 @@
+
+<lib-toastify-toast-container></lib-toastify-toast-container>
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
@@ -47,48 +49,39 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
+                <td>{{ item.userName }}</td>
                 <td>
-                  {{ item.Email }}
+                  {{ item.email }}
                 </td>
 
                 <td>
                   <select
                     class="form-control"
-                    [(ngModel)]="nguoidung.Quyen"
-                    name="Quyen"
+                    [(ngModel)]="item.role"
+                    name="role"
+                    (change)="changeRole(item.userId,item)"
                   >
-                    <option value="user">
-                      Người dùng 
-                    </option>
-                    <option value="admin">
-                      Quản lý
-                    </option>
+                    <option value="USER">Người dùng</option>
+                    <option value="ADMIN">Quản lý</option>
                   </select>
-               
                 </td>
 
                 <td class="d-flex flex-column">
-                  <button
+                  <!-- <button
                     class="btn btn-primary m-1"
                     mat-raised-button
                     (click)="openDialog('edit', item.MaNguoiDung)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
-                  </button>
+                  </button> -->
                   <button
-                  class="btn btn-danger m-1"
-                  mat-raised-button
-                  (click)="delete(item)"
-                >
-                  <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
-                  <button
-                    class="btn btn-warning m-1"
-                    (click)="addUserConven(item)"
+                    class="btn btn-danger m-1"
+                    mat-raised-button
+                    (click)="deleteButton(item.userId)"
                   >
-                    <fa-icon [icon]="faPlus"></fa-icon>
+                    <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
+                 
                 </td>
               </tr>
             </tbody>

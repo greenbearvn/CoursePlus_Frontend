@@ -34,7 +34,6 @@
                 <th>Email</th>
                 <th>Số điện thoại</th>
 
-                <th>Danh mục</th>
                 <th>Giảng viên</th>
 
                 <th></th>
@@ -50,47 +49,36 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenHoSo }}</td>
+                <td>{{ item.profileName }}</td>
                 <td>
                   <img
-                    [src]="item.AnhDaiDien"
+                    [src]="item.avatar"
                     width="200"
                     height="150"
                     alt=""
                     srcset=""
                   />
                 </td>
-                <td>{{ item.Email }}</td>
-                <td>{{ item.SoDienThoai }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phoneNumber }}</td>
 
-                <td>{{ item.tendm }}</td>
+              
                 <td>
-                  <input type="checkbox" *ngIf="item.GiangVien == 1" checked />
-                  <input type="checkbox" *ngIf="item.GiangVien == 0" />
+                  <select [(ngModel)]="item.isTeacher"  class="form-control"> 
+                    <option  [value]="1">Là giảng viên</option>
+                    <option  [value]="0">Không là giảng viên</option>
+                  </select>
                 </td>
 
                 <td class="d-flex flex-column">
-                  <button
-                    class="btn btn-primary m-1"
-                    mat-raised-button
-                    (click)="openDialog('update', item.MaHoSo)"
-                  >
-                    <fa-icon [icon]="faPenToSquare"></fa-icon>
-                  </button>
+                
                   <button
                     class="btn btn-secondary m-1"
                     (click)="deleteProfile(item)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
-                  <a
-                    [title]="item.TenKhoaHoc"
-                    [routerLink]="['/admin/khoahoc/detail', item.id]"
-                    >
-                    <button class="btn btn-success m-1">
-                      <fa-icon [icon]="faEye"></fa-icon>
-                    </button>
-                  </a>
+              
                 </td>
               </tr>
             </tbody>

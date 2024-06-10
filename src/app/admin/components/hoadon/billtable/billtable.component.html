@@ -27,6 +27,8 @@
                 <th>Ngày Lập</th>
 
                 <th>Tổng tiền</th>
+
+                <th>Trạng thái</th>
                 <th></th>
               </tr>
             </thead>
@@ -40,18 +42,24 @@
                 "
               >
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.TenNguoiDung }}</td>
+                <td>{{ item.userRes.userName }}</td>
 
-                <td>{{ item.NgayLap | date : "dd/MM/yyyy" }}</td>
-                <td>{{ item.Tongtien | currency : "VND" }}</td>
-
+                <td> {{formatDate(item.order.createAt)}}</td>
+                <td>{{ item.order.moneyTotal | currency : "VND" }}</td>
+                <td>
+                
+                  <select [(ngModel)]="item.order.status "  class="form-control" (change)="changeStatus(item.order.orderId,item.order)">
+                    <option  [value]="1">Đã thanh toán</option>
+                    <option  [value]="0">Chưa thanh toán</option>
+                  </select>
+                </td>
                 <td class="d-flex">
                   <a
                     href=""
                     [routerLink]="[
                       '/admin/hoadon/tools',
                       'update',
-                      item.MaDonHang
+                      item.order.orderId
                     ]"
                     style="color: #fff"
                   >

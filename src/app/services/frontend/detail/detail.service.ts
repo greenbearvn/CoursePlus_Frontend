@@ -43,8 +43,8 @@ export class DetailService {
     return this.http.get('/api/product/detail/courses/same/' + id);
   }
 
-  checkBought(id: any): Observable<any> {
-    return this.http.get('/api/product/detail/check/bought/' + id);
+  checkBought(collectionId: any, courseId: any): Observable<any> {
+    return this.http.get(`/api/v1/detailcollection/detail?collectionId=${collectionId}&courseId=${courseId}`);
   }
 
   checkBoughtCourse(id: any): Observable<any> {

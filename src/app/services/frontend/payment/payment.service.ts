@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class PaymentService {
   constructor(private http: HttpClient) {}
 
-  saveToDB(): Observable<any> {
-    return this.http.post('/api/payment/savedata',{});
+  savetoDb(order:any): Observable<any>{
+    return this.http.post('/api/v1/order/create',order);
   }
 
   transation(amount:any,bankCode:any): Observable<any> {
@@ -25,5 +25,9 @@ export class PaymentService {
 
   listBanks(): Observable<any> {
     return this.http.get('https://api.vietqr.io/v2/banks');
+  }
+
+  sendMail(email:any,cartItems:any): Observable<any> {
+    return this.http.post('/api/v1/order/send-mail?email=' + email, cartItems);
   }
 }

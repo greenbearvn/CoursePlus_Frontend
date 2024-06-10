@@ -39,4 +39,22 @@ export class KhoahocService {
 
     return this.http.delete('/api/courses/delete/'+id);
   }
+
+  detailCates(): Observable<any> {
+    return this.http.get('/api/detailcates/list');
+  }
+
+  levels(): Observable<any> {
+    return this.http.get('/api/v1/levels/list');
+  }
+
+
+  teachers(): Observable<any> {
+    return this.http.get('/api/profile/list');
+  }
+
+
+  getAllByProfileId(id:any): Observable<any> {
+    return this.http.get('/api/courses/list/teacher/'+id);
+  }
 }

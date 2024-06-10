@@ -7,6 +7,7 @@ import { ProfileService } from 'src/app/services/frontend/profile/profile.servic
 import { CategoryService } from 'src/app/services/frontend/category/category.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AccountService } from 'src/app/services/frontend/account/account.service';
 
 @Component({
   selector: 'app-profile-update',
@@ -26,6 +27,13 @@ export class ProfileUpdateComponent {
     isTeacher: 0,
   };
 
+  user: any = {
+    userId : 0,
+    userName:"",
+    email:"",
+    role:''
+  };
+
   constructor(
     private profileService: ProfileService,
  
@@ -33,6 +41,7 @@ export class ProfileUpdateComponent {
     private cateSer: CategoryService,
     private router: Router,
     private route: ActivatedRoute,
+    private accountService: AccountService
   ) {}
 
 
@@ -53,15 +62,27 @@ export class ProfileUpdateComponent {
     this.getDetailProfile();
  
     this.getListDetailCate();
+    this.getCurrentUser();
+   
 
+  }
+
+  getCurrentUser(){
+    this.accountService.getUser().subscribe((data) => {
+      this.user = data.user_current;
+
+      console.log("user data: ",this.user)
+    
+    });
   }
 
 
    getDetailProfile() {
     this.profileService.getDetailProfile(this.userId).subscribe((data) => {
       this.profile = data;
+      this.ckeditorData = this.profile.desciption;
 
-      console.log(this.profile);
+      console.log("profile data: ",this.profile);
     });
   }
 
@@ -93,7 +114,6 @@ export class ProfileUpdateComponent {
       this.profile.avatar = this.imageUrl;
       this.profile.desciption = this.ckeditorData;
 
-      console.log(this.profile)
       this.profileService.update(this.userId,this.profile).subscribe((data) => {
        
         if (data) {

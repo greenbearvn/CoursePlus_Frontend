@@ -14,9 +14,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-admin-tested-list',
   templateUrl: './admin-tested-list.component.html',
-  styleUrls: [
-    './admin-tested-list.component.css'
-  ],
+  styleUrls: ['./admin-tested-list.component.css'],
 })
 export class AdminTestedListComponent {
   constructor(
@@ -49,7 +47,7 @@ export class AdminTestedListComponent {
       data: {
         type: type,
         id: id,
-        MaGiangVien : this.MaGiangVien
+        MaGiangVien: this.MaGiangVien,
       },
       maxHeight: '90vh',
     });
@@ -59,10 +57,16 @@ export class AdminTestedListComponent {
   }
 
   getLists() {
-    this.testedService.list(this.MaGiangVien).subscribe((data) => {
-      this.lists = data.data;
-      console.log(this.lists);
-    });
+    if (this.MaGiangVien > 0) {
+      this.testedService.getbyTeacher(this.MaGiangVien).subscribe((data) => {
+        this.lists = data;
+      });
+    } else {
+      this.testedService.list().subscribe((data) => {
+        this.lists = data;
+        console.log(this.lists);
+      });
+    }
   }
 
   deleteItem(tested: tested) {

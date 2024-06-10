@@ -1,3 +1,4 @@
+<lib-toastify-toast-container></lib-toastify-toast-container>
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
@@ -50,33 +51,44 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.blogName }}</td>
                 <td>
-                  <img
-                    [src]="item.thumnail"
-                    alt=""
-                    width="150"
-                    height="200"
-                  />
+                  <img [src]="item.thumnail" alt="" width="150" height="200" />
                 </td>
 
                 <td>{{ item.datePublish | date : "dd/MM/yyyy" }}</td>
-                <!-- <td>{{ item.tendm }}</td> -->
-                <!-- <td>{{ item.TenNguoiDung }}</td> -->
                 <td>
-                  <input type="checkbox" *ngIf="item.status == 1"  checked (click)="changeStatus(item)"/>
-                  <input type="checkbox" *ngIf="item.status == 0"  (click)="changeStatus(item)"/>
+                  {{ item.status == 1 ? "Đã đăng tải" : "Đang phê duyệt" }}
                 </td>
-                <td class="d-flex ">
+
+                <td *ngIf="userId <= 0">
+                  <select
+                    [(ngModel)]="item.status"
+                    (change)="updateStatus(item.blogId, item)"
+                    class="form-control"
+                  >
+                    <option [value]="1">Được đăng tải</option>
+                    <option [value]="0">Không được đăng tải</option>
+                  </select>
+                </td>
+
+                <td class="d-flex flex-column">
                   <button
-                    class="btn btn-primary m-1"
+                    class="btn btn-success m-1"
                     mat-raised-button
                     (click)="openDialog('edit', item.blogId)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
-                    class="btn btn-danger m-1"
+                    class="btn btn-primary m-1"
                     mat-raised-button
                     (click)="deleteBlog(item)"
+                  >
+                    <fa-icon [icon]="faEye"></fa-icon>
+                  </button>
+                  <button
+                    class="btn btn-danger m-1"
+                    mat-raised-button
+                    (click)="deleteButton(item.blogId)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>

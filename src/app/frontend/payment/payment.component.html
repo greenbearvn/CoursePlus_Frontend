@@ -26,28 +26,23 @@
       </div>
       <div class="grid grid-cols-2 md:gap-6 gap-3 md:mt-10 mt-5">
         <a
-          class="bg-gray-200 flex font-medium items-center justify-center py-3 rounded-md"
+        style="background-color: rgb(206, 48, 48);padding: 1rem; color: white;border-top-left-radius: 10px;border-bottom-left-radius: 10px;"
           [title]="'Giỏ hàng'"
           [routerLink]="['/cart']"
         >
          
-          <span class="md:block hidden">Quay lại trang giỏ hàng</span
+          <span >Quay lại trang giỏ hàng</span
           ><span class="md:hidden block">Back</span>
         </a>
-        <!-- <a
-          class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white"
-          (click)="AddCollection()"
-        >
-          <span class="md:block hidden">Billing address </span>
-          <i class="icon-feather-chevron-right ml-1"></i>
-        </a> -->
+      
         <a
-          class="bg-blue-600 text-white flex font-medium items-center justify-center py-3 rounded-md hover:text-white"
+          style="background-color: skyblue;padding: 1rem;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
           (click)="AddTransaction()"
         >
-          <span class="md:block hidden">Thanh toán với VN Pay </span>
+          <span >Thanh toán với VN Pay </span>
       
         </a>
+       
       </div>
     </div>
   </div>
@@ -56,7 +51,7 @@
     <div
       class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
     >
-      <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
+      <p class="capitalize font-medium">© copyright  CoursePlus</p>
       <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
         <a href="#"> About</a>
         <a href="#"> Help</a>

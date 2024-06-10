@@ -2,7 +2,7 @@
   <div class="container">
     <div class="text-2xl font-semibold">Bài viết</div>
     <div class="flex flex-col">
-      <div class="w-full max-w-sm">
+      <div class="w-full max-w-sm" *ngIf="user.userId > 0">
         <div class="flex items-center border-b border-teal-500 py-2" >
           <a
             class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
@@ -41,7 +41,7 @@
                     />
                   </div>
                   <div class="col-span-2">
-                    <label for="about">About me</label>
+                    <label for="about">Nội dung bài viết</label>
                     <ckeditor [editor]="Editor" (change)="onChange($event)">
                     </ckeditor>
                   </div>
@@ -216,18 +216,6 @@
       </div>
     </div>
     <!-- footer -->
-    <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
-      <div
-        class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
-      >
-        <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
-        <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
-          <a href="#"> About</a>
-          <a href="#"> Help</a>
-          <a href="#"> Terms</a>
-          <a href="#"> Privacy</a>
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>

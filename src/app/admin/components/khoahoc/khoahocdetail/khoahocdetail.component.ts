@@ -37,7 +37,9 @@ export class KhoahocdetailComponent {
 
   getDetail() {
     this.khoahocService.detail(this.id).subscribe((data) => {
-      this.detail = data;
+      this.detail = data.courses;
+
+      console.log("detail: ",this.detail)
     });
   }
 }

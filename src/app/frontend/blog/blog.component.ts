@@ -38,7 +38,12 @@ export class BlogComponent {
   blogs: any;
   relateBlogs: any;
 
-  user:any;
+  user: any = {
+    userId : 0,
+    userName:"",
+    email:"",
+    role:''
+  };
 
   //forms
   Editor = ClassicEditor;
@@ -82,9 +87,8 @@ export class BlogComponent {
 
   getUser() {
     this.userSer.getUser().subscribe((data) => {
-      this.user = data.profile;
-      this.statusLogin = data.status;
-      console.log(this.user);
+      this.user = data.user_current;
+      console.log(this.user)
     });
   }
 
@@ -141,7 +145,7 @@ export class BlogComponent {
     if (this.imageUrl && this.ckeditorData) {
       this.blog.thumnail = this.imageUrl;
       this.blog.content = this.ckeditorData;
-      this.blog.userId = 1;
+      this.blog.userId = this.user.userId;
       this.blog.status = 0;
 
       this.blogService.create(this.blog).subscribe((data) => {

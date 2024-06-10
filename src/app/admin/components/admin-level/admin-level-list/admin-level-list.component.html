@@ -30,7 +30,7 @@
               <tr>
                 <th>STT</th>
                 <th>Tên cấp độ</th>
-                <th></th>
+                <th style="width: 150px;"></th>
               </tr>
             </thead>
             <tbody>
@@ -47,15 +47,15 @@
 
                 <td class="d-flex flex-column">
                   <button
-                    class="btn btn-primary m-1"
+                    class="btn btn-success m-1"
                     mat-raised-button
                     (click)="openDialog('update', item.idLevels)"
                   >
                     <fa-icon [icon]="faPenToSquare"></fa-icon>
                   </button>
                   <button
-                    class="btn btn-secondary m-1"
-                    (click)="delete(item)"
+                    class="btn btn-danger m-1"
+                    (click)="deleteButton(item)"
                   >
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>

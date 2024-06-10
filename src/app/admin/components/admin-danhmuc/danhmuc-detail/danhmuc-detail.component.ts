@@ -20,12 +20,18 @@ export class DanhmucDetailComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.id = Number(routeParams.get('id'));
 
-    this.getDetail();
+
+    console.log(this.id)
+    if(this.id>0){
+      this.getDetail();
+
+    }
+
   }
 
   getDetail() {
     this.catService.detail(this.id).subscribe((data) => {
-      this.detail = data.data;
+      this.detail = data;
     });
   }
 }

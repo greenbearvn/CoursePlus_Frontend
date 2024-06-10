@@ -1,3 +1,9 @@
+
+<style>
+  #wrapper {
+    background-color: rgba(59, 130, 246, 0.5);
+  }
+</style>
 <div id="wrapper" class="flex flex-col justify-between h-screen">
   <lib-toastify-toast-container></lib-toastify-toast-container>
   <!-- header-->
@@ -38,38 +44,27 @@
           <button
             type="button"
             class=""
-            (click)="login()" style="background-color: goldenrod; padding: 1rem;border-radius: 10px;margin-left: 130px; color: white;"
+            (click)="login()"
+            style="
+              background-color: goldenrod;
+              padding: 1rem;
+              border-radius: 10px;
+              margin-left: 130px;
+              color: white;
+            "
           >
             Đăng nhập
           </button>
         </div>
-        <div class="uk-heading-line uk-text-center py-5">
+        <div class="uk-heading-line uk-text-center">
           <span> Nếu đã có tài khoản</span>
         </div>
-        <a
-          [title]="'Đăng ký'"
-          [routerLink]="['/account/register']"
-          class="hidden relative lg:flex items-center justify-start w-full py-3 mt-2 overflow-hidden text-lg font-medium text-white bg-indigo-600 rounded-lg cursor-pointer"
-        ><span class="" style="background-color: #2a41e8; padding: 1rem;border-radius: 10px;margin-left: 130px; color: white;"
-        >Đăng ký</span
-      >
+        <a [title]="'Đăng ký'" [routerLink]="['/account/register']" style="color: cornflowerblue;text-align: center;margin-left: 160px;margin-top: 10px;"
+          >Đăng ký
         </a>
-       
       </form>
     </div>
   </div>
   <!-- Footer -->
-  <div class="lg:mb-5 py-3 uk-link-reset">
-    <div
-      class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
-    >
-      <div class="flex space-x-2 text-gray-700 uppercase">
-        <a href="#"> About</a>
-        <a href="#"> Help</a>
-        <a href="#"> Terms</a>
-        <a href="#"> Privacy</a>
-      </div>
-      <p class="capitalize">© copyright 2021 by Courseplus</p>
-    </div>
-  </div>
+  
 </div>

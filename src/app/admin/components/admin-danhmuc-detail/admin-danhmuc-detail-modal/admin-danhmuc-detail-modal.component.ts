@@ -11,10 +11,7 @@ import { detailcategory } from 'src/app/Models/admin/detailcategory';
 @Component({
   selector: 'app-admin-danhmuc-detail-modal',
   templateUrl: './admin-danhmuc-detail-modal.component.html',
-  styleUrls: [
-    './admin-danhmuc-detail-modal.component.css'
-    
-  ],
+  styleUrls: ['./admin-danhmuc-detail-modal.component.css'],
 })
 export class AdminDanhmucDetailModalComponent {
   constructor(
@@ -30,9 +27,9 @@ export class AdminDanhmucDetailModalComponent {
   id: any;
 
   dCate: detailcategory = {
-    cateId:0,
-    detailCateName:"",
-    detailCateId:0
+    cateId: 0,
+    detailCateName: '',
+    detailCateId: 0,
   };
 
   ///status
@@ -51,7 +48,7 @@ export class AdminDanhmucDetailModalComponent {
 
   getDetail() {
     this.dCateService.detail(this.id).subscribe((data) => {
-      this.dCate = data.data;
+      this.dCate = data;
       console.log(this.dCate);
     });
   }
@@ -72,22 +69,20 @@ export class AdminDanhmucDetailModalComponent {
 
   create() {
     this.dCateService.create(this.dCate).subscribe((data) => {
-     
-      if (this.statusCreate == true) {
-        this._toastService.info('Đã thêm người dùng thành công');
+      if (data) {
+        this._toastService.success('Đã thêm chi tiết thể loại thành công');
       } else {
-        this._toastService.warn('Đã thêm người dùng không thành công');
+        this._toastService.warn('Đã thêm không thành công');
       }
     });
   }
 
   update() {
-    this.dCateService.update(this.id,this.dCate).subscribe((data) => {
-      this.statusCreate = data.data;
-      if (this.statusEdit == true) {
-        this._toastService.info('Đã cập nhật người dùng thành công');
+    this.dCateService.update(this.id, this.dCate).subscribe((data) => {
+      if (data) {
+        this._toastService.info('Đã cập nhật thành công');
       } else {
-        this._toastService.warn('Đã cập nhật người dùng không thành công');
+        this._toastService.warn('Đã cập nhật không thành công');
       }
     });
   }

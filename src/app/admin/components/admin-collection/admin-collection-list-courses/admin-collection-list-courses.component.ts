@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { ActivatedRoute } from '@angular/router';
 import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
 import { Course } from 'src/app/Models/Course';
-
+import { CollectionService } from 'src/app/services/admin/collection/collection.service';
 @Component({
   selector: 'app-admin-collection-list-courses',
   templateUrl: './admin-collection-list-courses.component.html',
@@ -13,7 +13,7 @@ import { Course } from 'src/app/Models/Course';
   ],
 })
 export class AdminCollectionListCoursesComponent {
-  constructor(private khoahocService: KhoahocService) {}
+  constructor(private khoahocService: KhoahocService,private route: ActivatedRoute,private collectionService:CollectionService) {}
 
   lists: any;
   searchData: any;
@@ -24,29 +24,20 @@ export class AdminCollectionListCoursesComponent {
 
   listAdd: any = [];
 
-  // khoahoc: Course = {
-  //   id: 0,
-  //   TenKhoaHoc: '',
-  //   AnhKhoaHoc: '',
-  //   MoTaNgan: '',
-  //   MoTaDayDu: '',
-  //   ThoiGian: '',
-  //   ThoiLuongKhoaHoc: '',
-  //   GiaCu: 0,
-  //   GiamGia: 0,
-  //   TrangThai: 0,
-  //   MaCapDo: 0,
-  //   MaGiangVien: 0,
-  //   MaDanhMuc: 0,
-  // };
+  id:any;
+
 
   ngOnInit() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.id = routeParams.get('id');
+
+
     this.getLists();
   }
 
   getLists() {
-    this.khoahocService.getProducts().subscribe((data:any) => {
-      this.lists = data.data;
+    this.collectionService.listCourse(this.id).subscribe((data:any) => {
+      this.lists = data;
       console.log(this.lists);
     });
   }

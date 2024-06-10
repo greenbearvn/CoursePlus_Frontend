@@ -1,7 +1,7 @@
-export interface assignment{
-    MaBaiLam:number,
-    MaNguoiDung:number,
-    MaBaiKT:number,
-    ThoiGianNop:Date,
-    ChinhXac:number
+export interface Tested{
+    testedId:number,
+    userId:number,
+    testId:number,
+    dateFinish:Date,
+    corrected:number
 }

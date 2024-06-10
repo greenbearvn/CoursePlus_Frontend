@@ -106,13 +106,10 @@
           <div class="" >
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
               <label class="be-checkbox custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  [(ngModel)]="khoahoc.status"
-                />
+               
 
-                <select [(ngModel)]="khoahoc.status">
+                <select [(ngModel)]="khoahoc.status" style="border: 1px solid grey;">
+                  <option [value]="0">Chọn trạng thái bài đăng</option>
                   <option [value]="1">Đăng tải</option>
                   <option  [value]="0">Không đăng tải</option>
                 </select>
@@ -148,36 +145,24 @@
         <div class="form-row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2">
             <label for="validationCustom03">Tên cấp độ</label>
-            <input
-            type="text"
-            class="form-control"
-            id="validationCustom04"
-            required
-            [(ngModel)]="khoahoc.idLevel"
-          />
+           
             <select class="form-control" [(ngModel)]="khoahoc.idLevel">
               <option selected>Chọn cấp độ ...</option>
-              <input type="text" class="form-control" />
-              <option *ngFor="let item of levels" [value]="item.idLevel">
+             
+              <option *ngFor="let item of levels" [value]="item.idLevels">
                 {{ item.nameLevel }}
               </option>
             </select>
            
           </div>
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2" >
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-2" *ngIf="userId<=0">
             <label for="validationCustom04">Tên giảng viên</label>
-            <input
-            type="text"
-            class="form-control"
-            id="validationCustom04"
-            required
-            [(ngModel)]="khoahoc.profileId"
-          />
+           
             <select class="form-control" [(ngModel)]="khoahoc.profileId">
               <option selected>Chọn giảng viên ...</option>
            
               <option *ngFor="let item of teachers" [value]="item.profileId">
-                {{ item.TenHoSo }}
+                {{ item.profileName }}
               </option>
             </select>
         
@@ -187,15 +172,15 @@
             
             <select class="form-control" [(ngModel)]="khoahoc.idDetailCate">
               <option selected>Chọn tên chi tiết danh mục...</option>
-              <input type="text" class="form-control" />
-              <option *ngFor="let item of detailCates" [value]="item.idDetailCate">
+           
+              <option *ngFor="let item of detailCates" [value]="item.detailCateId">
                 {{ item.detailCateName }}
               </option>
             </select>
       
           </div>
 
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="display: flex;justify-content: space-between;" >
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="display: flex;justify-content: space-between; margin-top: 10px;" >
             <button
               *ngIf="type === 'create'"
               class="btn btn-primary"

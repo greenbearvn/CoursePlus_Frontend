@@ -34,6 +34,6 @@ export class CategoryService {
   }
   delete(id:any): Observable<any> {
 
-    return this.http.get<any>('/api/categories/delete/' + id) ;
+    return this.http.delete<any>('/api/categories/delete/' + id) ;
   }
 }

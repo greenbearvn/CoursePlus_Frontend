@@ -10,7 +10,11 @@ import { choice } from 'src/app/Models/admin/choice';
 export class TestService {
   constructor(private http: HttpClient) {}
 
-  list(id:number): Observable<any> {
+  list(): Observable<any> {
+    return this.http.get('/api/test/list');
+  }
+
+  getAllTestByTeacher(id:number): Observable<any> {
     return this.http.get('/api/test/list/teacher/'+id);
   }
   listTeachers(): Observable<any> {
@@ -29,7 +33,7 @@ export class TestService {
   }
 
   update(test: any): Observable<any> {
-    return this.http.post('/api/admin/video/updateTest', test);
+    return this.http.post('/api/test/create', test);
   }
 
   updateChoice(choice: choice): Observable<any> {
@@ -40,8 +44,8 @@ export class TestService {
     return this.http.post('/api/admin/test/update/question', question);
   }
 
-  delete(test: test): Observable<any> {
-    return this.http.post('/api/admin/test/delete', test);
+  delete(id: any): Observable<any> {
+    return this.http.delete('/api/test/delete/'+ id);
   }
 
   deleteChoice(choice: any): Observable<any> {

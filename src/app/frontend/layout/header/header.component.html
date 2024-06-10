@@ -3,9 +3,9 @@
   uk-sticky="cls-inactive: is-dark is-transparent border-b"
 >
   <div class="header_inner" style="width: 1800px">
-    <div class="left-side">
+    <div class="left-side" >
       <!-- Logo -->
-      <div id="logo">
+      <div id="logo" >
         <a [title]="'Trang chủ'" [routerLink]="['/']">
           <img src="../../../assets/home/images/logo.png" alt="" />
           <img
@@ -25,26 +25,17 @@
     </div>
     <div class="right-side">
       <!-- Header search box  -->
-      <div class="header_search">
-        <i class="uil-search-alt"></i>
-        <input
-          value=""
-          type="text"
-          class="form-control"
-          placeholder=" Quick search for anything.."
-          autocomplete="off"
-        />
-      </div>
-      <div style="display: flex; margin-right:20px"  (click) ="reloadListCart()">
-        <div style="margin-right: 20px;">
+
+      <div
+        style="display: flex; margin-right: 20px"
+        (click)="reloadListCart()"
+        *ngIf="user.userId > 0"
+      >
+        <div style="margin-right: 20px">
           <fa-icon [icon]="faCartShopping"></fa-icon>
 
-          <div
-            uk-drop="mode: click"
-            class="dropdown_cart"
-            style="right: 10px;"
-          >
-            <div class="cart-headline" >
+          <div uk-drop="mode: click" class="dropdown_cart" style="right: 10px">
+            <div class="cart-headline">
               <a
                 class="header_widgets"
                 [title]="'Giỏ hàng'"
@@ -61,14 +52,13 @@
               <a
                 class="btn btn-danger"
                 [title]="'Xóa hết'"
-                style="background-color: aquamarine;border-radius: 5%;"
+                style="background-color: aquamarine; border-radius: 5%"
                 (click)="deleteAll()"
                 >Xóa hết</a
               >
-              
             </div>
             <ul class="dropdown_cart_scrollbar" data-simplebar>
-              <li *ngFor="let item of cartList ">
+              <li *ngFor="let item of cartList">
                 <div class="cart_avatar">
                   <img [src]="item.courseThumbnail" alt="" />
                 </div>
@@ -77,7 +67,15 @@
                 </div>
                 <div class="cart_price">
                   <span> {{ item.newPrice | currency : "VND" }} </span>
-                  <button class="btn btn-success" (click)="deleteItem('id'+item.courseId)" style="background-color: bisque; padding: 5px 10px 5px 10px; border-radius: 10px;">
+                  <button
+                    class="btn btn-success"
+                    (click)="deleteItem('id' + item.courseId)"
+                    style="
+                      background-color: bisque;
+                      padding: 5px 10px 5px 10px;
+                      border-radius: 10px;
+                    "
+                  >
                     Xóa
                   </button>
                 </div>
@@ -124,24 +122,38 @@
                 <hr />
               </li>
               <li>
-                <a
-                  [title]="'Hồ sơ'"
-                  [routerLink]="['/profile/' + user.userId]"
-                >
-                
+                <a [title]="'Hồ sơ'" [routerLink]="['/profile/' + user.userId]">
                   Hồ sơ
                 </a>
               </li>
               <li>
-                <a [title]="'Bộ sưu tập'" [routerLink]="['/collection/' + user.userId]">
+                <a
+                  [title]="'Bộ sưu tập'"
+                  [routerLink]="['/collection/' + user.userId]"
+                >
                   <!-- <ion-icon name="card-outline" class="is-icon"></ion-icon> -->
                   Bộ sưu tập
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  [title]="'Đến trang quản lý của tôi'"
+                  [routerLink]="['/admin/khoahoc/list/user/' + user.userId]"
+                  *ngIf="user.role === 'USER'"
+                >
+                  <!-- <ion-icon name="card-outline" class="is-icon"></ion-icon> -->
+                  Đến trang quản lý của tôi
+                </a>
+              </li>
+             
+
+              <li>
+                <a
+                  [routerLink]="['/admin/khoahoc/list']"
+                  *ngIf="user.role === 'ADMIN'"
+                >
                   <!-- <ion-icon name="color-wand-outline" class="is-icon"></ion-icon> -->
-                  Đơn hàng của tôi
+                  Đến trang quản trị
                 </a>
               </li>
 
@@ -189,22 +201,9 @@
               <li>
                 <hr />
               </li>
+
               <li>
-                <a
-                  href="#"
-                  id="night-mode"
-                  class="btn-night-mode"
-                  onclick="UIkit.notification({ message: '/assets/courseplus/default/Hmm...-strong-Nightmode-/strong-featureisnotavailableyet.html' , pos: '/assets/courseplus/default/bottom-right.html'  })"
-                >
-                  <!-- <ion-icon name="moon-outline" class="is-icon"></ion-icon> -->
-                  Night mode
-                  <span class="btn-night-mode-switch">
-                    <span class="uk-switch-button"></span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a (click)="logout()">
+                <a (click)="deleteButton()">
                   <!-- <ion-icon name="log-out-outline" class="is-icon"></ion-icon> -->
                   Đăng xuất
                 </a>
@@ -212,7 +211,6 @@
             </ul>
           </div>
         </div>
-       
       </div>
       <div class="flex" *ngIf="user.userId == 0">
         <a [title]="'Đăng nhập'" [routerLink]="['account/login']">
@@ -220,7 +218,11 @@
             Đăng nhập
           </button>
         </a>
-        <a [title]="'Đăng ký'" [routerLink]="['account/register']" style="margin-left: 10px;">
+        <a
+          [title]="'Đăng ký'"
+          [routerLink]="['account/register']"
+          style="margin-left: 10px"
+        >
           <button class="button" style="background-color: cornflowerblue">
             Đăng ký
           </button>

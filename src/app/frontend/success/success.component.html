@@ -1,19 +1,53 @@
+<style>
+  .payment-success {
+    width: 600px;
+    margin: 0 auto;
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 100px;
+  }
+
+  .payment-success h4 {
+    margin-top: 0;
+    color: #3c763d;
+  }
+
+  .payment-success p {
+    margin-bottom: 0;
+  }
+</style>
 <div class="main_content" style="margin-left: 500px">
   <div class="container">
-    <div *ngIf="status === '97'">
-      <h1>Thanh toán không thành công</h1>
+    <div *ngIf="paymentStatus !== '00'">
+      <div class="payment-success">
+        <h4>Thanh toán không thành công!</h4>
+        <p>Đơn hàng thah toán lỗi vui lòng thử lại sau.</p>
+        <p>Mọi thắc mắc hoặc yêu cầu hỗ trợ, vui lòng liên hệ với chúng tôi.</p>
+      </div>
       <a
         [routerLink]="['/cart']"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        style="margin-left: 400px; margin-top: 100px;"
         >Quay lại trang thanh toán</a
       >
     </div>
 
-    <div *ngIf="status !== '97'">
-      <h1>Thanh toán thành công</h1>
+    <div *ngIf="paymentStatus === '00'">
+      <div class="payment-success">
+        <h4>Thanh toán thành công!</h4>
+        <p>
+          Cảm ơn bạn đã thanh toán. Giao dịch của bạn đã được xử lý thành công.
+        </p>
+        <p>Mọi thắc mắc hoặc yêu cầu hỗ trợ, vui lòng liên hệ với chúng tôi.</p>
+      </div>
       <a
         [routerLink]="['/']"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        style="margin-left: 400px; margin-top: 100px;"
         >Tiếp tục học hỏi kiến thức</a
       >
     </div>

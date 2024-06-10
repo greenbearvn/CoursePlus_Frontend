@@ -32,33 +32,21 @@
       <!-- sidebar list -->
       <div class="sidebar_inner is-watch-2" data-simplebar>
         <div id="curriculum">
-          <h3 class="mb-4 text-xl font-semibold">Danh sách bài học</h3>
-          <ul
-            uk-accordion="multiple: true"
-            class="tube-card p-4 divide-y space-y-3"
-          >
+          <h3 class="mb-4 text-xl font-semibold">Danh sách video</h3>
+          <ul class="course-curriculum-list font-medium">
             <li
-              [className]="isFirst ? 'uk-open' : 'pt-2'"
-              *ngFor="let lesson of lessions; index as i; first as isFirst"
-            >
-              <a class="uk-accordion-title text-md mx-2 font-semibold" href="#">
-                {{ lesson.lessionName }}</a
-              >
-              <div class="uk-accordion-content mt-3 text-base">
-                <ul class="course-curriculum-list font-medium">
-                  <li
-                    *ngFor="let video of videos"
-                    class="hover:bg-gray-200 p-2 flex rounded"
-                  >
-                    <div *ngIf="video.lessionId === lesson.lessionId">
-                      {{ video.videoName }}
+              *ngFor="let video of videos"
+              class="hover:bg-gray-200 p-2 flex rounded"
+              (click)="changeVideo(course.courses.courseId,video.videoId )"
 
-                      <span class="text-sm ml-auto">
-                        {{ video.videoDuration }}
-                      </span>
-                    </div>
-                  </li>
-                </ul>
+            >
+              <div>
+                
+                <b>{{ video.videoName }}</b>
+
+                <span class="text-sm ml-auto">
+                  {{ video.videoDuration }}
+                </span>
               </div>
             </li>
           </ul>
@@ -101,32 +89,15 @@
       ></div>
     </div>
     <!-- Main Contents -->
-    <div class="main_content">
-      <div class="relative">
-        <ul class="uk-switcher relative z-10" id="video_tabs">
-          <li>
-            <!-- to autoplay video uk-video="automute: true" -->
-            <div class="embed-video" *ngIf="detailVideo">
-              <iframe
-                [src]="
-                  sanitizer.bypassSecurityTrustResourceUrl(
-                    detailVideo.videoLink
-                  )
-                "
-                frameborder="0"
-                uk-video="automute: true"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-                uk-responsive
-              ></iframe>
-            </div>
-          </li>
-        </ul>
-        <div
-          class="bg-gray-200 w-full h-full absolute inset-0 animate-pulse"
-        ></div>
+    <div class="main_content" >
+      
+      <div style="margin-left: 10px;">
+        <video controls width="1200px"  *ngIf="detailVideo.videoLink">
+          <source [src]="detailVideo.videoLink" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
+
       <nav
         class="cd-secondary-nav border-b md:p-0 lg:px-6 bg-white"
         uk-sticky="cls-active:shadow-sm ; media: @s"
@@ -134,66 +105,47 @@
         <ul uk-switcher="connect: #course-tabs; animation: uk-animation-fade">
           <li><a href="#" class="lg:px-2"> Tổng quan </a></li>
           <li><a href="#" class="lg:px-2"> Giảng viên </a></li>
-          <li><a href="#" class="lg:px-2"> Bài kiểm tra </a></li>
         </ul>
       </nav>
+
       <div class="container">
         <div class="max-w-2xl lg:py-6 mx-auto uk-switcher" id="course-tabs">
           <div>
             <h4 class="text-2xl font-semibold">{{ detailVideo.videoName }}</h4>
-            <p>{{ detailVideo.videoContent }}</p>
+        
             <hr class="my-5" />
             <div class="grid lg:grid-cols-3 mt-8 gap-8">
               <div>
                 <h3 class="text-lg font-semibold">Mô tả</h3>
               </div>
               <div class="col-span-2">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat. Ut wisi enim ad minim laoreet dolore
-                  magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                  quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-                  ut aliquip ex ea commodo consequat
-                  <br />
-                  <a href="#" class="text-blue-500">Đọc thêm ...</a>
+                <p [innerHTML]="detailVideo.videoContent">
+               
                 </p>
               </div>
-              <div>
-                <h3 class="text-lg font-semibold">Bạn sẽ được học :</h3>
-              </div>
+              
 
-              <div>
-                <h3 class="text-lg font-semibold">Bắt buộc</h3>
-              </div>
-              <div class="col-span-2">
-                <ul class="list-disc ml-5 space-y-1">
-                  <li>Any computer will work: Windows, macOS or Linux</li>
-                  <li>Basic programming HTML and CSS.</li>
-                  <li>Basic/Minimal understanding of JavaScript</li>
-                </ul>
-              </div>
+              
+             
             </div>
           </div>
 
-          <!-- <div>
+          <div>
             <h3 class="text-xl font-semibold mb-3">Giảng viên</h3>
             <div class="flex items-center gap-x-4 mb-5">
               <img
-                src="courseplus/assets/images/avatars/avatar-4.jpg"
+                [src]="teacher.avatar"
                 alt=""
                 class="rounded-full shadow w-12 h-12"
               />
               <div>
                 <h4 class="-mb-1 text-base">{{ teacher.profileName }}</h4>
-                
               </div>
             </div>
-            <h4 class="leading-8 text-xl">
-              {{ teacher.profileName }}
+            <h4 class="leading-8 text-xl" [innerHTML]="teacher.description">
+              
             </h4>
-            
-          </div> -->
+          </div>
 
           <!-- <div>
             <h3 class="text-xl font-semibold mb-3">Các bài kiểm tra của video</h3>

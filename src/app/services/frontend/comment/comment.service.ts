@@ -10,18 +10,18 @@ export class CommentService {
   constructor(private http: HttpClient) {}
 
   gteList(id: any): Observable<any> {
-    return this.http.get('/api/comment/list/comments/' + id);
+    return this.http.get('/api/v1/comment/list/' + id);
   }
 
   checkDelete(id: any): Observable<any> {
     return this.http.get('/api/comment/check/' + id);
   }
 
-  delete(comment: comment): Observable<any> {
-    return this.http.post('/api/comment/delete', comment);
+  delete(id: any): Observable<any> {
+    return this.http.delete('/api/v1/comment/delete/'+id);
   }
-  create(comment: comment): Observable<any> {
-    return this.http.post('/api/admin/comment/create', comment);
+  create(comment: any): Observable<any> {
+    return this.http.post('/api/v1/comment/create', comment);
   }
 
 }

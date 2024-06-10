@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'angular-toastify';
-import { HoaDon } from 'src/app/Models/admin/hoadon';
+import { Order } from 'src/app/Models/admin/hoadon';
 import { HoadonService } from 'src/app/services/admin/hoadon/hoadon.service';
 import { AdminProfileListUsersComponent } from '../../admin-profile/admin-profile-list-users/admin-profile-list-users.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { nguoidung } from 'src/app/Models/nguoidung';
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { NguoidungService } from 'src/app/services/admin/nguoidung/nguoidung.service';
 
 @Component({
   selector: 'app-formbill',
@@ -22,17 +23,19 @@ export class FormbillComponent {
     private route: ActivatedRoute,
     private _toastService: ToastService,
     private hdService: HoadonService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private nguoiDungService: NguoidungService
   ) {}
 
   type: any;
   id: any;
   statusForm: any = '';
-  hoadon: HoaDon = {
-    MaDonHang: 0,
-    MaNguoiDung: 0,
-    NgayLap: '',
-    Tongtien: 0,
+  hoadon: Order = {
+    orderId: 0,
+    userId: 0,
+    createAt:'',
+    status: '',
+    moneyTotal: 0,
   };
 
   resCU: any;
@@ -40,13 +43,7 @@ export class FormbillComponent {
 
   ///
 
-  nguoidung: nguoidung = {
-    MaNguoiDung: 0,
-    TenNguoiDung: '',
-    Email: '',
-    MatKhau: '',
-    Quyen: '',
-  };
+  user:any;
 
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
@@ -81,31 +78,30 @@ export class FormbillComponent {
       maxHeight: '90vh',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.nguoidung = result;
-      this.hoadon.MaNguoiDung = this.nguoidung.MaNguoiDung;
+      
     });
   }
 
-  receiveData(values: { listItems: any; Tongtien: any }) {
-    this.lists = values.listItems;
-    this.hoadon.Tongtien = values.Tongtien;
-  }
+  // receiveData(values: { listItems: any; Tongtien: any }) {
+  //   this.lists = values.listItems;
+  //   this.hoadon.Tongtien = values.Tongtien;
+  // }
 
-  deleteCartItem(index: number, giamoi: number) {
-    this.hoadon.Tongtien -= Number(giamoi);
-    this.lists.splice(index, 1);
-  }
+  // deleteCartItem(index: number, giamoi: number) {
+  //   this.hoadon.Tongtien -= Number(giamoi);
+  //   this.lists.splice(index, 1);
+  // }
 
   getListUsers() {
-    this.hdService.getListUsers().subscribe((data) => {
-      this.listUsers = data.data;
+    this.nguoiDungService.list().subscribe((data) => {
+      this.listUsers = data;
       console.log(this.listUsers);
     });
   }
 
   getDetail(id: number) {
     this.hdService.getDetailBill(id).subscribe((data) => {
-      this.hoadon = data.data;
+      this.hoadon = data;
       console.log(this.hoadon);
     });
   }
@@ -113,55 +109,65 @@ export class FormbillComponent {
   getListDetailItems() {
     if (this.id && this.statusForm == 'update') {
       this.hdService.getListdetailItems(this.id).subscribe((data) => {
-        this.listDetails = data.data;
-        console.log(this.listDetails);
+        this.listDetails = data;
+        console.log("list details: ",this.listDetails);
       });
     }
   }
 
-  deleteItems(donhang: HoaDon) {
+  deleteItems(donhang: any) {
     this.hdService.deleteItems(donhang).subscribe((data) => {
       this.listDetails = data.data;
     });
   }
 
-  SubmitData() {
-    if (this.statusForm === 'create') {
-      this.hdService
-        .createBill(
-          this.hoadon.MaNguoiDung,
-          this.hoadon.NgayLap,
-          this.hoadon.Tongtien,
-          this.lists
-        )
-        .subscribe((data) => {
-          this.resCU = data.data;
-          if (this.resCU == true) {
-            this._toastService.info('Đã thêm đơn hàng thành công');
-            this.getListDetailItems();
-          } else {
-            this._toastService.warn(
-              'Có khóa học đã được người mua trước đó!!!'
-            );
-            this.getListDetailItems();
-          }
-        });
-    } else {
-      this.hdService
-        .updateBill(
-          this.hoadon.MaDonHang,
-          this.hoadon.MaNguoiDung,
-          this.hoadon.NgayLap,
-          this.hoadon.Tongtien,
-          this.lists
-        )
-        .subscribe((data) => {
-          this.resCU = data.data;
-          if (this.resUpdate == true) {
-            this._toastService.info(this.resUpdate);
-          }
-          this.getListDetailItems();
-        });
-    }
+  // SubmitData() {
+  //   if (this.statusForm === 'create') {
+  //     this.hdService
+  //       .createBill(
+  //         this.hoadon.MaNguoiDung,
+  //         this.hoadon.NgayLap,
+  //         this.hoadon.Tongtien,
+  //         this.lists
+  //       )
+  //       .subscribe((data) => {
+  //         this.resCU = data.data;
+  //         if (this.resCU == true) {
+  //           this._toastService.info('Đã thêm đơn hàng thành công');
+  //           this.getListDetailItems();
+  //         } else {
+  //           this._toastService.warn(
+  //             'Có khóa học đã được người mua trước đó!!!'
+  //           );
+  //           this.getListDetailItems();
+  //         }
+  //       });
+  //   } else {
+  //     this.hdService
+  //       .updateBill(
+  //         this.hoadon.MaDonHang,
+  //         this.hoadon.MaNguoiDung,
+  //         this.hoadon.NgayLap,
+  //         this.hoadon.Tongtien,
+  //         this.lists
+  //       )
+  //       .subscribe((data) => {
+  //         this.resCU = data.data;
+  //         if (this.resUpdate == true) {
+  //           this._toastService.info(this.resUpdate);
+  //         }
+  //         this.getListDetailItems();
+  //       });
+  //   }
+  // }
+
+  formatDate(dateString: string) {
+    const date = new Date(dateString);
+    const formattedDate = `${this.pad(date.getDate())}/${this.pad(date.getMonth() + 1)}/${date.getFullYear()}`;
+    this.hoadon.createAt = formattedDate;
+  }
+
+  pad(n: number) {
+    return n < 10 ? '0' + n : n;
   }
 }

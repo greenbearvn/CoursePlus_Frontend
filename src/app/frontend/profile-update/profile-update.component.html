@@ -24,7 +24,7 @@
                     />
                     <div
                       class="mt-3"
-                      
+                      *ngIf="user.userId == userId"
                     >
                       <form
                         (ngSubmit)="onSubmit()"
@@ -73,7 +73,7 @@
               <div class="card">
                 <div
                   class="card-body"
-                  
+                  *ngIf="user.userId == userId"
                 >
                   <div class="row mb-3">
                     <div class="col-sm-3">
@@ -179,7 +179,7 @@
                 
                 >
                   <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" style="margin-top: 15px; margin-bottom: 15px;">
                       <p class="mb-0">Tên đầy đủ</p>
                     </div>
                     <div class="col-sm-9">
@@ -187,7 +187,7 @@
                     </div>
                   </div>
                   <hr />
-                  <div class="row">
+                  <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
                     <div class="col-sm-3">
                       <p class="mb-0">Email</p>
                     </div>
@@ -196,8 +196,8 @@
                     </div>
                   </div>
                   <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
+                  <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                    <div class="col-sm-3" >
                       <p class="mb-0">Số điện thoại</p>
                     </div>
                     <div class="col-sm-9">
@@ -206,16 +206,16 @@
                   </div>
   
                   <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
+                  <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                    <div class="col-sm-3" >
                       <p class="mb-0">Giảng viên</p>
                     </div>
                     <div class="col-sm-9">
                       <p class="text-muted mb-0" *ngIf="profile.isTeacher > 0">
-                        Đúng
+                        Là giảng viên
                       </p>
                       <p class="text-muted mb-0" *ngIf="profile.isTeacher == 0">
-                        Không phải
+                        Không phải giảng viên
                       </p>
                     </div>
                   </div>

@@ -67,9 +67,9 @@
 
                 
                 </td>
-                <td *ngIf="item.videos.length > 0 ">
+                <td >
                   <thead>
-                    <tr>
+                    <tr *ngIf="item.videos.length > 0 ">
                      
                       <th>Tên video</th>
                       <th>Thời lượng video</th>

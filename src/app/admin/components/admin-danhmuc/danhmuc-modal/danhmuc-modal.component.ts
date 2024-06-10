@@ -87,6 +87,16 @@ export class DanhmucModalComponent {
         }
       });
     }
+    else{
+      this.cateService.edit(this.id,this.cate).subscribe((data) => {
+
+        if (data ) {
+          this._toastService.info('Đã cập nhật thể loại thành công');
+        } else {
+          this._toastService.warn('Đã cập nhật thể loại không thành công');
+        }
+      });
+    }
   }
 
   submit(type: string) {

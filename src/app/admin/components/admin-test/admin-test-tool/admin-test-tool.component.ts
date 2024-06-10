@@ -12,22 +12,23 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import * as e from 'cors';
-
+import { KhoahocService } from 'src/app/services/admin/khoahoc/khoahoc.service';
+import { CourseData } from 'src/app/Models/frontend/CourseData';
+import { Video } from 'src/app/Models/frontend/Video';
 import { test } from 'src/app/Models/admin/test';
 
 @Component({
   selector: 'app-admin-test-tool',
   templateUrl: './admin-test-tool.component.html',
-  styleUrls: [
-    './admin-test-tool.component.css'
-  ],
+  styleUrls: ['./admin-test-tool.component.css'],
 })
 export class AdminTestToolComponent {
   constructor(
     private testServices: TestService,
     public dialog: MatDialog,
     private _toastService: ToastService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private khoahocService: KhoahocService
   ) {}
 
   id: any;
@@ -63,6 +64,12 @@ export class AdminTestToolComponent {
   // data res
   createRes: any;
 
+  //////////////////////
+
+  videos: any;
+
+  courses: any;
+
   ngOnInit() {
     const routeParams = this.route.snapshot.paramMap;
     this.id = Number(routeParams.get('id'));
@@ -70,6 +77,8 @@ export class AdminTestToolComponent {
     this.MaGiangVien = Number(routeParams.get('MaGiangVien'));
     if (this.MaGiangVien > 0) {
       this.test.teacherId = this.MaGiangVien;
+
+      this.getCoursesOfProfileId();
     }
 
     this.type = routeParams.get('type');
@@ -77,7 +86,6 @@ export class AdminTestToolComponent {
     if (this.id && this.type == 'update') {
       this.getDetail();
     }
-
 
     this.getListTeachers();
     this.getListVideos();
@@ -112,8 +120,6 @@ export class AdminTestToolComponent {
   }
 
   getDetail() {
-
-
     this.testServices.detail(this.id).subscribe((data) => {
       this.test = data;
 
@@ -155,13 +161,11 @@ export class AdminTestToolComponent {
   }
 
   create() {
- 
-   if(this.MaGiangVien > 0){
-     this.test.teacherId = this.MaGiangVien;
+    if (this.MaGiangVien > 0) {
+      this.test.teacherId = this.MaGiangVien;
+    }
 
-   }
-
-   console.log(this.test)
+    console.log(this.test);
 
     this.testServices.create(this.test).subscribe((data) => {
       if (data == true) {
@@ -174,14 +178,14 @@ export class AdminTestToolComponent {
   }
 
   update() {
-
     console.log(this.test);
 
     this.testServices.update(this.test).subscribe((data) => {
-      this.createRes = data.data;
-      console.log(this.createRes);
-      if (this.createRes == true) {
-        this._toastService.info('Đã cập nhật thành công');
+     
+   
+      if (data== true) {
+        this._toastService.info('Đã thêm thành công!!!');
+        this.getDetail();
       }
     });
   }
@@ -197,4 +201,42 @@ export class AdminTestToolComponent {
       });
     }
   }
+
+  ////////////////////////
+  getCoursesOfProfileId() {
+    this.khoahocService
+      .getAllByProfileId(this.MaGiangVien)
+      .subscribe((data: CourseData[]) => {
+        this.courses = data;
+
+        console.log(this.courses);
+
+        if (!this.videos) {
+          this.videos = [];
+      }
+
+        this.courses.forEach((course:any) => {
+          this.getAllVideosOfCourse(course);
+        });
+      });
+  }
+
+  getAllVideosOfCourse(courseData: CourseData){
+    const allVideos: Video[] = [];
+
+    // Iterate through each lesson
+    courseData.lessionRes.forEach((lesson) => {
+        // Iterate through each video in the lesson
+        lesson.videos.forEach((video) => {
+            allVideos.push(video);
+        });
+    });
+
+  
+
+    // Assuming you want to concatenate videos of all courses into one array
+    this.videos = this.videos.concat(allVideos);
+
+    console.log(this.videos);
+}
 }

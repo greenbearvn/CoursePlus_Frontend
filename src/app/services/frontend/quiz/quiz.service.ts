@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { assignment } from 'src/app/Models/frontend/assignment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class QuizService {
     return this.http.post('/api/v1/choice/check', choice);
   }
 
-  saveData(assignment: assignment): Observable<any> {
-    return this.http.post('/api/lession/quiz/assignment/save', assignment);
+  saveData(assignment:any): Observable<any> {
+    return this.http.post('/api/tested/create', assignment);
   }
 }

@@ -11,7 +11,7 @@ export class BlogService {
   constructor(private http: HttpClient) { }
 
   getLastNews(): Observable<any> {
-    return this.http.get('/api/v1/blog/list/new' );
+    return this.http.get('/api/v1/blog/list' );
   }
 
   getList(): Observable<any> {

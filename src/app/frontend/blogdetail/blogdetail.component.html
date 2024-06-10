@@ -17,30 +17,24 @@
               {{ blogDetail.blogName }}
             </h1>
             <div class="flex items-center space-x-3 my-3 pb-4 border-b">
-              <img
+              <!-- <img
                 src="courseplus/assets/images/avatars/avatar-2.jpg"
                 alt=""
                 class="w-10 rounded-full"
-              />
+              /> -->
               <div>
-                <div class="text-base font-semibold">
+                <!-- <div class="text-base font-semibold">
                   {{ blogDetail.userId }}
+                </div> -->
+                <div class="text-xs">
+                  {{ blogDetail.datePublish | date : "dd/MM/yyyy" }}
                 </div>
-                <div class="text-xs">{{ blogDetail.datePublish | date : "dd/MM/yyyy" }}</div>
               </div>
             </div>
-            <div class="space-y-3" [innerHTML]="blogDetail.content">
-             
-            </div>
-            <div class="relative">
-              <a href="#" class="mt-3 inline-flex items-center space-x-3">
-                <div>
-                  Intersting? <span class="text-blue-600"> Share it </span>
-                </div>
-              </a>
-              
-            </div>
+            <div class="space-y-3" [innerHTML]="blogDetail.content"></div>
           </div>
+          <a [routerLink]="['/blog']"  style="color: white; background-color: darkgoldenrod; padding: 0.5rem; border-radius: 5px;margin-left: 20px;"> Quay lại trang tin tức </a>
+
         </div>
         <!-- related articles -->
         <div class="tube-card md:p-6 p-3 relative">
@@ -53,7 +47,7 @@
                 <li *ngFor="let item of recommendBlogs">
                   <div>
                     <a
-                      [routerLink]="['/blog/detail/'+item.blogId]"
+                      [routerLink]="['/blog/detail/' + item.blogId]"
                       class="w-full md:h-32 h-28 overflow-hidden rounded-lg relative block"
                     >
                       <img
@@ -65,13 +59,14 @@
                     </a>
                     <div class="pt-3">
                       <a href="index.html" class="font-semibold line-clamp-2">
-                        {{item.blogName}}</a
+                        {{ item.blogName }}</a
                       >
                       <div class="pt-2">
                         <!-- <p class="text-sm">Denise Marie</p> -->
                         <div class="flex space-x-2 items-center text-xs">
-                          <div>{{item.datePublish | date : "dd/MM/yyyy"}}</div>
-                      
+                          <div>
+                            {{ item.datePublish | date : "dd/MM/yyyy" }}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -95,7 +90,6 @@
             </div>
           </div>
         </div>
-        
       </div>
       <!--  Sidebar  -->
       <div class="lg:w-80 w-full mt-4 lg:mt-0">
@@ -106,27 +100,28 @@
           <div class="tube-card p-6">
             <div class="flex items-start justify-between">
               <div>
-                <h4 class="text-lg -mb-0.5 font-semibold">Bài viết tiêu biểu</h4>
+                <h4 class="text-lg -mb-0.5 font-semibold">
+                  Bài viết tiêu biểu
+                </h4>
               </div>
             </div>
             <ul>
               <li *ngFor="let item of hotBlogs">
                 <a
-                [routerLink]="['/blog/detail/'+item.blogId]"
+                  [routerLink]="['/blog/detail/' + item.blogId]"
                   class="hover:bg-gray-50 rounded-md p-2 -mx-2 block"
                 >
                   <h3 class="font-medium line-clamp-2">
-                    {{item.blogName}}
+                    {{ item.blogName }}
                   </h3>
                   <div
                     class="flex items-center my-auto text-xs space-x-1.5 mt-1.5"
                   >
-                    <div>{{item.datePublish | date : "dd/MM/yyyy"}}</div>
+                    <div>{{ item.datePublish | date : "dd/MM/yyyy" }}</div>
                     <div class="pb-1">.</div>
                   </div>
                 </a>
               </li>
-             
             </ul>
             <a
               href="#"
@@ -163,17 +158,5 @@
     </div>
   </div>
   <!-- footer -->
-  <div class="lg:mt-28 mt-10 mb-7 px-12 border-t pt-7">
-    <div
-      class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3"
-    >
-      <p class="capitalize font-medium">© copyright 2021 Courseplus</p>
-      <div class="lg:flex space-x-4 text-gray-700 capitalize hidden">
-        <a href="#"> About</a>
-        <a href="#"> Help</a>
-        <a href="#"> Terms</a>
-        <a href="#"> Privacy</a>
-      </div>
-    </div>
-  </div>
+ 
 </div>

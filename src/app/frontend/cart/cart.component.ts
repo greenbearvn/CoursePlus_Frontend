@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from 'src/app/services/frontend/cart/cart.service';
 import { PaymentService } from 'src/app/services/frontend/payment/payment.service';
 import { ToastService } from 'angular-toastify';
+import { LoadingOverLayService } from 'src/app/services/loading-over-lay.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,8 @@ export class CartComponent {
   constructor(
     private cartService: CartService,
     private paymentService: PaymentService,
-    private toast: ToastService
+    private toast: ToastService,
+    private loadingOverLayService: LoadingOverLayService
   ) {}
 
   cartList: any;
@@ -24,8 +26,10 @@ export class CartComponent {
   status: any;
 
   ngOnInit() {
+    
     this.getListCart();
     this.getTotalMoney();
+
   }
 
   getListCart() {
@@ -36,7 +40,7 @@ export class CartComponent {
   }
 
   Submit() {
-    this.SaveData();
+   
     this.AddCollection();
     this.getListCart();
   }
@@ -53,14 +57,14 @@ export class CartComponent {
     });
   }
 
-  SaveData() {
-    this.paymentService.saveToDB().subscribe((data) => {
-      this.status = data.data;
-      if (this.status == true) {
-        this.toast.info('Đơn hàng đã được lưu trữ thành công !!!');
-      }
-    });
-  }
+  // SaveData() {
+  //   this.paymentService.saveToDB().subscribe((data) => {
+  //     this.status = data.data;
+  //     if (this.status == true) {
+  //       this.toast.info('Đơn hàng đã được lưu trữ thành công !!!');
+  //     }
+  //   });
+  // }
 
   AddCollection() {
     this.paymentService.addCollection().subscribe((data) => {
@@ -87,6 +91,12 @@ export class CartComponent {
     this.cartService.totalMoney().subscribe((data) => {
       this.totalMoney = data;
       this.countItem = data.count;
+    });
+  }
+
+  clear() {
+    this.cartService.deleteAll().subscribe((data) => {
+      
     });
   }
 }

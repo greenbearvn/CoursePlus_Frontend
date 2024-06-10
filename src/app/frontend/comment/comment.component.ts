@@ -4,15 +4,15 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastService } from 'angular-toastify';
 import { MatDialog } from '@angular/material/dialog';
-import { comment } from 'src/app/Models/admin/comment';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
+import { Comment } from 'src/app/Models/frontend/Comment';
+import * as e from 'cors';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: [
-    './comment.component.css','../css/style.css'
-  ],
+  styleUrls: ['./comment.component.css', '../css/style.css'],
 })
 export class CommentComponent {
   constructor(
@@ -34,13 +34,18 @@ export class CommentComponent {
 
   showDelete: any;
 
-  comment: comment = {
-    MaBinhLuan: 0,
-    MaKhoaHoc: 0,
-    MaNguoiDung: 0,
-    NoiDung: '',
-    ThoiGian: '',
+  user: any;
+
+  comment: Comment = {
+    commentId: 0,
+    courseId: 0,
+    userId: 0,
+    content: '',
+    timePublish: new Date()
   };
+
+
+  commentCurrent:any;
 
   ngOnInit() {
     this.getList();
@@ -49,28 +54,51 @@ export class CommentComponent {
 
   getList() {
     this.commentService.gteList(this.MaKhoaHoc).subscribe((data) => {
-      this.list = data.data;
+      this.list = data;
       console.log(this.list);
     });
   }
 
   getUser() {
     this.accountService.getUser().subscribe((data) => {
-      this.MaNguoiDung = data.data.MaNguoiDung;
-      console.log(this.list);
+      this.user = data.user_current;
     });
   }
 
-  checkDelete(id: any) {
-    this.commentService.checkDelete(id).subscribe((data) => {
-      this.showDelete = data.data;
+  checkDelete(id:any,item:any) {
+
+    this.commentCurrent = id;
+    if(this.commentCurrent == id && item.comment.userId == this.user.userId){
+      this.showDelete = !this.showDelete;
+
+    }
+    else{
+      this.showDelete = false;
+    }
+  }
+
+  deleteButton(id:any){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Một khi bạn xóa, bạn sẽ không thể khôi phục lại thông tin này!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, xóa đi!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(id);
+      }
     });
   }
 
-  delete(item: any) {
-    this.commentService.delete(item).subscribe((data) => {
-      this.status = data.data;
-      if (this.status == true) {
+  delete(id: any) {
+    this.commentService.delete(id).subscribe((data) => {
+      this.status = data;
+      if (data) {
         this._toastService.info('Đã xóa bình luận thành công');
         this.getList();
       }
@@ -78,25 +106,27 @@ export class CommentComponent {
   }
 
   create() {
-    if (this.MaNguoiDung > 0) {
-      this.comment.MaKhoaHoc = this.MaKhoaHoc;
-      this.comment.MaNguoiDung = this.MaNguoiDung;
-      this.commentService.create(this.comment).subscribe((data) => {
-        this.status = data.data;
-        if (this.status == true) {
-          this._toastService.info('Đã thêm bình luận  thành công');
-          this.getList();
-        } else {
-          this._toastService.warn('Đã thêm bình luận không thành công');
-          this.getList();
-        }
-      });
-    } else {
-      this._toastService.info('Vui lòng đăng nhập để bình luận !!!');
-      const cf = confirm('Bạn có muốn đi đăng nhập không ?');
-      if (cf == true) {
-        window.location.href = '/account/login';
+    this.comment.courseId = this.MaKhoaHoc;
+    this.comment.userId = this.user.userId;
+    this.comment.timePublish = new Date();
+    this.commentService.create(this.comment).subscribe((data) => {
+      
+      if (data) {
+        this._toastService.success('Đã thêm bình luận  thành công');
+        this.getList();
+      } else {
+        this._toastService.warn('Đã thêm bình luận không thành công');
+        this.getList();
       }
-    }
+    });
+  }
+
+  getCurrentDate():string{
+    const now = new Date();
+    const yearNow: number = now.getFullYear();
+    const monthNow: number = now.getMonth() + 1; // Adding 1 since getMonth() returns zero-based index
+    const dateNow: number = now.getDate();
+
+    return yearNow + "-"+monthNow + "-"+ dateNow;
   }
 }

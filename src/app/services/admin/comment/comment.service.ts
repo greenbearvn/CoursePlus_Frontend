@@ -10,11 +10,11 @@ export class CommentService {
   constructor(private http: HttpClient) {}
 
   list(): Observable<any> {
-    return this.http.get('/api/admin/comment/list');
+    return this.http.get('/api/v1/comment/list');
   }
 
   commentsOfCourse(id: number): Observable<any> {
-    return this.http.get('/api/admin/comment/list/comments/course/' + id);
+    return this.http.get('/api/v1/comment/list/' + id);
   }
 
   listCourses(): Observable<any> {
@@ -33,8 +33,8 @@ export class CommentService {
     return this.http.post('/api/admin/comment/create', comment);
   }
 
-  delete(comment: comment): Observable<any> {
-    return this.http.post('/api/admin/comment/delete', comment);
+  delete(id: any): Observable<any> {
+    return this.http.delete('/api/v1/comment/delete/' +id);
   }
 
   update(comment: comment): Observable<any> {

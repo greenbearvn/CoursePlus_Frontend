@@ -6,6 +6,7 @@ import { CartService } from 'src/app/services/frontend/cart/cart.service';
 import { AccountService } from 'src/app/services/frontend/account/account.service';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/Models/frontend/Profile';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +33,7 @@ export class HeaderComponent {
     email:"",
     role:''
   };
+  
   profile:Profile ={
     profileId:0,
     profileName:"",
@@ -117,12 +119,28 @@ export class HeaderComponent {
 
     const data ="";
     this.userSer.logout(data).subscribe((data) => {
-      this.statusLogin = data.status;
-      this.navigateToHome();
+ 
+      window.location.href = "/"
     });
   }
 
-  navigateToHome() {
-    this.router.navigateByUrl('/home');
+ 
+
+  deleteButton(){
+
+    Swal.fire({
+      title: 'Bạn có chắc không?',
+      text: 'Bạn muốn đăng xuất tài khoản của mình!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Có, tôi đăng xuất!',
+      cancelButtonText: 'Hủy',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.logout();
+      }
+    });
   }
 }

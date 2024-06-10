@@ -101,6 +101,7 @@ import { AdminCollectionModalComponent } from './admin/components/admin-collecti
 import { AdminCollectionListCoursesComponent } from './admin/components/admin-collection/admin-collection-list-courses/admin-collection-list-courses.component';
 import { ProfileUpdateComponent } from './frontend/profile-update/profile-update.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -194,6 +195,7 @@ import { ProfileUpdateComponent } from './frontend/profile-update/profile-update
     AdminCollectionModalComponent,
     AdminCollectionListCoursesComponent,
     ProfileUpdateComponent,
+ 
   ],
   imports: [
     BrowserModule,

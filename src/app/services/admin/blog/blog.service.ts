@@ -13,6 +13,10 @@ export class BlogService {
     return this.http.get('/api/v1/blog/list');
   }
 
+  getAllBlogByUserId(id:any){
+    return this.http.get('/api/v1/blog/list/userId/'+id);
+  }
+
   listUser(): Observable<any> {
     return this.http.get('/api/admin/blog/list/users');
   }
